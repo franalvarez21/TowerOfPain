@@ -1,0 +1,169 @@
+#pragma once
+
+namespace Map
+{
+  const uint8_t PROGMEM map_environment_0[] = {
+      0x42,
+      0xa9,
+      0x16,
+      0x68,
+      0x16,
+      0x68,
+      0x95,
+      0x42,
+  };
+
+  const uint8_t PROGMEM map_top[] = {
+      0x01,
+      0x01,
+      0x01,
+      0x01,
+      0x01,
+      0x01,
+      0x01,
+      0x01,
+  };
+
+  const uint8_t PROGMEM map_right[] = {
+      0x00,
+      0x00,
+      0x00,
+      0x00,
+      0x00,
+      0x00,
+      0x00,
+      0xff,
+  };
+
+  const uint8_t PROGMEM map_left[] = {
+      0xff,
+      0x00,
+      0x00,
+      0x00,
+      0x00,
+      0x00,
+      0x00,
+      0x00,
+  };
+
+  const uint8_t PROGMEM map_bottom[] = {
+      0x80,
+      0x80,
+      0x80,
+      0x80,
+      0x80,
+      0x80,
+      0x80,
+      0x80,
+  };
+
+  const uint8_t PROGMEM map_top_left[] = {
+      0xff,
+      0x01,
+      0x01,
+      0x01,
+      0x01,
+      0x01,
+      0x01,
+      0x01,
+  };
+
+  const uint8_t PROGMEM map_top_right[] = {
+      0x01,
+      0x01,
+      0x01,
+      0x01,
+      0x01,
+      0x01,
+      0x01,
+      0xff,
+  };
+
+  const uint8_t PROGMEM map_bottom_right[] = {
+      0x80,
+      0x80,
+      0x80,
+      0x80,
+      0x80,
+      0x80,
+      0x80,
+      0xff,
+  };
+
+  const uint8_t PROGMEM map_bottom_left[] = {
+      0xff,
+      0x80,
+      0x80,
+      0x80,
+      0x80,
+      0x80,
+      0x80,
+      0x80,
+  };
+
+  const uint8_t PROGMEM map_top_bottom_left[] = {
+      0xff,
+      0x81,
+      0x81,
+      0x81,
+      0x81,
+      0x81,
+      0x81,
+      0x81,
+  };
+
+  const uint8_t PROGMEM map_top_bottom_right[] = {
+      0x81,
+      0x81,
+      0x81,
+      0x81,
+      0x81,
+      0x81,
+      0x81,
+      0xff,
+  };
+
+  const uint8_t PROGMEM map_bottom_left_right[] = {
+      0xff,
+      0x80,
+      0x80,
+      0x80,
+      0x80,
+      0x80,
+      0x80,
+      0xff,
+  };
+
+  const uint8_t PROGMEM map_top_left_right[] = {
+      0xff,
+      0x01,
+      0x01,
+      0x01,
+      0x01,
+      0x01,
+      0x01,
+      0xff,
+  };
+
+  const uint8_t PROGMEM map_top_bottom[] = {
+      0x81,
+      0x81,
+      0x81,
+      0x81,
+      0x81,
+      0x81,
+      0x81,
+      0x81,
+  };
+
+  const uint8_t PROGMEM map_left_right[] = {
+      0xff,
+      0x00,
+      0x00,
+      0x00,
+      0x00,
+      0x00,
+      0x00,
+      0xff,
+  };
+}
