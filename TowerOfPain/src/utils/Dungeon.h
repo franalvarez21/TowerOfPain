@@ -355,22 +355,22 @@ struct Dungeon
     }
   }
 
-  void display(size_t circle)
+  void display(size_t cicle)
   {
-    displayPlayer(circle);
+    displayPlayer(cicle);
     for (size_t x = 1; x < MAX_SQUARE_AMOUNT_WEIGHT - 1; x++)
     {
       for (size_t y = 1; y < MAX_SQUARE_AMOUNT_HEIGHT - 1; y++)
       {
-        displayElements(x, y, circle);
+        displayElements(x, y, cicle);
         displayMaze(x, y);
       }
     }
   }
 
-  void displayPlayer(size_t circle)
+  void displayPlayer(size_t cicle)
   {
-    if (circle <= 5)
+    if (cicle <= 5)
     {
       utils->arduboy->drawBitmap(SQUARE_SIZE * playerXPosition - 4, SQUARE_SIZE * playerYPosition - 4, Character::player_1, SQUARE_SIZE, SQUARE_SIZE, WHITE);
     }
@@ -380,7 +380,7 @@ struct Dungeon
     }
   }
 
-  void displayElements(size_t x, size_t y, size_t circle)
+  void displayElements(size_t x, size_t y, size_t cicle)
   {
     if (!(x == playerXPosition && y == playerYPosition))
     {
@@ -408,7 +408,7 @@ struct Dungeon
         utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::special, SQUARE_SIZE, SQUARE_SIZE, WHITE);
         break;
       case 9:
-        if (circle <= 5)
+        if (cicle <= 5)
         {
           utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Character::slime_1, SQUARE_SIZE, SQUARE_SIZE, WHITE);
         }

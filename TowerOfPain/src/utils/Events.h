@@ -280,11 +280,11 @@ struct Events
     return false;
   }
 
-  void eventDisplay(Text *text, size_t circle)
+  void eventDisplay(Text *text, size_t cicle)
   {
     if (battleEnemyLife > (currentLevel / 2 + 1))
     {
-      if (circle <= 5)
+      if (cicle <= 5)
       {
         utils->arduboy->drawBitmap(4, 4, Character::frameSlime3, 32, 48, WHITE);
       }
@@ -295,7 +295,7 @@ struct Events
     }
     else
     {
-      if (circle <= 5)
+      if (cicle <= 5)
       {
         utils->arduboy->drawBitmap(4, 4, Character::frameSlime1, 32, 48, WHITE);
       }

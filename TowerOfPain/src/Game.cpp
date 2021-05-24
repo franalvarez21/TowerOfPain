@@ -14,10 +14,11 @@ Stats stats;
 Text text;
 Dungeon dungeon;
 Player player;
-Actions actions;
 Events events;
 Menu menu;
 Pause pause;
+
+Actions actions;
 
 void Game::setup(void)
 {
@@ -53,7 +54,7 @@ void Game::loop(void)
   arduboy.pollButtons();
   arduboy.clear();
 
-  utils.clock.tick();
+  utils.tick();
 
   switch (onStage)
   {
@@ -89,7 +90,7 @@ void Game::mainMenuTick(void)
 
 void Game::mainPauseTick(void)
 {
-  pause.eventDisplay(&stats, &text, utils.sound, utils.clock.circle);
+  pause.eventDisplay(&stats, &text, utils.sound, utils.cicle);
   size_t option = pause.action(&utils);
 
   switch (option)
@@ -123,7 +124,7 @@ void Game::mainGameTick(void)
       onStage = 3;
     }
 
-    dungeon.display(utils.clock.circle);
+    dungeon.display(utils.cicle);
     action = 0;
   }
 
@@ -135,7 +136,7 @@ void Game::mainGameTick(void)
 
 void Game::mainGameBattleTick(void)
 {
-  events.eventDisplay(&text, utils.clock.circle);
+  events.eventDisplay(&text, utils.cicle);
   if (!events.action(&stats, &text, &utils))
   {
     onStage = 2;

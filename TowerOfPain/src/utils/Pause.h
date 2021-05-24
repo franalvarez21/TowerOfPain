@@ -61,9 +61,9 @@ struct Pause
     return 0;
   }
 
-  void eventDisplay(Stats *stats, Text *text, bool sound, size_t circle)
+  void eventDisplay(Stats *stats, Text *text, bool sound, size_t cicle)
   {
-    if (circle <= 5)
+    if (cicle <= 5)
     {
       utils->arduboy->drawBitmap(4, 4, Character::framePlayer1, 32, 48, WHITE);
     }

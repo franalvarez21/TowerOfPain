@@ -1,32 +1,13 @@
 #pragma once
 
-struct Clock
-{
-  size_t circle;
-
-  void init(void)
-  {
-    circle = 10;
-  }
-
-  void tick(void)
-  {
-    circle--;
-    if (circle < 1)
-    {
-      circle = 10;
-    }
-  }
-};
-
 struct Utils
 {
   Arduboy2 *arduboy;
   Tinyfont *tinyfont;
   ArduboyTones *soundtones;
 
-  Clock clock;
   bool sound;
+  size_t cicle;
 
   void init(Arduboy2 *arduboy, Tinyfont *tinyfont, ArduboyTones *soundtones)
   {
@@ -34,8 +15,17 @@ struct Utils
     this->tinyfont = tinyfont;
     this->soundtones = soundtones;
 
-    clock.init();
+    cicle = 10;
     sound = false;
+  }
+
+  void tick(void)
+  {
+    cicle--;
+    if (cicle < 1)
+    {
+      cicle = 10;
+    }
   }
 
   void koBeep()
