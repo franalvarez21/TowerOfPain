@@ -13,7 +13,6 @@ Utils utils;
 Stats stats;
 Text text;
 Dungeon dungeon;
-Player player;
 Events events;
 Menu menu;
 Pause pause;
@@ -32,7 +31,6 @@ void Game::setup(void)
   text.init(&utils);
   menu.init(&utils);
   events.init(&utils);
-  player.init(&utils);
   restart();
 }
 
@@ -111,13 +109,13 @@ void Game::mainPauseTick(void)
 
 void Game::mainGameTick(void)
 {
-  if (player.abCheck())
+  if (arduboy.justPressed(A_BUTTON) || arduboy.justPressed(B_BUTTON))
   {
     onStage = 1;
   }
   else
   {
-    action = player.move(&dungeon);
+    action = dungeon.movePlayer();
 
     if (action > 0 && actions.evaluateAction(&events, &text, &stats, &dungeon, action))
     {

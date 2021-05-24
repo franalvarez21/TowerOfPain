@@ -24,7 +24,6 @@
 #include "utils/Pause.h"
 #include "utils/Events.h"
 #include "utils/Dungeon.h"
-#include "utils/Player.h"
 #include "utils/Actions.h"
 
 class Game

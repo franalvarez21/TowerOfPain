@@ -15,6 +15,85 @@ struct Dungeon
     reset();
   }
 
+  size_t movePlayer()
+  {
+    size_t value = 0;
+
+    if (utils->arduboy->justPressed(RIGHT_BUTTON))
+    {
+      value = map[playerXPosition + 1][playerYPosition];
+      if (value == 1)
+      {
+        map[playerXPosition][playerYPosition] = 1;
+        playerXPosition++;
+        return 1;
+      }
+      else if (value > 1)
+      {
+        map[playerXPosition][playerYPosition] = 1;
+        map[playerXPosition + 1][playerYPosition] = 1;
+        playerXPosition++;
+        return value;
+      }
+    }
+
+    if (utils->arduboy->justPressed(LEFT_BUTTON))
+    {
+      value = map[playerXPosition - 1][playerYPosition];
+      if (value == 1)
+      {
+        map[playerXPosition][playerYPosition] = 1;
+        playerXPosition--;
+        return 1;
+      }
+      else if (value > 1)
+      {
+        map[playerXPosition][playerYPosition] = 1;
+        map[playerXPosition - 1][playerYPosition] = 1;
+        playerXPosition--;
+        return value;
+      }
+    }
+
+    if (utils->arduboy->justPressed(DOWN_BUTTON))
+    {
+      value = map[playerXPosition][playerYPosition + 1];
+      if (value == 1)
+      {
+        map[playerXPosition][playerYPosition] = 1;
+        playerYPosition++;
+        return 1;
+      }
+      else if (value > 1)
+      {
+        map[playerXPosition][playerYPosition] = 1;
+        map[playerXPosition][playerYPosition + 1] = 1;
+        playerYPosition++;
+        return value;
+      }
+    }
+
+    if (utils->arduboy->justPressed(UP_BUTTON))
+    {
+      value = map[playerXPosition][playerYPosition - 1];
+      if (value == 1)
+      {
+        map[playerXPosition][playerYPosition] = 1;
+        playerYPosition--;
+        return 1;
+      }
+      else if (value > 1)
+      {
+        map[playerXPosition][playerYPosition] = 1;
+        map[playerXPosition][playerYPosition - 1] = 1;
+        playerYPosition--;
+        return value;
+      }
+    }
+
+    return 0;
+  }
+
   bool moveLeft(size_t key)
   {
     if (playerXPosition - 1 > 0)
@@ -67,7 +146,7 @@ struct Dungeon
     return false;
   }
 
-  bool move(size_t key)
+  bool moveWalker(size_t key)
   {
     size_t can_continue = 10;
     bool move = false;
@@ -240,9 +319,9 @@ struct Dungeon
   {
     for (size_t i = 0; i < 30; i++)
     {
-      if (!move(0))
+      if (!moveWalker(0))
       {
-        move(1);
+        moveWalker(1);
       }
 
       map[playerXPosition][playerYPosition] = 1;
