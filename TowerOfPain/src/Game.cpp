@@ -109,7 +109,7 @@ void Game::mainPauseTick(void)
     break;
   default:
     text.print(dungeon.level);
-    text.printStats(&stats);
+    text.printStats(&stats, &utils);
     dungeon.canvas();
     break;
   }
@@ -136,7 +136,7 @@ void Game::mainGameTick(void)
   }
 
   text.print(dungeon.level);
-  text.printStats(&stats);
+  text.printStats(&stats, &utils);
 
   dungeon.canvas();
 }
@@ -158,7 +158,7 @@ void Game::mainGameBattleTick(void)
   }
 
   text.print(dungeon.level);
-  text.printStats(&stats);
+  text.printStats(&stats, &utils);
 
   dungeon.canvas();
 }

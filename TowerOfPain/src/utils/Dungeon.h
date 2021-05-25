@@ -300,7 +300,7 @@ struct Dungeon
 
   void clearPlayerPosition()
   {
-    playerXPosition = 5;
+    playerXPosition = 6;
     playerYPosition = 3;
   }
 
@@ -317,7 +317,7 @@ struct Dungeon
 
   void walkerCircle()
   {
-    for (size_t i = 0; i < 30; i++)
+    for (size_t i = 0; i < 35; i++)
     {
       if (!moveWalker(0))
       {

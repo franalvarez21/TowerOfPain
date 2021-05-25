@@ -1,5 +1,32 @@
 #pragma once
 
+struct Item
+{
+  uint8_t amount;
+  uint8_t type;
+
+  void init()
+  {
+    amount = 0;
+    type = 0;
+  }
+
+  void discardItem()
+  {
+    amount = max(amount - 1, 0);
+    if (amount == 0)
+    {
+      type = 0;
+    }
+  }
+
+  void appendItem(uint8_t type)
+  {
+    amount = min(amount + 1, 9);
+    this->type = type;
+  }
+};
+
 struct Stats
 {
   uint8_t baseHp = 3;
@@ -7,7 +34,7 @@ struct Stats
   uint8_t hp;
   uint8_t str;
   uint8_t def;
-  uint8_t slots[3];
+  Item slots[3];
   uint8_t status;
 
   void init()
@@ -15,9 +42,9 @@ struct Stats
     hp = baseHp;
     str = baseStr;
     def = 0;
-    slots[0] = 0;
-    slots[1] = 0;
-    slots[2] = 0;
+    slots[0].init();
+    slots[1].init();
+    slots[2].init();
     status = 0;
   }
 
@@ -84,12 +111,26 @@ struct Stats
 
   bool addItem(uint8_t item)
   {
+    bool found = false;
+
     for (uint8_t x = 0; x < 3; x++)
     {
-      if (slots[x] == 0)
+      if ((slots[x].type == item) && slots[x].amount < 8 && !found)
       {
         appendItem(x, item);
-        return true;
+        found = true;
+      }
+    }
+
+    if (!found)
+    {
+      for (uint8_t x = 0; x < 3; x++)
+      {
+        if ((slots[x].type == 0 || slots[x].type == item) && slots[x].amount < 8)
+        {
+          appendItem(x, item);
+          return true;
+        }
       }
     }
     return false;
@@ -97,19 +138,19 @@ struct Stats
 
   bool discardItem(uint8_t item)
   {
-    if (slots[2] == item)
+    if (slots[2].type == item)
     {
-      slots[2] = 0;
+      slots[2].discardItem();
       return true;
     }
-    else if (slots[1] == item)
+    else if (slots[1].type == item)
     {
-      slots[1] = 0;
+      slots[1].discardItem();
       return true;
     }
-    else if (slots[0] == item)
+    else if (slots[0].type == item)
     {
-      slots[0] = 0;
+      slots[0].discardItem();
       return true;
     }
 
@@ -118,7 +159,7 @@ struct Stats
 
   void appendItem(uint8_t x, uint8_t item)
   {
-    slots[x] = item;
+    slots[x].appendItem(item);
 
     if (item == 4)
     {
@@ -130,35 +171,18 @@ struct Stats
     }
   }
 
-  uint8_t getSlotText(uint8_t x)
-  {
-    switch (slots[x])
-    {
-    case 4:
-      return 4;
-    case 5:
-      return 5;
-    case 7:
-      return 6;
-    case 8:
-      return 7;
-    default:
-      return 0;
-    }
-  }
-
   uint8_t getStatusText()
   {
     switch (status)
     {
     default:
-      return 0;
+      return 29;
     }
   }
 
   bool hasShield()
   {
-    if (slots[2] == 5 || slots[1] == 5 || slots[0] == 5)
+    if (slots[2].type == 5 || slots[1].type == 5 || slots[0].type == 5)
     {
       return true;
     }
@@ -167,7 +191,7 @@ struct Stats
 
   bool hasSword()
   {
-    if (slots[2] == 4 || slots[1] == 4 || slots[0] == 4)
+    if (slots[2].type == 4 || slots[1].type == 4 || slots[0].type == 4)
     {
       return true;
     }

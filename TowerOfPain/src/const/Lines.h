@@ -31,6 +31,10 @@ namespace Commonlines
   const char commonLine26[] PROGMEM = "NORTH";
   const char commonLine27[] PROGMEM = "AGREE";
   const char commonLine28[] PROGMEM = "DISAGREE";
+  const char commonLine29[] PROGMEM = "CALM";
+  const char commonLine30[] PROGMEM = "";
+  const char commonLine31[] PROGMEM = "";
+  const char commonLine32[] PROGMEM = "x";
 
   const char *const commonLines[] PROGMEM = {
       commonLine0,
@@ -61,13 +65,17 @@ namespace Commonlines
       commonLine25,
       commonLine26,
       commonLine27,
-      commonLine28};
+      commonLine28,
+      commonLine29,
+      commonLine30,
+      commonLine31,
+      commonLine32};
 }
 
 namespace Storylines
 {
-  const char storyLine0[] PROGMEM = "ENTER DUNGEON LEVEL";
-  const char storyLine1[] PROGMEM = "YOU ARE NOW IN A DUNGEON";
+  const char storyLine0[] PROGMEM = "TOWER LEVEL";
+  const char storyLine1[] PROGMEM = "YOU ARE NOW IN THE TOWER";
   const char storyLine2[] PROGMEM = "SWORD FOUND, STR IMPROVE";
   const char storyLine3[] PROGMEM = "POCKETS FULL";
   const char storyLine4[] PROGMEM = "SHIELD FOUND, DEF IMPROVE";

@@ -51,24 +51,53 @@ struct Text
     else
     {
       printStoryLine(0, 60, 0);
-      printValue(100, 60, level);
+      printValue(60, 60, level);
     }
   }
 
-  void printStats(Stats *stats)
+  void printStats(Stats *stats, Utils *utils)
   {
-    printValue(92, 2, stats->getHP());
-    printValue(92, 10, stats->getSTR());
-    printValue(92, 18, stats->getDEF());
+    printValue(100, 2, stats->getHP());
+    printValue(100, 9, stats->getSTR());
+    printValue(100, 16, stats->getDEF());
 
-    printCommonLine(100, 2, 1);
-    printCommonLine(100, 10, 2);
-    printCommonLine(100, 18, 3);
+    printCommonLine(108, 2, 1);
+    printCommonLine(108, 9, 2);
+    printCommonLine(108, 16, 3);
 
-    printCommonLine(92, 26, stats->getSlotText(0));
-    printCommonLine(92, 34, stats->getSlotText(1));
-    printCommonLine(92, 42, stats->getSlotText(2));
+    printSlotStats(utils, 99, 24, &stats->slots[0]);
+    printSlotStats(utils, 99, 32, &stats->slots[1]);
+    printSlotStats(utils, 99, 40, &stats->slots[2]);
 
-    printCommonLine(92, 50, stats->getStatusText());
+    printCommonLine(100, 51, stats->getStatusText());
+  }
+
+  void printSlotStats(Utils *utils, size_t x, size_t y, Item *item)
+  {
+    printIconStats(utils, x, y, item->type);
+    if (item->amount > 1)
+    {
+      printCommonLine(x + 10, y + 2, 32);
+      printValue(x + 16, y + 2, item->amount);
+    }
+  }
+
+  void printIconStats(Utils *utils, size_t x, size_t y, uint8_t item)
+  {
+    switch (item)
+    {
+    case 4:
+      utils->arduboy->drawBitmap(x, y, Common::sword, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      break;
+    case 5:
+      utils->arduboy->drawBitmap(x, y, Common::shield, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      break;
+    case 7:
+      utils->arduboy->drawBitmap(x, y, Common::relic, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      break;
+    case 8:
+      utils->arduboy->drawBitmap(x, y, Common::special, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      break;
+    }
   }
 };
