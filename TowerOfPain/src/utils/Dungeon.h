@@ -438,13 +438,13 @@ struct Dungeon
   {
     utils->arduboy->drawBitmap(0, 0, Map::map_top_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
     utils->arduboy->drawBitmap(SQUARE_SIZE * (MAX_SQUARE_AMOUNT_WEIGHT - 2), 0, Map::map_top_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
-    utils->arduboy->drawBitmap(0, SQUARE_SIZE * 6, Map::map_bottom_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
-    utils->arduboy->drawBitmap(SQUARE_SIZE * (MAX_SQUARE_AMOUNT_WEIGHT - 2), SQUARE_SIZE * 6, Map::map_bottom_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    utils->arduboy->drawBitmap(0, SQUARE_SIZE * (MAX_SQUARE_AMOUNT_HEIGHT - 2), Map::map_bottom_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    utils->arduboy->drawBitmap(SQUARE_SIZE * (MAX_SQUARE_AMOUNT_WEIGHT - 2), SQUARE_SIZE * (MAX_SQUARE_AMOUNT_HEIGHT - 2), Map::map_bottom_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
 
     for (size_t x = 1; x < MAX_SQUARE_AMOUNT_WEIGHT - 2; x++)
     {
       utils->arduboy->drawBitmap(x * SQUARE_SIZE, 0, Map::map_top, SQUARE_SIZE, SQUARE_SIZE, WHITE);
-      utils->arduboy->drawBitmap(x * SQUARE_SIZE, SQUARE_SIZE * 6, Map::map_bottom, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      utils->arduboy->drawBitmap(x * SQUARE_SIZE, SQUARE_SIZE * (MAX_SQUARE_AMOUNT_HEIGHT - 2), Map::map_bottom, SQUARE_SIZE, SQUARE_SIZE, WHITE);
     }
 
     for (size_t y = 1; y < MAX_SQUARE_AMOUNT_HEIGHT - 2; y++)

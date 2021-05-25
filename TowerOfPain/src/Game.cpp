@@ -89,7 +89,7 @@ void Game::mainMenuTick(void)
     utils.music = false;
     restart();
     text.printLog(1);
-    //TODO: onStage = 2;
+    cutscene.number = 0;
     onStage = 4;
   }
 }
@@ -152,9 +152,9 @@ void Game::mainGameBattleTick(void)
   if (stats.getHP() < 1)
   {
     utils.koBeep();
-    text.printLog(22);
     restart();
-    onStage = 2;
+    cutscene.number = 1;
+    onStage = 4;
   }
 
   text.print(dungeon.level);
@@ -170,8 +170,6 @@ void Game::mainCutsceneTick(void)
   {
     onStage = 2;
   }
-
-  text.print(dungeon.level);
 
   dungeon.completeCanvas();
 }

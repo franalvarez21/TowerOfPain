@@ -29,12 +29,13 @@ namespace Commonlines
   const char commonLine24[] PROGMEM = "V0.1 D.";
   const char commonLine25[] PROGMEM = "#";
   const char commonLine26[] PROGMEM = "NORTH";
-  const char commonLine27[] PROGMEM = "AGREE";
-  const char commonLine28[] PROGMEM = "DISAGREE";
-  const char commonLine29[] PROGMEM = "CALM";
-  const char commonLine30[] PROGMEM = "";
+  const char commonLine27[] PROGMEM = "";
+  const char commonLine28[] PROGMEM = "CONTINUE";
+  const char commonLine29[] PROGMEM = "";
+  const char commonLine30[] PROGMEM = "CALM";
   const char commonLine31[] PROGMEM = "";
-  const char commonLine32[] PROGMEM = "x";
+  const char commonLine32[] PROGMEM = "";
+  const char commonLine33[] PROGMEM = "x";
 
   const char *const commonLines[] PROGMEM = {
       commonLine0,
@@ -69,13 +70,14 @@ namespace Commonlines
       commonLine29,
       commonLine30,
       commonLine31,
-      commonLine32};
+      commonLine32,
+      commonLine33};
 }
 
 namespace Storylines
 {
   const char storyLine0[] PROGMEM = "TOWER LEVEL";
-  const char storyLine1[] PROGMEM = "YOU ARE NOW IN THE TOWER";
+  const char storyLine1[] PROGMEM = "TOWER ENTRANCE";
   const char storyLine2[] PROGMEM = "SWORD FOUND, STR IMPROVE";
   const char storyLine3[] PROGMEM = "POCKETS FULL";
   const char storyLine4[] PROGMEM = "SHIELD FOUND, DEF IMPROVE";
@@ -109,8 +111,20 @@ namespace Storylines
   const char storyLine32[] PROGMEM = "LEAVES, POTION DROP";
   const char storyLine33[] PROGMEM = "TOO STRONG, CAN'T SPARE IT";
   const char storyLine34[] PROGMEM = "NO RELIC AVAILABLE";
-  const char storyLine35[] PROGMEM = "MADE FOR FUN ONLY :D";
+  const char storyLine35[] PROGMEM = "MADE FOR FUN ONLY";
   const char storyLine36[] PROGMEM = "TOO STRONG, CAN'T ESCAPE";
+  const char storyLine37[] PROGMEM = "XXXXXXXXXXXXXXXX";
+  const char storyLine38[] PROGMEM = "YYYYYYYYYYYYYYYY";
+  const char storyLine39[] PROGMEM = "DDDDDDDDDDDDDDDD";
+  const char storyLine40[] PROGMEM = "SSSSSSSSSSSSSSSS";
+  const char storyLine41[] PROGMEM = "FFFFFFFFFFFFFFFF";
+  const char storyLine42[] PROGMEM = "SSSSSSSSSSSSSSSS";
+  const char storyLine43[] PROGMEM = "YYYYYYYYYYYYYYYY";
+  const char storyLine44[] PROGMEM = "LLLLLLLLLLLLLLLL";
+  const char storyLine45[] PROGMEM = "FFFFFFFFFFFFFFFF";
+  const char storyLine46[] PROGMEM = "SSSSSSSSSSSSSSSS";
+  const char storyLine47[] PROGMEM = "YYYYYYYYYYYYYYYY";
+  const char storyLine48[] PROGMEM = "LLLLLLLLLLLLLLLL";
 
   const char *const storyLines[] PROGMEM = {
       storyLine0,
@@ -149,5 +163,17 @@ namespace Storylines
       storyLine33,
       storyLine34,
       storyLine35,
-      storyLine36};
+      storyLine36,
+      storyLine37,
+      storyLine38,
+      storyLine39,
+      storyLine40,
+      storyLine41,
+      storyLine42,
+      storyLine43,
+      storyLine44,
+      storyLine45,
+      storyLine46,
+      storyLine47,
+      storyLine48};
 }

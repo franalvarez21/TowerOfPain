@@ -77,7 +77,7 @@ struct Text
     printIconStats(utils, x, y, item->type);
     if (item->amount > 1)
     {
-      printCommonLine(x + 10, y + 2, 32);
+      printCommonLine(x + 10, y + 2, 33);
       printValue(x + 16, y + 2, item->amount);
     }
   }
