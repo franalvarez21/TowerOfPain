@@ -41,6 +41,16 @@ struct Stats
     str = max(str - val, 0);
   }
 
+  void incDEF(uint8_t val)
+  {
+    def = min(def + val, 9);
+  }
+
+  void decDEF(uint8_t val)
+  {
+    def = max(def - val, 0);
+  }
+
   uint8_t getHP()
   {
     return hp;
@@ -60,7 +70,7 @@ struct Stats
   {
     if (discardItem(5))
     {
-      def--;
+      decDEF(1);
       return false;
     }
 
@@ -116,7 +126,7 @@ struct Stats
     }
     else if (item == 5)
     {
-      def++;
+      incDEF(1);
     }
   }
 

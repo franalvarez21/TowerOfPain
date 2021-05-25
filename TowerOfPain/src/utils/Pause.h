@@ -82,38 +82,31 @@ struct Pause
       utils->arduboy->drawBitmap(28, 20, Character::frameSword, 4, 23, WHITE);
     }
 
-    utils->tinyfont->setCursor(8, 45);
-    text->printCommonLine(26);
+    text->printCommonLine(8, 45, 26);
 
-    utils->tinyfont->setCursor(40, 8);
-    text->printCommonLine(8);
-    utils->tinyfont->setCursor(48, 20);
+    text->printCommonLine(40, 8, 8);
     if (sound)
     {
-      text->printCommonLine(20);
+      text->printCommonLine(48, 20, 20);
     }
     else
     {
-      text->printCommonLine(21);
+      text->printCommonLine(48, 20, 21);
     }
-    utils->tinyfont->setCursor(48, 28);
-    text->printCommonLine(22);
-    utils->tinyfont->setCursor(48, 36);
-    text->printCommonLine(15);
+    text->printCommonLine(48, 28, 22);
+    text->printCommonLine(48, 36, 15);
 
     switch (option)
     {
     case 0:
-      utils->tinyfont->setCursor(40, 20);
+      text->printCommonLine(40, 20, 25);
       break;
     case 1:
-      utils->tinyfont->setCursor(40, 28);
+      text->printCommonLine(40, 28, 25);
       break;
     case 2:
-      utils->tinyfont->setCursor(40, 36);
+      text->printCommonLine(40, 36, 25);
       break;
     }
-
-    text->printCommonLine(25);
   }
 };

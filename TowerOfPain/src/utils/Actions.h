@@ -72,7 +72,7 @@ struct Actions
       break;
     }
 
-    return events->startEvent(action, dungeon->level);
+    return (action == 9);
   }
 
   void randomItem(Text *text, Stats *stats)

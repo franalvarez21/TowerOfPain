@@ -3,16 +3,14 @@
 struct Utils
 {
   Arduboy2 *arduboy;
-  Tinyfont *tinyfont;
   ArduboyTones *soundtones;
 
   bool sound;
   size_t cicle;
 
-  void init(Arduboy2 *arduboy, Tinyfont *tinyfont, ArduboyTones *soundtones)
+  void init(Arduboy2 *arduboy, ArduboyTones *soundtones)
   {
     this->arduboy = arduboy;
-    this->tinyfont = tinyfont;
     this->soundtones = soundtones;
 
     cicle = 10;

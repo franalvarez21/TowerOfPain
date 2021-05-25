@@ -27,8 +27,8 @@ void Game::setup(void)
   arduboy.systemButtons();
   Serial.begin(9600);
 
-  utils.init(&arduboy, &tinyfont, &sound);
-  text.init(&utils);
+  utils.init(&arduboy, &sound);
+  text.init(&tinyfont);
   menu.init(&utils);
   events.init(&utils);
   restart();
@@ -119,6 +119,7 @@ void Game::mainGameTick(void)
 
     if (action > 0 && actions.evaluateAction(&events, &text, &stats, &dungeon, action))
     {
+      events.refresh(dungeon.level);
       onStage = 3;
     }
 

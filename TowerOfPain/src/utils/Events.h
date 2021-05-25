@@ -266,6 +266,7 @@ struct Events
     if (battleEnemyLife > (currentLevel / 2 + 1))
     {
       text->printLog(36);
+      utils->koBeep();
       return true;
     }
 
@@ -305,65 +306,40 @@ struct Events
       }
     }
 
-    utils->tinyfont->setCursor(7, 45);
-    utils->tinyfont->print(battleEnemyLife);
-
-    utils->tinyfont->setCursor(24, 45);
-    text->printCommonLine(1);
+    text->printValue(7, 45, battleEnemyLife);
+    text->printCommonLine(24, 45, 1);
 
     if (use)
     {
-      utils->tinyfont->setCursor(40, 8);
-      text->printCommonLine(11);
-      utils->tinyfont->setCursor(48, 20);
-      text->printCommonLine(7);
-      utils->tinyfont->setCursor(48, 28);
-      text->printCommonLine(13);
-      utils->tinyfont->setCursor(48, 36);
-      text->printCommonLine(14);
-      utils->tinyfont->setCursor(48, 44);
-      text->printCommonLine(15);
+      text->printCommonLine(40, 8, 11);
+      text->printCommonLine(48, 20, 7);
+      text->printCommonLine(48, 28, 13);
+      text->printCommonLine(48, 36, 14);
+      text->printCommonLine(48, 44, 15);
     }
     else
     {
-      utils->tinyfont->setCursor(40, 8);
-      text->printCommonLine(8);
-      utils->tinyfont->setCursor(48, 20);
-      text->printCommonLine(9);
-      utils->tinyfont->setCursor(48, 28);
-      text->printCommonLine(10);
-      utils->tinyfont->setCursor(48, 36);
-      text->printCommonLine(11);
-      utils->tinyfont->setCursor(48, 44);
-      text->printCommonLine(16);
+      text->printCommonLine(40, 8, 8);
+      text->printCommonLine(48, 20, 9);
+      text->printCommonLine(48, 28, 10);
+      text->printCommonLine(48, 36, 11);
+      text->printCommonLine(48, 44, 16);
     }
 
     switch (option)
     {
     case 0:
-      utils->tinyfont->setCursor(40, 20);
+      text->printCommonLine(40, 20, 25);
       break;
     case 1:
-      utils->tinyfont->setCursor(40, 28);
+      text->printCommonLine(40, 28, 25);
       break;
     case 2:
-      utils->tinyfont->setCursor(40, 36);
+      text->printCommonLine(40, 36, 25);
       break;
     case 3:
-      utils->tinyfont->setCursor(40, 44);
+      text->printCommonLine(40, 44, 25);
       break;
     }
-
-    text->printCommonLine(25);
-  }
-
-  bool startEvent(size_t action, size_t level)
-  {
-    if (action == 9)
-    {
-      refresh(level);
-      return true;
-    }
-    return false;
   }
 };

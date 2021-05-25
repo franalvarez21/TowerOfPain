@@ -2,13 +2,13 @@
 
 struct Text
 {
-  Utils *utils;
+  Tinyfont *tinyfont;
   uint8_t log;
   bool mode = true;
 
-  void init(Utils *utils)
+  void init(Tinyfont *tinyfont)
   {
-    this->utils = utils;
+    this->tinyfont = tinyfont;
   }
 
   void printLog(uint8_t pos)
@@ -22,58 +22,53 @@ struct Text
     mode = false;
   }
 
-  void printCommonLine(uint8_t line)
+  void printCommonLine(size_t x, size_t y, uint8_t line)
   {
     char tBuffer[10];
-    utils->tinyfont->print(strcpy_P(tBuffer, (char *)pgm_read_word(&(Commonlines::commonLines[line]))));
+    tinyfont->setCursor(x, y);
+    tinyfont->print(strcpy_P(tBuffer, (char *)pgm_read_word(&(Commonlines::commonLines[line]))));
   }
 
-  void printStoryLine(uint8_t line)
+  void printStoryLine(size_t x, size_t y, uint8_t line)
   {
     char tBuffer[30];
-    utils->tinyfont->print(strcpy_P(tBuffer, (char *)pgm_read_word(&(Storylines::storyLines[line]))));
+    tinyfont->setCursor(x, y);
+    tinyfont->print(strcpy_P(tBuffer, (char *)pgm_read_word(&(Storylines::storyLines[line]))));
+  }
+
+  void printValue(size_t x, size_t y, size_t value)
+  {
+    tinyfont->setCursor(x, y);
+    tinyfont->print(value);
   }
 
   void print(size_t level)
   {
     if (mode)
     {
-      utils->tinyfont->setCursor(0, 60);
-      printStoryLine(log);
+      printStoryLine(0, 60, log);
     }
     else
     {
-      utils->tinyfont->setCursor(0, 60);
-      printStoryLine(0);
-      utils->tinyfont->setCursor(100, 60);
-      utils->tinyfont->print(level);
+      printStoryLine(0, 60, 0);
+      printValue(100, 60, level);
     }
   }
 
   void printStats(Stats *stats)
   {
-    utils->tinyfont->setCursor(92, 2);
-    utils->tinyfont->print(stats->getHP());
-    utils->tinyfont->setCursor(92, 10);
-    utils->tinyfont->print(stats->getSTR());
-    utils->tinyfont->setCursor(92, 18);
-    utils->tinyfont->print(stats->getDEF());
+    printValue(92, 2, stats->getHP());
+    printValue(92, 10, stats->getSTR());
+    printValue(92, 18, stats->getDEF());
 
-    utils->tinyfont->setCursor(100, 2);
-    printCommonLine(1);
-    utils->tinyfont->setCursor(100, 10);
-    printCommonLine(2);
-    utils->tinyfont->setCursor(100, 18);
-    printCommonLine(3);
+    printCommonLine(100, 2, 1);
+    printCommonLine(100, 10, 2);
+    printCommonLine(100, 18, 3);
 
-    utils->tinyfont->setCursor(92, 26);
-    printCommonLine(stats->getSlotText(0));
-    utils->tinyfont->setCursor(92, 34);
-    printCommonLine(stats->getSlotText(1));
-    utils->tinyfont->setCursor(92, 42);
-    printCommonLine(stats->getSlotText(2));
+    printCommonLine(92, 26, stats->getSlotText(0));
+    printCommonLine(92, 34, stats->getSlotText(1));
+    printCommonLine(92, 42, stats->getSlotText(2));
 
-    utils->tinyfont->setCursor(92, 50);
-    printCommonLine(stats->getStatusText());
+    printCommonLine(92, 50, stats->getStatusText());
   }
 };
