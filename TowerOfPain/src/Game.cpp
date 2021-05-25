@@ -77,9 +77,11 @@ void Game::loop(void)
 
 void Game::mainMenuTick(void)
 {
+  utils.music = true;
   menu.eventDisplay(&utils, &text);
   if (!menu.action(&utils))
   {
+    utils.music = false;
     restart();
     text.printLog(1);
     onStage = 2;
