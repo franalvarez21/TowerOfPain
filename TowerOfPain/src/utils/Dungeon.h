@@ -3,7 +3,7 @@
 struct Dungeon
 {
   Utils *utils;
-  size_t map[MAX_SQUARE_AMOUNT_WEIGHT][MAX_SQUARE_AMOUNT_HEIGHT];
+  size_t map[SQUARE_AMOUNT_WEIGHT][SQUARE_AMOUNT_HEIGHT];
   size_t playerXPosition;
   size_t playerYPosition;
   size_t level;
@@ -109,7 +109,7 @@ struct Dungeon
 
   bool moveRight(size_t key)
   {
-    if (playerXPosition + 1 < MAX_SQUARE_AMOUNT_WEIGHT - 1)
+    if (playerXPosition + 1 < SQUARE_AMOUNT_WEIGHT - 1)
     {
       if (map[playerXPosition + 1][playerYPosition] == key)
       {
@@ -135,7 +135,7 @@ struct Dungeon
 
   bool moveDown(size_t key)
   {
-    if (playerYPosition + 1 < MAX_SQUARE_AMOUNT_HEIGHT - 1)
+    if (playerYPosition + 1 < SQUARE_AMOUNT_HEIGHT - 1)
     {
       if (map[playerXPosition][playerYPosition + 1] == key)
       {
@@ -198,9 +198,9 @@ struct Dungeon
 
   void enemyChange()
   {
-    for (size_t i = 1; i < MAX_SQUARE_AMOUNT_WEIGHT - 1; i++)
+    for (size_t i = 1; i < SQUARE_AMOUNT_WEIGHT - 1; i++)
     {
-      for (size_t j = 1; j < MAX_SQUARE_AMOUNT_HEIGHT - 1; j++)
+      for (size_t j = 1; j < SQUARE_AMOUNT_HEIGHT - 1; j++)
       {
         if (map[i][j] == 9)
         {
@@ -264,9 +264,9 @@ struct Dungeon
 
     enemyChange();
 
-    for (size_t i = 1; i < MAX_SQUARE_AMOUNT_WEIGHT - 1; i++)
+    for (size_t i = 1; i < SQUARE_AMOUNT_WEIGHT - 1; i++)
     {
-      for (size_t j = 1; j < MAX_SQUARE_AMOUNT_HEIGHT - 1; j++)
+      for (size_t j = 1; j < SQUARE_AMOUNT_HEIGHT - 1; j++)
       {
         if (map[i][j] > 9)
         {
@@ -306,9 +306,9 @@ struct Dungeon
 
   void clearMap()
   {
-    for (size_t i = 0; i < MAX_SQUARE_AMOUNT_WEIGHT; i++)
+    for (size_t i = 0; i < SQUARE_AMOUNT_WEIGHT; i++)
     {
-      for (size_t j = 0; j < MAX_SQUARE_AMOUNT_HEIGHT; j++)
+      for (size_t j = 0; j < SQUARE_AMOUNT_HEIGHT; j++)
       {
         map[i][j] = 0;
       }
@@ -364,9 +364,9 @@ struct Dungeon
     switch (rand() % 4)
     {
     case 0:
-      for (size_t i = 1; i < MAX_SQUARE_AMOUNT_WEIGHT - 1; i++)
+      for (size_t i = 1; i < SQUARE_AMOUNT_WEIGHT - 1; i++)
       {
-        for (size_t j = 1; j < MAX_SQUARE_AMOUNT_HEIGHT - 1; j++)
+        for (size_t j = 1; j < SQUARE_AMOUNT_HEIGHT - 1; j++)
         {
           if (setItem(item, i, j))
           {
@@ -376,9 +376,9 @@ struct Dungeon
       }
       return false;
     case 1:
-      for (size_t i = 1; i < MAX_SQUARE_AMOUNT_WEIGHT - 1; i++)
+      for (size_t i = 1; i < SQUARE_AMOUNT_WEIGHT - 1; i++)
       {
-        for (size_t j = MAX_SQUARE_AMOUNT_HEIGHT - 2; j > 0; j--)
+        for (size_t j = SQUARE_AMOUNT_HEIGHT - 2; j > 0; j--)
         {
           if (setItem(item, i, j))
           {
@@ -388,9 +388,9 @@ struct Dungeon
       }
       return false;
     case 2:
-      for (size_t i = MAX_SQUARE_AMOUNT_WEIGHT - 2; i > 0; i--)
+      for (size_t i = SQUARE_AMOUNT_WEIGHT - 2; i > 0; i--)
       {
-        for (size_t j = MAX_SQUARE_AMOUNT_HEIGHT - 2; j > 0; j--)
+        for (size_t j = SQUARE_AMOUNT_HEIGHT - 2; j > 0; j--)
         {
           if (setItem(item, i, j))
           {
@@ -400,9 +400,9 @@ struct Dungeon
       }
       return false;
     case 3:
-      for (size_t i = MAX_SQUARE_AMOUNT_WEIGHT - 2; i > 0; i--)
+      for (size_t i = SQUARE_AMOUNT_WEIGHT - 2; i > 0; i--)
       {
-        for (size_t j = 0; j < MAX_SQUARE_AMOUNT_HEIGHT - 1; j++)
+        for (size_t j = 0; j < SQUARE_AMOUNT_HEIGHT - 1; j++)
         {
           if (setItem(item, i, j))
           {
@@ -417,39 +417,59 @@ struct Dungeon
   void canvas()
   {
     utils->arduboy->drawBitmap(0, 0, Map::map_top_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
-    utils->arduboy->drawBitmap(SQUARE_SIZE * (MAX_SQUARE_AMOUNT_WEIGHT - 2), 0, Map::map_top_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
-    utils->arduboy->drawBitmap(0, SQUARE_SIZE * (MAX_SQUARE_AMOUNT_HEIGHT - 2), Map::map_bottom_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
-    utils->arduboy->drawBitmap(SQUARE_SIZE * (MAX_SQUARE_AMOUNT_WEIGHT - 2), SQUARE_SIZE * (MAX_SQUARE_AMOUNT_HEIGHT - 2), Map::map_bottom_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    utils->arduboy->drawBitmap(SQUARE_SIZE * (SQUARE_AMOUNT_WEIGHT - 2), 0, Map::map_top_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    utils->arduboy->drawBitmap(0, SQUARE_SIZE * (SQUARE_AMOUNT_HEIGHT - 2), Map::map_bottom_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    utils->arduboy->drawBitmap(SQUARE_SIZE * (SQUARE_AMOUNT_WEIGHT - 2), SQUARE_SIZE * (SQUARE_AMOUNT_HEIGHT - 2), Map::map_bottom_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
 
-    for (size_t x = 1; x < MAX_SQUARE_AMOUNT_WEIGHT - 1; x++)
+    for (size_t x = 1; x < SQUARE_AMOUNT_WEIGHT - 2; x++)
     {
       utils->arduboy->drawBitmap(x * SQUARE_SIZE, 0, Map::map_top, SQUARE_SIZE, SQUARE_SIZE, WHITE);
-      utils->arduboy->drawBitmap(x * SQUARE_SIZE, SQUARE_SIZE * (MAX_SQUARE_AMOUNT_HEIGHT - 2), Map::map_bottom, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      utils->arduboy->drawBitmap(x * SQUARE_SIZE, SQUARE_SIZE * (SQUARE_AMOUNT_HEIGHT - 2), Map::map_bottom, SQUARE_SIZE, SQUARE_SIZE, WHITE);
     }
 
-    for (size_t y = 1; y < MAX_SQUARE_AMOUNT_HEIGHT - 1; y++)
+    for (size_t y = 1; y < SQUARE_AMOUNT_HEIGHT - 2; y++)
+    {
+      utils->arduboy->drawBitmap(0, y * SQUARE_SIZE, Map::map_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      utils->arduboy->drawBitmap(SQUARE_SIZE * (SQUARE_AMOUNT_WEIGHT - 2), y * SQUARE_SIZE, Map::map_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    }
+  }
+
+  void completeCanvas()
+  {
+    utils->arduboy->drawBitmap(0, 0, Map::map_top_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    utils->arduboy->drawBitmap(SQUARE_SIZE * (MAX_SQUARE_AMOUNT_WEIGHT - 2), 0, Map::map_top_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    utils->arduboy->drawBitmap(0, SQUARE_SIZE * 6, Map::map_bottom_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    utils->arduboy->drawBitmap(SQUARE_SIZE * (MAX_SQUARE_AMOUNT_WEIGHT - 2), SQUARE_SIZE * 6, Map::map_bottom_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+
+    for (size_t x = 1; x < MAX_SQUARE_AMOUNT_WEIGHT - 2; x++)
+    {
+      utils->arduboy->drawBitmap(x * SQUARE_SIZE, 0, Map::map_top, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      utils->arduboy->drawBitmap(x * SQUARE_SIZE, SQUARE_SIZE * 6, Map::map_bottom, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    }
+
+    for (size_t y = 1; y < MAX_SQUARE_AMOUNT_HEIGHT - 2; y++)
     {
       utils->arduboy->drawBitmap(0, y * SQUARE_SIZE, Map::map_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
       utils->arduboy->drawBitmap(SQUARE_SIZE * (MAX_SQUARE_AMOUNT_WEIGHT - 2), y * SQUARE_SIZE, Map::map_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
     }
   }
 
-  void display(size_t cicle)
+  void display()
   {
-    displayPlayer(cicle);
-    for (size_t x = 1; x < MAX_SQUARE_AMOUNT_WEIGHT - 1; x++)
+    displayPlayer();
+    for (size_t x = 1; x < SQUARE_AMOUNT_WEIGHT - 1; x++)
     {
-      for (size_t y = 1; y < MAX_SQUARE_AMOUNT_HEIGHT - 1; y++)
+      for (size_t y = 1; y < SQUARE_AMOUNT_HEIGHT - 1; y++)
       {
-        displayElements(x, y, cicle);
+        displayElements(x, y);
         displayMaze(x, y);
       }
     }
   }
 
-  void displayPlayer(size_t cicle)
+  void displayPlayer()
   {
-    if (cicle <= 5)
+    if (utils->cicle <= 5)
     {
       utils->arduboy->drawBitmap(SQUARE_SIZE * playerXPosition - 4, SQUARE_SIZE * playerYPosition - 4, Character::player_1, SQUARE_SIZE, SQUARE_SIZE, WHITE);
     }
@@ -459,7 +479,7 @@ struct Dungeon
     }
   }
 
-  void displayElements(size_t x, size_t y, size_t cicle)
+  void displayElements(size_t x, size_t y)
   {
     if (!(x == playerXPosition && y == playerYPosition))
     {
@@ -487,7 +507,7 @@ struct Dungeon
         utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::special, SQUARE_SIZE, SQUARE_SIZE, WHITE);
         break;
       case 9:
-        if (cicle <= 5)
+        if (utils->cicle <= 5)
         {
           utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Character::slime_1, SQUARE_SIZE, SQUARE_SIZE, WHITE);
         }

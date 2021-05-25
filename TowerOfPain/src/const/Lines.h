@@ -29,6 +29,8 @@ namespace Commonlines
   const char commonLine24[] PROGMEM = "V0.1 D.";
   const char commonLine25[] PROGMEM = "#";
   const char commonLine26[] PROGMEM = "NORTH";
+  const char commonLine27[] PROGMEM = "AGREE";
+  const char commonLine28[] PROGMEM = "DISAGREE";
 
   const char *const commonLines[] PROGMEM = {
       commonLine0,
@@ -57,7 +59,9 @@ namespace Commonlines
       commonLine23,
       commonLine24,
       commonLine25,
-      commonLine26};
+      commonLine26,
+      commonLine27,
+      commonLine28};
 }
 
 namespace Storylines

@@ -13,7 +13,7 @@ struct Pause
     use = false;
   }
 
-  size_t action(Utils *utils)
+  size_t action()
   {
     if (utils->arduboy->justPressed(UP_BUTTON))
     {
@@ -61,9 +61,9 @@ struct Pause
     return 0;
   }
 
-  void eventDisplay(Stats *stats, Text *text, bool sound, size_t cicle)
+  void eventDisplay(Stats *stats, Text *text)
   {
-    if (cicle <= 5)
+    if (utils->cicle <= 5)
     {
       utils->arduboy->drawBitmap(4, 4, Character::framePlayer1, 32, 48, WHITE);
     }
@@ -85,7 +85,7 @@ struct Pause
     text->printCommonLine(8, 45, 26);
 
     text->printCommonLine(40, 8, 8);
-    if (sound)
+    if (utils->sound)
     {
       text->printCommonLine(48, 20, 20);
     }

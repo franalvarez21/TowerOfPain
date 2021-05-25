@@ -13,7 +13,7 @@ struct Menu
     about = false;
   }
 
-  bool action(Utils *utils)
+  bool action()
   {
     if (!about)
     {
@@ -72,7 +72,7 @@ struct Menu
     return true;
   }
 
-  void eventDisplay(Utils *utils, Text *text)
+  void eventDisplay(Text *text)
   {
     utils->arduboy->drawBitmap(0, 0, Title::logo, 128, 32, WHITE);
     utils->arduboy->drawBitmap(120, 32, Title::options, 8, 32, WHITE);

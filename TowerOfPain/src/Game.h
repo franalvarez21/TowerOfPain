@@ -1,7 +1,9 @@
 #pragma once
 
-#define MAX_SQUARE_AMOUNT_WEIGHT 12
+#define MAX_SQUARE_AMOUNT_WEIGHT 17
 #define MAX_SQUARE_AMOUNT_HEIGHT 8
+#define SQUARE_AMOUNT_WEIGHT 12
+#define SQUARE_AMOUNT_HEIGHT 8
 #define SQUARE_SIZE 8
 
 #include <stdint.h>
@@ -25,6 +27,7 @@
 #include "utils/Events.h"
 #include "utils/Dungeon.h"
 #include "utils/Actions.h"
+#include "utils/Cutscene.h"
 
 class Game
 {
@@ -36,4 +39,5 @@ public:
   void mainPauseTick(void);
   void mainGameTick(void);
   void mainGameBattleTick(void);
+  void mainCutsceneTick(void);
 };

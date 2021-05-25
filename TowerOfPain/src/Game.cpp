@@ -16,6 +16,7 @@ Dungeon dungeon;
 Events events;
 Menu menu;
 Pause pause;
+Cutscene cutscene;
 
 Actions actions;
 
@@ -31,6 +32,7 @@ void Game::setup(void)
   text.init(&tinyfont);
   menu.init(&utils);
   events.init(&utils);
+  cutscene.init(&utils);
   restart();
 }
 
@@ -68,6 +70,9 @@ void Game::loop(void)
   case 3:
     mainGameBattleTick();
     break;
+  case 4:
+    mainCutsceneTick();
+    break;
   default:
     break;
   }
@@ -78,20 +83,21 @@ void Game::loop(void)
 void Game::mainMenuTick(void)
 {
   utils.music = true;
-  menu.eventDisplay(&utils, &text);
-  if (!menu.action(&utils))
+  menu.eventDisplay(&text);
+  if (!menu.action())
   {
     utils.music = false;
     restart();
     text.printLog(1);
-    onStage = 2;
+    //TODO: onStage = 2;
+    onStage = 4;
   }
 }
 
 void Game::mainPauseTick(void)
 {
-  pause.eventDisplay(&stats, &text, utils.sound, utils.cicle);
-  size_t option = pause.action(&utils);
+  pause.eventDisplay(&stats, &text);
+  size_t option = pause.action();
 
   switch (option)
   {
@@ -125,7 +131,7 @@ void Game::mainGameTick(void)
       onStage = 3;
     }
 
-    dungeon.display(utils.cicle);
+    dungeon.display();
     action = 0;
   }
 
@@ -137,8 +143,8 @@ void Game::mainGameTick(void)
 
 void Game::mainGameBattleTick(void)
 {
-  events.eventDisplay(&text, utils.cicle);
-  if (!events.action(&stats, &text, &utils))
+  events.eventDisplay(&text);
+  if (!events.action(&stats, &text))
   {
     onStage = 2;
   }
@@ -155,4 +161,17 @@ void Game::mainGameBattleTick(void)
   text.printStats(&stats);
 
   dungeon.canvas();
+}
+
+void Game::mainCutsceneTick(void)
+{
+  cutscene.eventDisplay(&stats, &text);
+  if (!cutscene.action())
+  {
+    onStage = 2;
+  }
+
+  text.print(dungeon.level);
+
+  dungeon.completeCanvas();
 }
