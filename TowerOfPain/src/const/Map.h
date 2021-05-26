@@ -13,6 +13,28 @@ namespace Map
       0x42,
   };
 
+  const uint8_t PROGMEM map_environment_1[] = {
+      0x24,
+      0x24,
+      0xcb,
+      0x30,
+      0x0c,
+      0xd3,
+      0x24,
+      0x24,
+  };
+
+  const uint8_t PROGMEM map_environment_2[] = {
+      0x08,
+      0x04,
+      0x40,
+      0x80,
+      0x01,
+      0x02,
+      0x20,
+      0x10,
+  };
+
   const uint8_t PROGMEM map_top[] = {
       0x01,
       0x01,

@@ -281,26 +281,52 @@ struct Events
 
   void eventDisplay(Text *text)
   {
-    if (spareHardCondition())
+
+    if (currentLevel < 50)
     {
-      if (utils->cycle <= 5)
+      if (spareHardCondition())
       {
-        utils->arduboy->drawBitmap(4, 4, Character::frameSlime3, 32, 48, WHITE);
+        if (utils->cycle <= 5)
+        {
+          utils->arduboy->drawBitmap(4, 4, Character::frameSlime3, 32, 48, WHITE);
+        }
+        else
+        {
+          utils->arduboy->drawBitmap(4, 4, Character::frameSlime4, 32, 48, WHITE);
+        }
       }
       else
       {
-        utils->arduboy->drawBitmap(4, 4, Character::frameSlime4, 32, 48, WHITE);
+        if (utils->cycle <= 5)
+        {
+          utils->arduboy->drawBitmap(4, 4, Character::frameSlime1, 32, 48, WHITE);
+        }
+        else
+        {
+          utils->arduboy->drawBitmap(4, 4, Character::frameSlime2, 32, 48, WHITE);
+        }
+      }
+    }
+    else if (currentLevel < 100)
+    {
+      if (utils->cycle <= 5)
+      {
+        utils->arduboy->drawBitmap(4, 4, Character::frameEye1, 32, 48, WHITE);
+      }
+      else
+      {
+        utils->arduboy->drawBitmap(4, 4, Character::frameEye2, 32, 48, WHITE);
       }
     }
     else
     {
       if (utils->cycle <= 5)
       {
-        utils->arduboy->drawBitmap(4, 4, Character::frameSlime1, 32, 48, WHITE);
+        utils->arduboy->drawBitmap(4, 4, Character::frameKnight1, 32, 48, WHITE);
       }
       else
       {
-        utils->arduboy->drawBitmap(4, 4, Character::frameSlime2, 32, 48, WHITE);
+        utils->arduboy->drawBitmap(4, 4, Character::frameKnight2, 32, 48, WHITE);
       }
     }
 

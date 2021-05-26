@@ -507,13 +507,38 @@ struct Dungeon
         utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::potion, SQUARE_SIZE, SQUARE_SIZE, WHITE);
         break;
       case 9:
-        if (utils->cycle <= 5)
+        if (level < 50)
         {
-          utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Character::slime_1, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+          if (utils->cycle <= 5)
+          {
+            utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Character::slime_1, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+          }
+          else
+          {
+            utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Character::slime_2, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+          }
+        }
+        else if (level < 100)
+        {
+          if (utils->cycle <= 5)
+          {
+            utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Character::eye_1, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+          }
+          else
+          {
+            utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Character::eye_2, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+          }
         }
         else
         {
-          utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Character::slime_2, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+          if (utils->cycle <= 5)
+          {
+            utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Character::knight_1, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+          }
+          else
+          {
+            utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Character::knight_2, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+          }
         }
         break;
       default:
@@ -585,7 +610,18 @@ struct Dungeon
     }
     else
     {
-      utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_environment_0, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      if (level < 50)
+      {
+        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_environment_0, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      }
+      else if (level < 100)
+      {
+        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_environment_1, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      }
+      else
+      {
+        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_environment_2, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      }
     }
   }
 
