@@ -78,9 +78,9 @@ namespace Storylines
 {
   const char storyLine0[] PROGMEM = "TOWER LEVEL";
   const char storyLine1[] PROGMEM = "TOWER ENTRANCE";
-  const char storyLine2[] PROGMEM = "SWORD FOUND, STR UP";
+  const char storyLine2[] PROGMEM = "SWORD FOUND, STR BONUS";
   const char storyLine3[] PROGMEM = "POCKETS FULL";
-  const char storyLine4[] PROGMEM = "SHIELD FOUND, DEF UP";
+  const char storyLine4[] PROGMEM = "SHIELD FOUND, DEF BONUS";
   const char storyLine5[] PROGMEM = "LIFE RESTORED";
   const char storyLine6[] PROGMEM = "RELIC FOUND";
   const char storyLine7[] PROGMEM = "POTION FOUND";
@@ -102,7 +102,7 @@ namespace Storylines
   const char storyLine23[] PROGMEM = "MEDIUM HP UP";
   const char storyLine24[] PROGMEM = "STR UP";
   const char storyLine25[] PROGMEM = "DEF UP";
-  const char storyLine26[] PROGMEM = "FIRE POTION, VAPORIZED";
+  const char storyLine26[] PROGMEM = "MEDIUM DEF UP";
   const char storyLine27[] PROGMEM = "YOU FEEL STRONGER";
   const char storyLine28[] PROGMEM = "ENEMY VAPORIZED";
   const char storyLine29[] PROGMEM = "ENEMY WAITS";

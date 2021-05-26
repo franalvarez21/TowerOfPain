@@ -68,7 +68,7 @@ namespace Common
       0x00,
   };
 
-  const uint8_t PROGMEM special[] = {
+  const uint8_t PROGMEM potion[] = {
       0x00,
       0x20,
       0x54,

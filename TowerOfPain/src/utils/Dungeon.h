@@ -342,7 +342,7 @@ struct Dungeon
 
   void spawnObjects()
   {
-    if (level < 100)
+    if (level < MAX_LEVEL)
     {
       spawnObject(2);
       if (rand() % 2 == 0)
@@ -504,7 +504,7 @@ struct Dungeon
         utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::relic, SQUARE_SIZE, SQUARE_SIZE, WHITE);
         break;
       case 8:
-        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::special, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::potion, SQUARE_SIZE, SQUARE_SIZE, WHITE);
         break;
       case 9:
         if (utils->cycle <= 5)

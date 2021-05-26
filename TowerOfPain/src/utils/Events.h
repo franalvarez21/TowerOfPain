@@ -17,7 +17,7 @@ struct Events
   {
     option = 0;
     currentLevel = level;
-    battleEnemyLife = (rand() % 2 == 0) ? (rand() % (1 + currentLevel)) + 1 : 1;
+    battleEnemyLife = getRandomLevel();
     use = false;
   }
 
@@ -119,7 +119,7 @@ struct Events
 
   bool useSpareAttempt(Text *text, Stats *stats)
   {
-    if (battleEnemyLife > (currentLevel / 2 + 1))
+    if (spareHardCondition())
     {
       text->printLog(33);
     }
@@ -162,7 +162,7 @@ struct Events
       }
       else
       {
-        stats->incSTR(2);
+        stats->incSTR(1);
         text->printLog(27);
       }
 
@@ -178,6 +178,8 @@ struct Events
 
   void attackAttempt(Text *text, Stats *stats)
   {
+    uint8_t additionalDamage = 0;
+
     if (rand() % 2 == 0)
     {
       stats->hit();
@@ -190,17 +192,10 @@ struct Events
 
     if (stats->discardItem(4))
     {
-      stats->decSTR(2);
+      additionalDamage = 2;
     }
 
-    if (battleEnemyLife < stats->getSTR())
-    {
-      battleEnemyLife = 0;
-    }
-    else
-    {
-      battleEnemyLife = battleEnemyLife - stats->getSTR();
-    }
+    hitEnemy(stats->getSTR() + additionalDamage);
   }
 
   void defendAttempt(Text *text, Stats *stats)
@@ -229,7 +224,7 @@ struct Events
         switch (rand() % 5)
         {
         case 0:
-          stats->incHP(5);
+          stats->incHP(2);
           text->printLog(23);
           break;
         case 1:
@@ -241,7 +236,7 @@ struct Events
           text->printLog(25);
           break;
         case 3:
-          battleEnemyLife = 0;
+          stats->incDEF(2);
           text->printLog(26);
           break;
         }
@@ -265,7 +260,7 @@ struct Events
       return true;
     }
 
-    if (battleEnemyLife > (currentLevel / 2 + 1))
+    if (spareHardCondition())
     {
       text->printLog(36);
       utils->koBeep();
@@ -286,7 +281,7 @@ struct Events
 
   void eventDisplay(Text *text)
   {
-    if (battleEnemyLife > (currentLevel / 2 + 1))
+    if (spareHardCondition())
     {
       if (utils->cycle <= 5)
       {
@@ -343,6 +338,38 @@ struct Events
     case 3:
       text->printCommonLine(40, 44, 25);
       break;
+    }
+  }
+
+  size_t getRandomLevel()
+  {
+    if (currentLevel < 50)
+    {
+      return (rand() % (min(currentLevel, 19) + 1)) + 1;
+    }
+
+    if (currentLevel < 100)
+    {
+      return (rand() % (min(currentLevel, 49) + 1)) + 1;
+    }
+
+    return (rand() % (min(currentLevel, 98) + 1)) + 1;
+  }
+
+  bool spareHardCondition()
+  {
+    return battleEnemyLife > (currentLevel / 2 + 1);
+  }
+
+  void hitEnemy(uint8_t str)
+  {
+    if (battleEnemyLife < str)
+    {
+      battleEnemyLife = 0;
+    }
+    else
+    {
+      battleEnemyLife = battleEnemyLife - str;
     }
   }
 };

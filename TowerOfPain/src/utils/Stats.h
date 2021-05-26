@@ -95,22 +95,27 @@ struct Stats
 
   uint8_t getHP()
   {
-    return hp;
+    return min(hp, 9);
   }
 
   uint8_t getSTR()
   {
-    return str;
+    return min(str, 9);
   }
 
   uint8_t getDEF()
   {
-    return def;
+    return min(def, 9);
   }
 
   bool hit()
   {
-    if (discardItem(5) || def > 0)
+    if (discardItem(5))
+    {
+      return false;
+    }
+
+    if (def > 0)
     {
       decDEF(1);
       return false;
@@ -128,7 +133,7 @@ struct Stats
     {
       if ((slots[x].type == item) && slots[x].amount < 8 && !found)
       {
-        appendItem(x, item);
+        slots[x].appendItem(item);
         found = true;
       }
     }
@@ -139,7 +144,7 @@ struct Stats
       {
         if ((slots[x].type == 0 || slots[x].type == item) && slots[x].amount < 8)
         {
-          appendItem(x, item);
+          slots[x].appendItem(item);
           return true;
         }
       }
@@ -159,20 +164,6 @@ struct Stats
     }
 
     return false;
-  }
-
-  void appendItem(uint8_t x, uint8_t item)
-  {
-    slots[x].appendItem(item);
-
-    if (item == 4)
-    {
-      incSTR(2);
-    }
-    else if (item == 5)
-    {
-      incDEF(1);
-    }
   }
 
   uint8_t getStatusText()

@@ -95,7 +95,7 @@ struct Text
       utils->arduboy->drawBitmap(x, y, Common::relic, SQUARE_SIZE, SQUARE_SIZE, WHITE);
       break;
     case 8:
-      utils->arduboy->drawBitmap(x, y, Common::special, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      utils->arduboy->drawBitmap(x, y, Common::potion, SQUARE_SIZE, SQUARE_SIZE, WHITE);
       break;
     }
   }

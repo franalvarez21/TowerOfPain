@@ -51,9 +51,9 @@ void Game::loop(void)
     return;
   }
 
-  if (dungeon.level == 5)
+  if (dungeon.level == 99)
   {
-    dungeon.level = 6;
+    dungeon.level = 100;
     cutscene.number = 2;
     onStage = 4;
   }
