@@ -1,5 +1,21 @@
 #pragma once
 
+struct Counter
+{
+  uint8_t killed;
+  uint8_t escaped;
+  uint8_t utils;
+  uint8_t spared;
+
+  void init()
+  {
+    killed = 0;
+    escaped = 0;
+    utils = 0;
+    spared = 0;
+  }
+};
+
 struct Item
 {
   uint8_t amount;
@@ -35,17 +51,17 @@ struct Stats
   uint8_t str;
   uint8_t def;
   Item slots[3];
-  uint8_t status;
+  Counter counter;
 
   void init()
   {
     hp = baseHp;
     str = baseStr;
     def = 0;
+    counter.init();
     slots[0].init();
     slots[1].init();
     slots[2].init();
-    status = 0;
   }
 
   void incHP(uint8_t val)
@@ -173,11 +189,19 @@ struct Stats
 
   uint8_t getStatusText()
   {
-    switch (status)
+    if (counter.killed > counter.spared + counter.escaped)
     {
-    default:
+      return 31;
+    }
+    else if (counter.utils > counter.spared + counter.escaped)
+    {
       return 30;
     }
+    else if (counter.spared > counter.killed + counter.escaped)
+    {
+      return 32;
+    }
+    return 29;
   }
 
   bool hasShield()

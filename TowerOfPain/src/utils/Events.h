@@ -102,7 +102,6 @@ struct Events
         }
         else
         {
-          utils->okBeep();
           attackAttempt(text, stats);
         }
       }
@@ -111,6 +110,7 @@ struct Events
     if (battleEnemyLife < 1)
     {
       utils->okBeep();
+      stats->counter.killed++;
       return false;
     }
 
@@ -137,12 +137,14 @@ struct Events
       else if (rand() % 2 == 0)
       {
         text->printLog(31);
+        stats->counter.spared++;
         return false;
       }
       else
       {
         stats->addItem(8);
         text->printLog(32);
+        stats->counter.spared++;
         return false;
       }
     }
@@ -157,14 +159,15 @@ struct Events
       {
         battleEnemyLife = 0;
         text->printLog(28);
-        return false;
       }
       else
       {
         stats->incSTR(2);
         text->printLog(27);
-        return false;
       }
+
+      stats->counter.utils++;
+      return false;
     }
     else
     {
@@ -245,6 +248,7 @@ struct Events
           break;
         }
       }
+      stats->counter.utils++;
       return false;
     }
     else
@@ -277,6 +281,7 @@ struct Events
       return true;
     }
 
+    stats->counter.escaped++;
     text->printLog(15);
     return false;
   }

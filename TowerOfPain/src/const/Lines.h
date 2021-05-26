@@ -31,10 +31,10 @@ namespace Commonlines
   const char commonLine26[] PROGMEM = "NORTH";
   const char commonLine27[] PROGMEM = "";
   const char commonLine28[] PROGMEM = "CONTINUE";
-  const char commonLine29[] PROGMEM = "";
-  const char commonLine30[] PROGMEM = "CALM";
-  const char commonLine31[] PROGMEM = "";
-  const char commonLine32[] PROGMEM = "";
+  const char commonLine29[] PROGMEM = "CALM";
+  const char commonLine30[] PROGMEM = "SAGE";
+  const char commonLine31[] PROGMEM = "PRIDE";
+  const char commonLine32[] PROGMEM = "MIND";
   const char commonLine33[] PROGMEM = "x";
 
   const char *const commonLines[] PROGMEM = {
@@ -78,9 +78,9 @@ namespace Storylines
 {
   const char storyLine0[] PROGMEM = "TOWER LEVEL";
   const char storyLine1[] PROGMEM = "TOWER ENTRANCE";
-  const char storyLine2[] PROGMEM = "SWORD FOUND, STR IMPROVE";
+  const char storyLine2[] PROGMEM = "SWORD FOUND, STR UP";
   const char storyLine3[] PROGMEM = "POCKETS FULL";
-  const char storyLine4[] PROGMEM = "SHIELD FOUND, DEF IMPROVE";
+  const char storyLine4[] PROGMEM = "SHIELD FOUND, DEF UP";
   const char storyLine5[] PROGMEM = "LIFE RESTORED";
   const char storyLine6[] PROGMEM = "RELIC FOUND";
   const char storyLine7[] PROGMEM = "POTION FOUND";
@@ -93,23 +93,23 @@ namespace Storylines
   const char storyLine14[] PROGMEM = "FAIL, YOU FEEL PAIN";
   const char storyLine15[] PROGMEM = "ESCAPE SUCCESSFUL";
   const char storyLine16[] PROGMEM = "NO POTION AVAILABLE";
-  const char storyLine17[] PROGMEM = "POTION USE, LIFE RESTORED";
+  const char storyLine17[] PROGMEM = "POTION USE, LIFE UP";
   const char storyLine18[] PROGMEM = "BOTH DID.. PAIN SHARED";
   const char storyLine19[] PROGMEM = "PAIN INFLICTED";
   const char storyLine20[] PROGMEM = "BOTH DID..";
   const char storyLine21[] PROGMEM = "DAMAGE BLOCK";
-  const char storyLine22[] PROGMEM = "YOU FAILED... TRY AGAIN?";
+  const char storyLine22[] PROGMEM = "YOU FAILED.. TRY AGAIN?";
   const char storyLine23[] PROGMEM = "LIFE POTION USE, LUCKY?";
   const char storyLine24[] PROGMEM = "FIRE POTION, VAPORIZED";
-  const char storyLine25[] PROGMEM = "STR PERMANENTLY IMPROVE";
-  const char storyLine26[] PROGMEM = "HP PERMANENTLY IMPROVE";
+  const char storyLine25[] PROGMEM = "STR UP PERMANENTLY";
+  const char storyLine26[] PROGMEM = "HP UP PERMANENTLY";
   const char storyLine27[] PROGMEM = "YOU FEEL STRONGER";
   const char storyLine28[] PROGMEM = "ENEMY VAPORIZED";
   const char storyLine29[] PROGMEM = "ENEMY WAITS";
   const char storyLine30[] PROGMEM = "YOU FEEL PAIN";
   const char storyLine31[] PROGMEM = "LEAVES";
-  const char storyLine32[] PROGMEM = "LEAVES, POTION DROP";
-  const char storyLine33[] PROGMEM = "TOO STRONG, CAN'T SPARE IT";
+  const char storyLine32[] PROGMEM = "LEAVES, POTION FOUND";
+  const char storyLine33[] PROGMEM = "TOO STRONG, CAN'T SPARE";
   const char storyLine34[] PROGMEM = "NO RELIC AVAILABLE";
   const char storyLine35[] PROGMEM = "MADE FOR FUN ONLY";
   const char storyLine36[] PROGMEM = "TOO STRONG, CAN'T ESCAPE";

@@ -51,6 +51,13 @@ void Game::loop(void)
     return;
   }
 
+  if (dungeon.level == 5)
+  {
+    dungeon.level = 6;
+    cutscene.number = 2;
+    onStage = 4;
+  }
+
   arduboy.pollButtons();
   arduboy.clear();
 
@@ -153,6 +160,7 @@ void Game::mainGameBattleTick(void)
   {
     utils.koBeep();
     restart();
+    text.printLog(1);
     cutscene.number = 1;
     onStage = 4;
   }
