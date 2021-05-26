@@ -7,7 +7,7 @@ struct Utils
 
   bool sound;
   bool music;
-  size_t cicle;
+  size_t cycle;
   size_t musicalLullaby[10] = {0, 1, 0, 1, 1, 0, 1, 1, 1, 0};
   size_t lullaby = 0;
 
@@ -16,15 +16,15 @@ struct Utils
     this->arduboy = arduboy;
     this->soundtones = soundtones;
 
-    cicle = 10;
+    cycle = 10;
     sound = false;
     music = false;
   }
 
   void tick(void)
   {
-    cicle--;
-    if (cicle < 1)
+    cycle--;
+    if (cycle < 1)
     {
       lullaby++;
       if (lullaby == 11)
@@ -32,7 +32,7 @@ struct Utils
         lullaby = 0;
       }
       doBeep();
-      cicle = 10;
+      cycle = 10;
     }
   }
 

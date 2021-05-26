@@ -5,6 +5,7 @@
 #define SQUARE_AMOUNT_WEIGHT 13
 #define SQUARE_AMOUNT_HEIGHT 8
 #define SQUARE_SIZE 8
+#define ITEM_AMOUNT 4
 
 #include <stdint.h>
 #include <stdlib.h>

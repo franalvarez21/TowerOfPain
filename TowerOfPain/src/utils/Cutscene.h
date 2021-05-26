@@ -11,22 +11,12 @@ struct Cutscene
     number = 0;
   }
 
-  bool action()
-  {
-    if (utils->arduboy->justPressed(A_BUTTON) || utils->arduboy->justPressed(B_BUTTON) || utils->arduboy->justPressed(LEFT_BUTTON) || utils->arduboy->justPressed(RIGHT_BUTTON))
-    {
-      return false;
-    }
-
-    return true;
-  }
-
   void eventDisplay(Stats *stats, Text *text)
   {
     switch (number)
     {
     case 0:
-      if (utils->cicle <= 5)
+      if (utils->cycle <= 5)
       {
         utils->arduboy->drawBitmap(4, 4, Character::framePlayer1, 32, 48, WHITE);
       }
@@ -34,7 +24,6 @@ struct Cutscene
       {
         utils->arduboy->drawBitmap(4, 4, Character::framePlayer2, 32, 48, WHITE);
       }
-
       text->printStoryLine(40, 8, 37);
       text->printStoryLine(40, 16, 38);
       text->printStoryLine(40, 24, 39);

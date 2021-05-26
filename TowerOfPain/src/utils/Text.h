@@ -68,8 +68,7 @@ struct Text
     printSlotStats(utils, 99, 24, &stats->slots[0]);
     printSlotStats(utils, 99, 32, &stats->slots[1]);
     printSlotStats(utils, 99, 40, &stats->slots[2]);
-
-    printCommonLine(100, 51, stats->getStatusText());
+    printSlotStats(utils, 99, 48, &stats->slots[3]);
   }
 
   void printSlotStats(Utils *utils, size_t x, size_t y, Item *item)

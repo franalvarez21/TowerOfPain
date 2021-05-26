@@ -233,17 +233,15 @@ struct Events
           text->printLog(23);
           break;
         case 1:
-          battleEnemyLife = 0;
+          stats->incSTR(1);
           text->printLog(24);
           break;
         case 2:
-          stats->baseStr++;
-          stats->incSTR(1);
+          stats->incDEF(1);
           text->printLog(25);
           break;
         case 3:
-          stats->baseHp++;
-          stats->incHP(1);
+          battleEnemyLife = 0;
           text->printLog(26);
           break;
         }
@@ -290,7 +288,7 @@ struct Events
   {
     if (battleEnemyLife > (currentLevel / 2 + 1))
     {
-      if (utils->cicle <= 5)
+      if (utils->cycle <= 5)
       {
         utils->arduboy->drawBitmap(4, 4, Character::frameSlime3, 32, 48, WHITE);
       }
@@ -301,7 +299,7 @@ struct Events
     }
     else
     {
-      if (utils->cicle <= 5)
+      if (utils->cycle <= 5)
       {
         utils->arduboy->drawBitmap(4, 4, Character::frameSlime1, 32, 48, WHITE);
       }

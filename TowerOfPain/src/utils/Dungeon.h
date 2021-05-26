@@ -469,7 +469,7 @@ struct Dungeon
 
   void displayPlayer()
   {
-    if (utils->cicle <= 5)
+    if (utils->cycle <= 5)
     {
       utils->arduboy->drawBitmap(SQUARE_SIZE * playerXPosition - 4, SQUARE_SIZE * playerYPosition - 4, Character::player_1, SQUARE_SIZE, SQUARE_SIZE, WHITE);
     }
@@ -507,7 +507,7 @@ struct Dungeon
         utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::special, SQUARE_SIZE, SQUARE_SIZE, WHITE);
         break;
       case 9:
-        if (utils->cicle <= 5)
+        if (utils->cycle <= 5)
         {
           utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Character::slime_1, SQUARE_SIZE, SQUARE_SIZE, WHITE);
         }

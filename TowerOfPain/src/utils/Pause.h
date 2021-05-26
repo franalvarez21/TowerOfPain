@@ -63,7 +63,7 @@ struct Pause
 
   void eventDisplay(Stats *stats, Text *text)
   {
-    if (utils->cicle <= 5)
+    if (utils->cycle <= 5)
     {
       utils->arduboy->drawBitmap(4, 4, Character::framePlayer1, 32, 48, WHITE);
     }
@@ -81,8 +81,6 @@ struct Pause
     {
       utils->arduboy->drawBitmap(28, 20, Character::frameSword, 4, 23, WHITE);
     }
-
-    text->printCommonLine(8, 45, 26);
 
     text->printCommonLine(40, 8, 8);
     if (utils->sound)

@@ -174,7 +174,7 @@ void Game::mainGameBattleTick(void)
 void Game::mainCutsceneTick(void)
 {
   cutscene.eventDisplay(&stats, &text);
-  if (!cutscene.action())
+  if (arduboy.justPressed(A_BUTTON) || arduboy.justPressed(B_BUTTON) || arduboy.justPressed(LEFT_BUTTON) || arduboy.justPressed(RIGHT_BUTTON))
   {
     onStage = 2;
   }

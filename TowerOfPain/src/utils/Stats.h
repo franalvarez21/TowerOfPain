@@ -45,23 +45,22 @@ struct Item
 
 struct Stats
 {
-  uint8_t baseHp = 3;
-  uint8_t baseStr = 1;
   uint8_t hp;
   uint8_t str;
   uint8_t def;
-  Item slots[3];
+  Item slots[ITEM_AMOUNT];
   Counter counter;
 
   void init()
   {
-    hp = baseHp;
-    str = baseStr;
+    hp = 9;
+    str = 1;
     def = 0;
     counter.init();
-    slots[0].init();
-    slots[1].init();
-    slots[2].init();
+    for (uint8_t i = 0; i < ITEM_AMOUNT - 1; i++)
+    {
+      slots[i].init();
+    }
   }
 
   void incHP(uint8_t val)
@@ -111,25 +110,21 @@ struct Stats
 
   bool hit()
   {
-    if (discardItem(5))
+    if (discardItem(5) || def > 0)
     {
       decDEF(1);
       return false;
     }
 
     decHP(1);
-    if (hp <= 0)
-    {
-      return true;
-    }
-    return false;
+    return (hp <= 0);
   }
 
   bool addItem(uint8_t item)
   {
     bool found = false;
 
-    for (uint8_t x = 0; x < 3; x++)
+    for (uint8_t x = 0; x < ITEM_AMOUNT; x++)
     {
       if ((slots[x].type == item) && slots[x].amount < 8 && !found)
       {
@@ -140,7 +135,7 @@ struct Stats
 
     if (!found)
     {
-      for (uint8_t x = 0; x < 3; x++)
+      for (uint8_t x = 0; x < ITEM_AMOUNT; x++)
       {
         if ((slots[x].type == 0 || slots[x].type == item) && slots[x].amount < 8)
         {
@@ -149,25 +144,18 @@ struct Stats
         }
       }
     }
-    return false;
+    return found;
   }
 
   bool discardItem(uint8_t item)
   {
-    if (slots[2].type == item)
+    for (uint8_t x = 0; x < ITEM_AMOUNT; x++)
     {
-      slots[2].discardItem();
-      return true;
-    }
-    else if (slots[1].type == item)
-    {
-      slots[1].discardItem();
-      return true;
-    }
-    else if (slots[0].type == item)
-    {
-      slots[0].discardItem();
-      return true;
+      if (slots[x].type == item)
+      {
+        slots[x].discardItem();
+        return true;
+      }
     }
 
     return false;
@@ -191,33 +179,39 @@ struct Stats
   {
     if (counter.killed > counter.spared + counter.escaped)
     {
-      return 31;
+      return 0;
     }
     else if (counter.utils > counter.spared + counter.escaped)
     {
-      return 30;
+      return 1;
     }
     else if (counter.spared > counter.killed + counter.escaped)
     {
-      return 32;
+      return 2;
     }
-    return 29;
+    return 3;
   }
 
   bool hasShield()
   {
-    if (slots[2].type == 5 || slots[1].type == 5 || slots[0].type == 5)
+    for (uint8_t x = 0; x < ITEM_AMOUNT; x++)
     {
-      return true;
+      if (slots[x].type == 5)
+      {
+        return true;
+      }
     }
     return false;
   }
 
   bool hasSword()
   {
-    if (slots[2].type == 4 || slots[1].type == 4 || slots[0].type == 4)
+    for (uint8_t x = 0; x < ITEM_AMOUNT; x++)
     {
-      return true;
+      if (slots[x].type == 4)
+      {
+        return true;
+      }
     }
     return false;
   }
