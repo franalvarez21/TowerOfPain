@@ -16,7 +16,7 @@ struct Events
   void refresh(size_t level)
   {
     menu = 0;
-    option = 0;
+    option = 2;
     currentLevel = level;
     battleEnemyLife = getRandomLevel();
   }
