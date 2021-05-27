@@ -12,8 +12,8 @@ namespace Commonlines
   const char commonLine7[] PROGMEM = "POTION";
   const char commonLine8[] PROGMEM = "OPTIONS";
   const char commonLine9[] PROGMEM = "ATTACK";
-  const char commonLine10[] PROGMEM = "DEFEND";
-  const char commonLine11[] PROGMEM = "USE";
+  const char commonLine10[] PROGMEM = "TALK";
+  const char commonLine11[] PROGMEM = "ACTION";
   const char commonLine12[] PROGMEM = "SOUND";
   const char commonLine13[] PROGMEM = "RELIC";
   const char commonLine14[] PROGMEM = "SPARE";
@@ -32,9 +32,9 @@ namespace Commonlines
   const char commonLine27[] PROGMEM = "";
   const char commonLine28[] PROGMEM = "CONTINUE";
   const char commonLine29[] PROGMEM = "";
-  const char commonLine30[] PROGMEM = "";
-  const char commonLine31[] PROGMEM = "";
-  const char commonLine32[] PROGMEM = "";
+  const char commonLine30[] PROGMEM = "THREAT";
+  const char commonLine31[] PROGMEM = "APPROACH";
+  const char commonLine32[] PROGMEM = "EXPLAIN";
   const char commonLine33[] PROGMEM = "x";
 
   const char *const commonLines[] PROGMEM = {
@@ -96,8 +96,8 @@ namespace Storylines
   const char storyLine17[] PROGMEM = "HP UP";
   const char storyLine18[] PROGMEM = "BOTH DID.. PAIN SHARED";
   const char storyLine19[] PROGMEM = "PAIN INFLICTED";
-  const char storyLine20[] PROGMEM = "BOTH DID..";
-  const char storyLine21[] PROGMEM = "DAMAGE BLOCK";
+  const char storyLine20[] PROGMEM = "";
+  const char storyLine21[] PROGMEM = "";
   const char storyLine22[] PROGMEM = "YOU FAILED.. TRY AGAIN?";
   const char storyLine23[] PROGMEM = "MEDIUM HP UP";
   const char storyLine24[] PROGMEM = "STR UP";
@@ -107,24 +107,28 @@ namespace Storylines
   const char storyLine28[] PROGMEM = "ENEMY VAPORIZED";
   const char storyLine29[] PROGMEM = "ENEMY WAITS";
   const char storyLine30[] PROGMEM = "YOU FEEL PAIN";
-  const char storyLine31[] PROGMEM = "LEAVES";
+  const char storyLine31[] PROGMEM = "ENEMY LEAVES";
   const char storyLine32[] PROGMEM = "LEAVES, POTION FOUND";
   const char storyLine33[] PROGMEM = "TOO STRONG, CAN'T SPARE";
   const char storyLine34[] PROGMEM = "NO RELIC AVAILABLE";
   const char storyLine35[] PROGMEM = "MADE FOR FUN ONLY";
   const char storyLine36[] PROGMEM = "TOO STRONG, CAN'T ESCAPE";
-  const char storyLine37[] PROGMEM = "XXXXXXXXXXXXXXXX";
-  const char storyLine38[] PROGMEM = "YYYYYYYYYYYYYYYY";
-  const char storyLine39[] PROGMEM = "DDDDDDDDDDDDDDDD";
-  const char storyLine40[] PROGMEM = "SSSSSSSSSSSSSSSS";
-  const char storyLine41[] PROGMEM = "FFFFFFFFFFFFFFFF";
-  const char storyLine42[] PROGMEM = "SSSSSSSSSSSSSSSS";
-  const char storyLine43[] PROGMEM = "YYYYYYYYYYYYYYYY";
-  const char storyLine44[] PROGMEM = "LLLLLLLLLLLLLLLL";
-  const char storyLine45[] PROGMEM = "FFFFFFFFFFFFFFFF";
-  const char storyLine46[] PROGMEM = "SSSSSSSSSSSSSSSS";
-  const char storyLine47[] PROGMEM = "YYYYYYYYYYYYYYYY";
-  const char storyLine48[] PROGMEM = "LLLLLLLLLLLLLLLL";
+  const char storyLine37[] PROGMEM = "HOPES FOLLOWS";
+  const char storyLine38[] PROGMEM = "YOU MOVE FORWARD";
+  const char storyLine39[] PROGMEM = "...";
+  const char storyLine40[] PROGMEM = "FASTER THAN EVER";
+  const char storyLine41[] PROGMEM = "YOU ARE TIRED";
+  const char storyLine42[] PROGMEM = "COLD...";
+  const char storyLine43[] PROGMEM = "RETREAT FOR NOW";
+  const char storyLine44[] PROGMEM = "";
+  const char storyLine45[] PROGMEM = "HOPE FOLLOWS";
+  const char storyLine46[] PROGMEM = "METAL?";
+  const char storyLine47[] PROGMEM = "BE CAREFUL...";
+  const char storyLine48[] PROGMEM = "";
+  const char storyLine49[] PROGMEM = "HOPES FOLLOWS";
+  const char storyLine50[] PROGMEM = "YOU MUST CONTINUE";
+  const char storyLine51[] PROGMEM = "...";
+  const char storyLine52[] PROGMEM = "YOU FEEL COLD";
 
   const char *const storyLines[] PROGMEM = {
       storyLine0,
@@ -175,5 +179,9 @@ namespace Storylines
       storyLine45,
       storyLine46,
       storyLine47,
-      storyLine48};
+      storyLine48,
+      storyLine49,
+      storyLine50,
+      storyLine51,
+      storyLine52};
 }

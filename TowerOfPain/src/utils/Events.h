@@ -3,10 +3,10 @@
 struct Events
 {
   Utils *utils;
+  size_t menu;
   size_t option;
   size_t battleEnemyLife;
   size_t currentLevel;
-  bool use;
 
   void init(Utils *utils)
   {
@@ -15,10 +15,10 @@ struct Events
 
   void refresh(size_t level)
   {
+    menu = 0;
     option = 0;
     currentLevel = level;
     battleEnemyLife = getRandomLevel();
-    use = false;
   }
 
   bool action(Stats *stats, Text *text)
@@ -39,20 +39,53 @@ struct Events
       }
     }
 
-    if (utils->arduboy->justPressed(A_BUTTON) || utils->arduboy->justPressed(B_BUTTON) || utils->arduboy->justPressed(LEFT_BUTTON) || utils->arduboy->justPressed(RIGHT_BUTTON))
+    if (utils->arduboy->justPressed(B_BUTTON) || utils->arduboy->justPressed(RIGHT_BUTTON))
     {
       if (option == 3)
       {
-        if (!escapeAttempt(text, stats))
+        switch (menu)
         {
-          utils->okBeep();
-          return false;
+        case 0:
+          if (escapeAttempt(text, stats))
+          {
+            utils->koBeep();
+          }
+          else
+          {
+            utils->okBeep();
+            return false;
+          }
+          break;
+        default:
+          menu--;
+          option = 2;
+          break;
         }
       }
       else if (option == 2)
       {
-        if (use)
+        switch (menu)
         {
+        case 2:
+          if (useExplainAttempt(text, stats))
+          {
+            utils->koBeep();
+          }
+          else
+          {
+            utils->okBeep();
+          }
+          break;
+        default:
+          menu++;
+          break;
+        }
+      }
+      else if (option == 1)
+      {
+        switch (menu)
+        {
+        case 0:
           if (useSpareAttempt(text, stats))
           {
             utils->koBeep();
@@ -62,16 +95,8 @@ struct Events
             utils->okBeep();
             return false;
           }
-        }
-        else
-        {
-          use = true;
-        }
-      }
-      else if (option == 1)
-      {
-        if (use)
-        {
+          break;
+        case 1:
           if (useRelicAttempt(text, stats))
           {
             utils->koBeep();
@@ -80,17 +105,28 @@ struct Events
           {
             utils->okBeep();
           }
-        }
-        else
-        {
-          defendAttempt(text, stats);
-          utils->okBeep();
+          break;
+        default:
+          if (useApproachAttempt(text, stats))
+          {
+            utils->koBeep();
+          }
+          else
+          {
+            utils->okBeep();
+          }
+          break;
         }
       }
       else if (option == 0)
       {
-        if (use)
+        switch (menu)
         {
+        case 0:
+          attackAttempt(text, stats);
+          utils->okBeep();
+          break;
+        case 1:
           if (usePotionAttempt(text, stats))
           {
             utils->koBeep();
@@ -99,12 +135,25 @@ struct Events
           {
             utils->okBeep();
           }
-        }
-        else
-        {
-          attackAttempt(text, stats);
+          break;
+        default:
+          if (useThreatAttempt(text, stats))
+          {
+            utils->koBeep();
+          }
+          else
+          {
+            utils->okBeep();
+          }
+          break;
         }
       }
+    }
+
+    if (menu > 0 && (utils->arduboy->justPressed(A_BUTTON) || utils->arduboy->justPressed(LEFT_BUTTON)))
+    {
+      menu--;
+      option = 2;
     }
 
     if (battleEnemyLife < 1)
@@ -114,6 +163,21 @@ struct Events
       return false;
     }
 
+    return true;
+  }
+
+  bool useThreatAttempt(Text *text, Stats *stats)
+  {
+    return true;
+  }
+
+  bool useApproachAttempt(Text *text, Stats *stats)
+  {
+    return true;
+  }
+
+  bool useExplainAttempt(Text *text, Stats *stats)
+  {
     return true;
   }
 
@@ -198,18 +262,6 @@ struct Events
     hitEnemy(stats->getSTR() + additionalDamage);
   }
 
-  void defendAttempt(Text *text, Stats *stats)
-  {
-    if (rand() % 2 == 0)
-    {
-      text->printLog(20);
-    }
-    else
-    {
-      text->printLog(21);
-    }
-  }
-
   bool usePotionAttempt(Text *text, Stats *stats)
   {
     if (stats->discardItem(8))
@@ -221,7 +273,7 @@ struct Events
       }
       else
       {
-        switch (rand() % 5)
+        switch (rand() % 4)
         {
         case 0:
           stats->incHP(2);
@@ -253,13 +305,6 @@ struct Events
 
   bool escapeAttempt(Text *text, Stats *stats)
   {
-    if (use)
-    {
-      option = 2;
-      use = false;
-      return true;
-    }
-
     if (spareHardCondition())
     {
       text->printLog(36);
@@ -267,7 +312,7 @@ struct Events
       return true;
     }
 
-    if (rand() % 4 > 0)
+    if (rand() % 5 > 0)
     {
       text->printLog(14);
       stats->hit();
@@ -333,21 +378,29 @@ struct Events
     text->printValue(7, 45, battleEnemyLife);
     text->printCommonLine(24, 45, 1);
 
-    if (use)
+    switch (menu)
     {
+    case 0:
+      text->printCommonLine(40, 8, 8);
+      text->printCommonLine(48, 20, 9);
+      text->printCommonLine(48, 28, 14);
+      text->printCommonLine(48, 36, 11);
+      text->printCommonLine(48, 44, 16);
+      break;
+    case 1:
       text->printCommonLine(40, 8, 11);
       text->printCommonLine(48, 20, 7);
       text->printCommonLine(48, 28, 13);
-      text->printCommonLine(48, 36, 14);
+      text->printCommonLine(48, 36, 10);
       text->printCommonLine(48, 44, 15);
-    }
-    else
-    {
-      text->printCommonLine(40, 8, 8);
-      text->printCommonLine(48, 20, 9);
-      text->printCommonLine(48, 28, 10);
-      text->printCommonLine(48, 36, 11);
-      text->printCommonLine(48, 44, 16);
+      break;
+    default:
+      text->printCommonLine(40, 8, 10);
+      text->printCommonLine(48, 20, 30);
+      text->printCommonLine(48, 28, 31);
+      text->printCommonLine(48, 36, 32);
+      text->printCommonLine(48, 44, 15);
+      break;
     }
 
     switch (option)

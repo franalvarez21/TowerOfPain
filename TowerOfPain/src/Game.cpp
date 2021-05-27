@@ -51,13 +51,6 @@ void Game::loop(void)
     return;
   }
 
-  if (dungeon.level == 99)
-  {
-    dungeon.level = 100;
-    cutscene.number = 2;
-    onStage = 4;
-  }
-
   arduboy.pollButtons();
   arduboy.clear();
 
@@ -93,10 +86,10 @@ void Game::mainMenuTick(void)
   menu.eventDisplay(&text);
   if (!menu.action())
   {
-    utils.music = false;
     restart();
+    utils.music = false;
     text.printLog(1);
-    cutscene.number = 0;
+    cutscene.start(0);
     onStage = 4;
   }
 }
@@ -138,7 +131,17 @@ void Game::mainGameTick(void)
       onStage = 3;
     }
 
-    dungeon.display();
+    if (dungeon.level == 99)
+    {
+      dungeon.level = 100;
+      cutscene.start(2);
+      onStage = 4;
+    }
+    else
+    {
+      dungeon.display();
+    }
+
     action = 0;
   }
 
@@ -161,7 +164,7 @@ void Game::mainGameBattleTick(void)
     utils.koBeep();
     restart();
     text.printLog(1);
-    cutscene.number = 1;
+    cutscene.start(1);
     onStage = 4;
   }
 
@@ -174,7 +177,7 @@ void Game::mainGameBattleTick(void)
 void Game::mainCutsceneTick(void)
 {
   cutscene.eventDisplay(&stats, &text);
-  if (arduboy.justPressed(A_BUTTON) || arduboy.justPressed(B_BUTTON) || arduboy.justPressed(LEFT_BUTTON) || arduboy.justPressed(RIGHT_BUTTON))
+  if (cutscene.enabled() && (arduboy.justPressed(A_BUTTON) || arduboy.justPressed(B_BUTTON) || arduboy.justPressed(LEFT_BUTTON) || arduboy.justPressed(RIGHT_BUTTON)))
   {
     onStage = 2;
   }

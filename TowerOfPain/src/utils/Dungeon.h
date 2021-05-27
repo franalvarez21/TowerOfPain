@@ -11,7 +11,7 @@ struct Dungeon
   void init(Utils *utils)
   {
     this->utils = utils;
-    level = 0;
+    level = 98;
     reset();
   }
 
