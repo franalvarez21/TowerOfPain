@@ -6,11 +6,16 @@ class PauseMenu : public Menu
 public:
   PauseMenu() : Menu(2){};
 
+  void refresh()
+  {
+    option = 0;
+  }
+
   size_t action()
   {
     upDownMovement();
 
-    if (utils->arduboy->justPressed(B_BUTTON) || utils->arduboy->justPressed(RIGHT_BUTTON))
+    if (okMovement())
     {
       if (option == 2)
       {
@@ -37,7 +42,7 @@ public:
       }
     }
 
-    if (utils->arduboy->justPressed(A_BUTTON) || utils->arduboy->justPressed(LEFT_BUTTON))
+    if (koMovement())
     {
       return 1;
     }

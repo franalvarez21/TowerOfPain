@@ -23,7 +23,7 @@ public:
   {
     upDownMovement();
 
-    if (utils->arduboy->justPressed(B_BUTTON) || utils->arduboy->justPressed(RIGHT_BUTTON))
+    if (okMovement())
     {
       if (option == 3)
       {
@@ -144,7 +144,7 @@ public:
       }
     }
 
-    if (menu > 0 && (utils->arduboy->justPressed(A_BUTTON) || utils->arduboy->justPressed(LEFT_BUTTON)))
+    if (menu > 0 && koMovement())
     {
       menu--;
     }

@@ -43,6 +43,16 @@ public:
     }
   }
 
+  bool okMovement()
+  {
+    return utils->arduboy->justPressed(B_BUTTON) || utils->arduboy->justPressed(RIGHT_BUTTON);
+  }
+
+  bool koMovement()
+  {
+    return utils->arduboy->justPressed(A_BUTTON) || utils->arduboy->justPressed(LEFT_BUTTON);
+  }
+
   void displayMenuCursor(size_t x, size_t y)
   {
     text->printCommonLine(x, y + (SQUARE_SIZE * option), 25);

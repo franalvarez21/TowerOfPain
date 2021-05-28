@@ -35,11 +35,11 @@ void Game::setup(void)
 
   utils.init(&arduboy, &sound);
   text.init(&tinyfont);
+  cutscene.init(&utils);
+  dungeon.init(&utils);
   titleMenu.init(&utils, &text, &stats);
   battleMenu.init(&utils, &text, &stats);
   pauseMenu.init(&utils, &text, &stats);
-  cutscene.init(&utils);
-  dungeon.init(&utils);
   restart();
 }
 
@@ -125,6 +125,7 @@ void Game::mainGameTick(void)
 {
   if (arduboy.justPressed(A_BUTTON))
   {
+    pauseMenu.refresh();
     onStage = 1;
   }
   else

@@ -15,7 +15,7 @@ public:
     {
       upDownMovement();
 
-      if (utils->arduboy->justPressed(B_BUTTON) || utils->arduboy->justPressed(RIGHT_BUTTON))
+      if (okMovement())
       {
         if (option == 2)
         {
@@ -45,7 +45,7 @@ public:
     }
     else
     {
-      if (utils->arduboy->justPressed(B_BUTTON) || utils->arduboy->justPressed(A_BUTTON) || utils->arduboy->justPressed(LEFT_BUTTON) || utils->arduboy->justPressed(RIGHT_BUTTON) || utils->arduboy->justPressed(UP_BUTTON) || utils->arduboy->justPressed(DOWN_BUTTON))
+      if (okMovement() || koMovement())
       {
         about = false;
       }

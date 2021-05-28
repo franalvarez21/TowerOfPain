@@ -14,7 +14,6 @@ struct Cutscene
   void start(size_t number)
   {
     this->number = number;
-    number = 0;
     timer = 30;
   }
 
