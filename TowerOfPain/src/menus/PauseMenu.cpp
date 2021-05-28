@@ -1,35 +1,14 @@
-#pragma once
 
-struct Pause
+#include "Menu.cpp"
+
+class PauseMenu : public Menu
 {
-  Utils *utils;
-  size_t option;
-  bool use;
-
-  void init(Utils *utils)
-  {
-    this->utils = utils;
-    option = 2;
-    use = false;
-  }
+public:
+  PauseMenu() : Menu(2){};
 
   size_t action()
   {
-    if (utils->arduboy->justPressed(UP_BUTTON))
-    {
-      if (option > 0)
-      {
-        option--;
-      }
-    }
-
-    if (utils->arduboy->justPressed(DOWN_BUTTON))
-    {
-      if (option < 2)
-      {
-        option++;
-      }
-    }
+    upDownMovement();
 
     if (utils->arduboy->justPressed(B_BUTTON) || utils->arduboy->justPressed(RIGHT_BUTTON))
     {
@@ -66,7 +45,7 @@ struct Pause
     return 0;
   }
 
-  void eventDisplay(Stats *stats, Text *text)
+  void eventDisplay()
   {
     if (utils->cycle <= 5)
     {
@@ -99,17 +78,6 @@ struct Pause
     text->printCommonLine(48, 28, 22);
     text->printCommonLine(48, 36, 15);
 
-    switch (option)
-    {
-    case 0:
-      text->printCommonLine(40, 20, 25);
-      break;
-    case 1:
-      text->printCommonLine(40, 28, 25);
-      break;
-    case 2:
-      text->printCommonLine(40, 36, 25);
-      break;
-    }
+    displayMenuCursor(40, 20);
   }
 };

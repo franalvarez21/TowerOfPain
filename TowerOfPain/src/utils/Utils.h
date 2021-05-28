@@ -51,6 +51,6 @@ struct Utils
 
   void okBeep()
   {
-    soundtones->tone(800, 50);
+    soundtones->tone(700, 50);
   }
 };

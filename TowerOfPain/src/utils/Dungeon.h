@@ -7,11 +7,18 @@ struct Dungeon
   size_t playerXPosition;
   size_t playerYPosition;
   size_t level;
+  size_t speedTick;
+  bool justPressedLock;
 
   void init(Utils *utils)
   {
     this->utils = utils;
-    level = 98;
+  }
+
+  void refresh()
+  {
+    level = 0;
+    speedTick = 0;
     reset();
   }
 
@@ -19,7 +26,7 @@ struct Dungeon
   {
     size_t value = 0;
 
-    if (utils->arduboy->justPressed(RIGHT_BUTTON))
+    if (pressed(utils, RIGHT_BUTTON))
     {
       value = map[playerXPosition + 1][playerYPosition];
       if (value == 1)
@@ -37,7 +44,7 @@ struct Dungeon
       }
     }
 
-    if (utils->arduboy->justPressed(LEFT_BUTTON))
+    if (pressed(utils, LEFT_BUTTON))
     {
       value = map[playerXPosition - 1][playerYPosition];
       if (value == 1)
@@ -55,7 +62,7 @@ struct Dungeon
       }
     }
 
-    if (utils->arduboy->justPressed(DOWN_BUTTON))
+    if (pressed(utils, DOWN_BUTTON))
     {
       value = map[playerXPosition][playerYPosition + 1];
       if (value == 1)
@@ -73,7 +80,7 @@ struct Dungeon
       }
     }
 
-    if (utils->arduboy->justPressed(UP_BUTTON))
+    if (pressed(utils, UP_BUTTON))
     {
       value = map[playerXPosition][playerYPosition - 1];
       if (value == 1)
@@ -92,6 +99,31 @@ struct Dungeon
     }
 
     return 0;
+  }
+
+  bool pressed(Utils *utils, uint8_t button)
+  {
+    if (justPressedLock)
+    {
+      if (utils->arduboy->justPressed(button))
+      {
+        justPressedLock = false;
+        return true;
+      }
+    }
+    else
+    {
+      if (utils->arduboy->justPressed(button) || (utils->arduboy->pressed(button) && speedTick == 0))
+      {
+        speedTick = 2;
+        return true;
+      }
+      else if (utils->arduboy->pressed(button) && speedTick > 0)
+      {
+        speedTick--;
+      }
+    }
+    return false;
   }
 
   bool moveLeft(size_t key)
@@ -284,6 +316,8 @@ struct Dungeon
 
   void reset()
   {
+    justPressedLock = true;
+
     clearMap();
     clearPlayerPosition();
 

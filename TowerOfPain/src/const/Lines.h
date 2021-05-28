@@ -29,9 +29,9 @@ namespace Commonlines
   const char commonLine24[] PROGMEM = "V0.1 D.";
   const char commonLine25[] PROGMEM = "#";
   const char commonLine26[] PROGMEM = "";
-  const char commonLine27[] PROGMEM = "";
+  const char commonLine27[] PROGMEM = "USE";
   const char commonLine28[] PROGMEM = "CONTINUE";
-  const char commonLine29[] PROGMEM = "";
+  const char commonLine29[] PROGMEM = "REST";
   const char commonLine30[] PROGMEM = "THREAT";
   const char commonLine31[] PROGMEM = "APPROACH";
   const char commonLine32[] PROGMEM = "EXPLAIN";
@@ -114,21 +114,62 @@ namespace Storylines
   const char storyLine35[] PROGMEM = "MADE FOR FUN ONLY";
   const char storyLine36[] PROGMEM = "TOO STRONG, CAN'T ESCAPE";
   const char storyLine37[] PROGMEM = "HOPES FOLLOWS";
-  const char storyLine38[] PROGMEM = "YOU MOVE FORWARD";
-  const char storyLine39[] PROGMEM = "...";
-  const char storyLine40[] PROGMEM = "FASTER THAN EVER";
+  const char storyLine38[] PROGMEM = "...";
+  const char storyLine39[] PROGMEM = "FASTER THAN EVER";
+  const char storyLine40[] PROGMEM = "...";
   const char storyLine41[] PROGMEM = "YOU ARE TIRED";
-  const char storyLine42[] PROGMEM = "COLD...";
+  const char storyLine42[] PROGMEM = "COLD";
   const char storyLine43[] PROGMEM = "RETREAT FOR NOW";
-  const char storyLine44[] PROGMEM = "";
+  const char storyLine44[] PROGMEM = "...";
   const char storyLine45[] PROGMEM = "HOPE FOLLOWS";
   const char storyLine46[] PROGMEM = "METAL?";
-  const char storyLine47[] PROGMEM = "BE CAREFUL...";
-  const char storyLine48[] PROGMEM = "";
+  const char storyLine47[] PROGMEM = "BE CAREFUL";
+  const char storyLine48[] PROGMEM = "...";
   const char storyLine49[] PROGMEM = "HOPES FOLLOWS";
-  const char storyLine50[] PROGMEM = "YOU MUST CONTINUE";
-  const char storyLine51[] PROGMEM = "...";
-  const char storyLine52[] PROGMEM = "YOU FEEL COLD";
+  const char storyLine50[] PROGMEM = "...";
+  const char storyLine51[] PROGMEM = "YOU FEEL COLD";
+  const char storyLine52[] PROGMEM = "";
+  const char storyLine53[] PROGMEM = "";
+  const char storyLine54[] PROGMEM = "";
+  const char storyLine55[] PROGMEM = "";
+  const char storyLine56[] PROGMEM = "";
+  const char storyLine57[] PROGMEM = "";
+  const char storyLine58[] PROGMEM = "";
+  const char storyLine59[] PROGMEM = "";
+  const char storyLine60[] PROGMEM = "";
+  const char storyLine61[] PROGMEM = "";
+  const char storyLine62[] PROGMEM = "";
+  const char storyLine63[] PROGMEM = "";
+  const char storyLine64[] PROGMEM = "";
+  const char storyLine65[] PROGMEM = "";
+  const char storyLine66[] PROGMEM = "";
+  const char storyLine67[] PROGMEM = "";
+  const char storyLine68[] PROGMEM = "";
+  const char storyLine69[] PROGMEM = "CAN'T TALK WITH SLIMES";
+  const char storyLine70[] PROGMEM = "YOU REFUSE";             // THREAT
+  const char storyLine71[] PROGMEM = "ATTACKS, HP DOWN";
+  const char storyLine72[] PROGMEM = "";
+  const char storyLine73[] PROGMEM = "";
+  const char storyLine74[] PROGMEM = "";
+  const char storyLine75[] PROGMEM = "";
+  const char storyLine76[] PROGMEM = "";
+  const char storyLine77[] PROGMEM = "";
+  const char storyLine78[] PROGMEM = "NOT BRAVE ENOUGH"; // APPROACH
+  const char storyLine79[] PROGMEM = "ATTACKS, STR DOWN";
+  const char storyLine80[] PROGMEM = "";
+  const char storyLine81[] PROGMEM = "";
+  const char storyLine82[] PROGMEM = "";
+  const char storyLine83[] PROGMEM = "";
+  const char storyLine84[] PROGMEM = "";
+  const char storyLine85[] PROGMEM = "";
+  const char storyLine86[] PROGMEM = "WILL NOT LISTEN"; // EXPLAIN
+  const char storyLine87[] PROGMEM = "ATTACKS, DEF DOWN";
+  const char storyLine88[] PROGMEM = "";
+  const char storyLine89[] PROGMEM = "";
+  const char storyLine90[] PROGMEM = "";
+  const char storyLine91[] PROGMEM = "";
+  const char storyLine92[] PROGMEM = "";
+  const char storyLine93[] PROGMEM = "";
 
   const char *const storyLines[] PROGMEM = {
       storyLine0,
@@ -183,5 +224,46 @@ namespace Storylines
       storyLine49,
       storyLine50,
       storyLine51,
-      storyLine52};
+      storyLine52,
+      storyLine53,
+      storyLine54,
+      storyLine55,
+      storyLine56,
+      storyLine57,
+      storyLine58,
+      storyLine59,
+      storyLine60,
+      storyLine61,
+      storyLine62,
+      storyLine63,
+      storyLine64,
+      storyLine65,
+      storyLine66,
+      storyLine67,
+      storyLine68,
+      storyLine69,
+      storyLine70,
+      storyLine71,
+      storyLine72,
+      storyLine73,
+      storyLine74,
+      storyLine75,
+      storyLine76,
+      storyLine77,
+      storyLine78,
+      storyLine79,
+      storyLine80,
+      storyLine81,
+      storyLine82,
+      storyLine83,
+      storyLine84,
+      storyLine85,
+      storyLine86,
+      storyLine87,
+      storyLine88,
+      storyLine89,
+      storyLine90,
+      storyLine91,
+      storyLine92,
+      storyLine93};
 }

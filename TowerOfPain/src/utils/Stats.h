@@ -131,7 +131,7 @@ struct Stats
 
     for (uint8_t x = 0; x < ITEM_AMOUNT; x++)
     {
-      if ((slots[x].type == item) && slots[x].amount < 8 && !found)
+      if ((slots[x].type == item) && slots[x].amount < 9 && !found)
       {
         slots[x].appendItem(item);
         found = true;
@@ -142,7 +142,7 @@ struct Stats
     {
       for (uint8_t x = 0; x < ITEM_AMOUNT; x++)
       {
-        if ((slots[x].type == 0 || slots[x].type == item) && slots[x].amount < 8)
+        if ((slots[x].type == 0 || slots[x].type == item) && slots[x].amount < 9)
         {
           slots[x].appendItem(item);
           return true;

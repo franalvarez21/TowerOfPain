@@ -1,43 +1,27 @@
-#pragma once
 
-struct Events
+#include "Menu.cpp"
+
+class BattleMenu : public Menu
 {
-  Utils *utils;
+protected:
   size_t menu;
-  size_t option;
   size_t battleEnemyLife;
   size_t currentLevel;
 
-  void init(Utils *utils)
-  {
-    this->utils = utils;
-  }
+public:
+  BattleMenu() : Menu(3){};
 
   void refresh(size_t level)
   {
     menu = 0;
-    option = 2;
+    option = 0;
     currentLevel = level;
     battleEnemyLife = getRandomLevel();
   }
 
-  bool action(Stats *stats, Text *text)
+  bool action()
   {
-    if (utils->arduboy->justPressed(UP_BUTTON))
-    {
-      if (option > 0)
-      {
-        option--;
-      }
-    }
-
-    if (utils->arduboy->justPressed(DOWN_BUTTON))
-    {
-      if (option < 3)
-      {
-        option++;
-      }
-    }
+    upDownMovement();
 
     if (utils->arduboy->justPressed(B_BUTTON) || utils->arduboy->justPressed(RIGHT_BUTTON))
     {
@@ -46,7 +30,7 @@ struct Events
         switch (menu)
         {
         case 0:
-          if (escapeAttempt(text, stats))
+          if (escapeAttempt())
           {
             utils->koBeep();
           }
@@ -58,7 +42,6 @@ struct Events
           break;
         default:
           menu--;
-          option = 2;
           break;
         }
       }
@@ -67,13 +50,24 @@ struct Events
         switch (menu)
         {
         case 2:
-          if (useExplainAttempt(text, stats))
+          if (useExplainAttempt())
           {
             utils->koBeep();
           }
           else
           {
             utils->okBeep();
+          }
+          break;
+        case 1:
+          if (currentLevel < 50)
+          {
+            utils->koBeep();
+            text->printLog(69);
+          }
+          else
+          {
+            menu++;
           }
           break;
         default:
@@ -86,7 +80,7 @@ struct Events
         switch (menu)
         {
         case 0:
-          if (useSpareAttempt(text, stats))
+          if (useSpareAttempt())
           {
             utils->koBeep();
           }
@@ -97,7 +91,7 @@ struct Events
           }
           break;
         case 1:
-          if (useRelicAttempt(text, stats))
+          if (useRelicAttempt())
           {
             utils->koBeep();
           }
@@ -107,7 +101,7 @@ struct Events
           }
           break;
         default:
-          if (useApproachAttempt(text, stats))
+          if (useApproachAttempt())
           {
             utils->koBeep();
           }
@@ -123,11 +117,11 @@ struct Events
         switch (menu)
         {
         case 0:
-          attackAttempt(text, stats);
+          attackAttempt();
           utils->okBeep();
           break;
         case 1:
-          if (usePotionAttempt(text, stats))
+          if (usePotionAttempt())
           {
             utils->koBeep();
           }
@@ -137,7 +131,7 @@ struct Events
           }
           break;
         default:
-          if (useThreatAttempt(text, stats))
+          if (useThreatAttempt())
           {
             utils->koBeep();
           }
@@ -153,7 +147,6 @@ struct Events
     if (menu > 0 && (utils->arduboy->justPressed(A_BUTTON) || utils->arduboy->justPressed(LEFT_BUTTON)))
     {
       menu--;
-      option = 2;
     }
 
     if (battleEnemyLife < 1)
@@ -166,22 +159,22 @@ struct Events
     return true;
   }
 
-  bool useThreatAttempt(Text *text, Stats *stats)
+  bool useThreatAttempt()
   {
     return true;
   }
 
-  bool useApproachAttempt(Text *text, Stats *stats)
+  bool useApproachAttempt()
   {
     return true;
   }
 
-  bool useExplainAttempt(Text *text, Stats *stats)
+  bool useExplainAttempt()
   {
     return true;
   }
 
-  bool useSpareAttempt(Text *text, Stats *stats)
+  bool useSpareAttempt()
   {
     if (spareHardCondition())
     {
@@ -215,7 +208,7 @@ struct Events
     return true;
   }
 
-  bool useRelicAttempt(Text *text, Stats *stats)
+  bool useRelicAttempt()
   {
     if (stats->discardItem(7))
     {
@@ -240,7 +233,7 @@ struct Events
     }
   }
 
-  void attackAttempt(Text *text, Stats *stats)
+  void attackAttempt()
   {
     uint8_t additionalDamage = 0;
 
@@ -262,7 +255,7 @@ struct Events
     hitEnemy(stats->getSTR() + additionalDamage);
   }
 
-  bool usePotionAttempt(Text *text, Stats *stats)
+  bool usePotionAttempt()
   {
     if (stats->discardItem(8))
     {
@@ -303,7 +296,7 @@ struct Events
     }
   }
 
-  bool escapeAttempt(Text *text, Stats *stats)
+  bool escapeAttempt()
   {
     if (spareHardCondition())
     {
@@ -324,7 +317,7 @@ struct Events
     return false;
   }
 
-  void eventDisplay(Text *text)
+  void eventDisplay()
   {
 
     if (currentLevel < 50)
@@ -403,21 +396,7 @@ struct Events
       break;
     }
 
-    switch (option)
-    {
-    case 0:
-      text->printCommonLine(40, 20, 25);
-      break;
-    case 1:
-      text->printCommonLine(40, 28, 25);
-      break;
-    case 2:
-      text->printCommonLine(40, 36, 25);
-      break;
-    case 3:
-      text->printCommonLine(40, 44, 25);
-      break;
-    }
+    displayMenuCursor(40, 20);
   }
 
   size_t getRandomLevel()

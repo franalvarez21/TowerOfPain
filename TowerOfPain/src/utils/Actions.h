@@ -2,7 +2,7 @@
 
 struct Actions
 {
-  bool evaluateAction(Events *events, Text *text, Stats *stats, Dungeon *dungeon, size_t action)
+  bool evaluateAction(Text *text, Stats *stats, Dungeon *dungeon, size_t action)
   {
     switch (action)
     {

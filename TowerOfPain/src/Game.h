@@ -24,9 +24,7 @@
 #include "utils/Utils.h"
 #include "utils/Stats.h"
 #include "utils/Text.h"
-#include "utils/Menu.h"
-#include "utils/Pause.h"
-#include "utils/Events.h"
+
 #include "utils/Dungeon.h"
 #include "utils/Actions.h"
 #include "utils/Cutscene.h"

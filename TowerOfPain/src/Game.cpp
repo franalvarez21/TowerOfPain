@@ -1,6 +1,10 @@
 
 #include "Game.h"
 
+#include "menus/BattleMenu.cpp"
+#include "menus/TitleMenu.cpp"
+#include "menus/PauseMenu.cpp"
+
 Arduboy2 arduboy;
 ArduboyTones sound(arduboy.audio.enabled);
 Tinyfont tinyfont = Tinyfont(arduboy.sBuffer, Arduboy2::width(), Arduboy2::height());
@@ -13,10 +17,11 @@ Utils utils;
 Stats stats;
 Text text;
 Dungeon dungeon;
-Events events;
-Menu menu;
-Pause pause;
 Cutscene cutscene;
+
+BattleMenu battleMenu;
+TitleMenu titleMenu;
+PauseMenu pauseMenu;
 
 Actions actions;
 
@@ -30,16 +35,17 @@ void Game::setup(void)
 
   utils.init(&arduboy, &sound);
   text.init(&tinyfont);
-  menu.init(&utils);
-  events.init(&utils);
+  titleMenu.init(&utils, &text, &stats);
+  battleMenu.init(&utils, &text, &stats);
+  pauseMenu.init(&utils, &text, &stats);
   cutscene.init(&utils);
+  dungeon.init(&utils);
   restart();
 }
 
 void Game::restart(void)
 {
-  dungeon.init(&utils);
-  pause.init(&utils);
+  dungeon.refresh();
   stats.init();
   action = 0;
 }
@@ -83,8 +89,8 @@ void Game::loop(void)
 void Game::mainMenuTick(void)
 {
   utils.music = true;
-  menu.eventDisplay(&text);
-  if (!menu.action())
+  titleMenu.eventDisplay();
+  if (!titleMenu.action())
   {
     restart();
     utils.music = false;
@@ -96,8 +102,8 @@ void Game::mainMenuTick(void)
 
 void Game::mainPauseTick(void)
 {
-  pause.eventDisplay(&stats, &text);
-  size_t option = pause.action();
+  pauseMenu.eventDisplay();
+  size_t option = pauseMenu.action();
 
   switch (option)
   {
@@ -117,7 +123,7 @@ void Game::mainPauseTick(void)
 
 void Game::mainGameTick(void)
 {
-  if (arduboy.justPressed(A_BUTTON) || arduboy.justPressed(B_BUTTON))
+  if (arduboy.justPressed(A_BUTTON))
   {
     onStage = 1;
   }
@@ -125,9 +131,9 @@ void Game::mainGameTick(void)
   {
     action = dungeon.movePlayer();
 
-    if (action > 0 && actions.evaluateAction(&events, &text, &stats, &dungeon, action))
+    if (action > 0 && actions.evaluateAction(&text, &stats, &dungeon, action))
     {
-      events.refresh(dungeon.level);
+      battleMenu.refresh(dungeon.level);
       onStage = 3;
     }
 
@@ -153,8 +159,8 @@ void Game::mainGameTick(void)
 
 void Game::mainGameBattleTick(void)
 {
-  events.eventDisplay(&text);
-  if (!events.action(&stats, &text))
+  battleMenu.eventDisplay();
+  if (!battleMenu.action())
   {
     onStage = 2;
   }
@@ -167,9 +173,11 @@ void Game::mainGameBattleTick(void)
     cutscene.start(1);
     onStage = 4;
   }
-
-  text.print(dungeon.level);
-  text.printStats(&stats, &utils);
+  else
+  {
+    text.print(dungeon.level);
+    text.printStats(&stats, &utils);
+  }
 
   dungeon.canvas();
 }
