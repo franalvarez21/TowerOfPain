@@ -5,17 +5,17 @@
 class Dungeon
 {
 public:
-  size_t level;
-  size_t lastCutscene;
+  uint8_t level;
+  uint8_t lastCutscene;
   Cutscene cutscene;
   Monster monster;
 
 protected:
   Utils *utils;
-  size_t map[SQUARE_AMOUNT_WEIGHT][SQUARE_AMOUNT_HEIGHT];
-  size_t playerXPosition;
-  size_t playerYPosition;
-  size_t speedTick;
+  uint8_t map[SQUARE_AMOUNT_WEIGHT][SQUARE_AMOUNT_HEIGHT];
+  uint8_t playerXPosition;
+  uint8_t playerYPosition;
+  uint8_t speedTick;
   bool justPressedLock;
 
 public:
@@ -46,9 +46,9 @@ public:
     return lastCutscene == level;
   }
 
-  size_t movePlayer()
+  uint8_t movePlayer()
   {
-    size_t value = 0;
+    uint8_t value = 0;
 
     if (pressed(utils, RIGHT_BUTTON))
     {
@@ -73,7 +73,7 @@ public:
     return value;
   }
 
-  bool moveLeft(size_t key)
+  bool moveLeft(uint8_t key)
   {
     if (playerXPosition - 1 > 0)
     {
@@ -86,7 +86,7 @@ public:
     return false;
   }
 
-  bool moveRight(size_t key)
+  bool moveRight(uint8_t key)
   {
     if (playerXPosition + 1 < SQUARE_AMOUNT_WEIGHT - 1)
     {
@@ -99,7 +99,7 @@ public:
     return false;
   }
 
-  bool moveTop(size_t key)
+  bool moveTop(uint8_t key)
   {
     if (playerYPosition - 1 > 0)
     {
@@ -112,7 +112,7 @@ public:
     return false;
   }
 
-  bool moveDown(size_t key)
+  bool moveDown(uint8_t key)
   {
     if (playerYPosition + 1 < SQUARE_AMOUNT_HEIGHT - 1)
     {
@@ -125,9 +125,9 @@ public:
     return false;
   }
 
-  bool moveWalker(size_t key)
+  bool moveWalker(uint8_t key)
   {
-    size_t can_continue = 10;
+    uint8_t can_continue = 10;
     bool move = false;
 
     while (!move && can_continue > 0)
@@ -157,15 +157,15 @@ public:
     level++;
   }
 
-  size_t environmentChange()
+  uint8_t environmentChange()
   {
-    size_t event = 0;
+    uint8_t event = 0;
 
     enemyChange();
 
-    for (size_t i = 1; i < SQUARE_AMOUNT_WEIGHT - 1; i++)
+    for (uint8_t i = 1; i < SQUARE_AMOUNT_WEIGHT - 1; i++)
     {
-      for (size_t j = 1; j < SQUARE_AMOUNT_HEIGHT - 1; j++)
+      for (uint8_t j = 1; j < SQUARE_AMOUNT_HEIGHT - 1; j++)
       {
         if (map[i][j] > 9)
         {
@@ -199,20 +199,20 @@ public:
     unlockPlayerBorders();
   }
 
-  void canvas(size_t weight = SQUARE_AMOUNT_WEIGHT, size_t height = SQUARE_AMOUNT_HEIGHT)
+  void canvas(uint8_t weight = SQUARE_AMOUNT_WEIGHT, uint8_t height = SQUARE_AMOUNT_HEIGHT)
   {
     utils->arduboy->drawBitmap(0, 0, Map::map_top_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
     utils->arduboy->drawBitmap(SQUARE_SIZE * (weight - 2), 0, Map::map_top_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
     utils->arduboy->drawBitmap(0, SQUARE_SIZE * (height - 2), Map::map_bottom_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
     utils->arduboy->drawBitmap(SQUARE_SIZE * (weight - 2), SQUARE_SIZE * (height - 2), Map::map_bottom_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
 
-    for (size_t x = 1; x < weight - 2; x++)
+    for (uint8_t x = 1; x < weight - 2; x++)
     {
       utils->arduboy->drawBitmap(x * SQUARE_SIZE, 0, Map::map_top, SQUARE_SIZE, SQUARE_SIZE, WHITE);
       utils->arduboy->drawBitmap(x * SQUARE_SIZE, SQUARE_SIZE * (height - 2), Map::map_bottom, SQUARE_SIZE, SQUARE_SIZE, WHITE);
     }
 
-    for (size_t y = 1; y < height - 2; y++)
+    for (uint8_t y = 1; y < height - 2; y++)
     {
       utils->arduboy->drawBitmap(0, y * SQUARE_SIZE, Map::map_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
       utils->arduboy->drawBitmap(SQUARE_SIZE * (weight - 2), y * SQUARE_SIZE, Map::map_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
@@ -227,9 +227,9 @@ public:
   void display()
   {
     displayPlayer();
-    for (size_t x = 1; x < SQUARE_AMOUNT_WEIGHT - 1; x++)
+    for (uint8_t x = 1; x < SQUARE_AMOUNT_WEIGHT - 1; x++)
     {
-      for (size_t y = 1; y < SQUARE_AMOUNT_HEIGHT - 1; y++)
+      for (uint8_t y = 1; y < SQUARE_AMOUNT_HEIGHT - 1; y++)
       {
         displayElements(x, y);
         displayMaze(x, y);
@@ -263,7 +263,7 @@ private:
     return false;
   }
 
-  void moveEnemy(size_t x, size_t y, size_t i, size_t j)
+  void moveEnemy(uint8_t x, uint8_t y, uint8_t i, uint8_t j)
   {
     map[x][y] = 1;
     if (!(i == playerXPosition && j == playerYPosition))
@@ -278,9 +278,9 @@ private:
 
   void enemyChange()
   {
-    for (size_t i = 1; i < SQUARE_AMOUNT_WEIGHT - 1; i++)
+    for (uint8_t i = 1; i < SQUARE_AMOUNT_WEIGHT - 1; i++)
     {
-      for (size_t j = 1; j < SQUARE_AMOUNT_HEIGHT - 1; j++)
+      for (uint8_t j = 1; j < SQUARE_AMOUNT_HEIGHT - 1; j++)
       {
         if (map[i][j] == 9)
         {
@@ -346,9 +346,9 @@ private:
 
   void clearMap()
   {
-    for (size_t i = 0; i < SQUARE_AMOUNT_WEIGHT; i++)
+    for (uint8_t i = 0; i < SQUARE_AMOUNT_WEIGHT; i++)
     {
-      for (size_t j = 0; j < SQUARE_AMOUNT_HEIGHT; j++)
+      for (uint8_t j = 0; j < SQUARE_AMOUNT_HEIGHT; j++)
       {
         map[i][j] = 0;
       }
@@ -357,7 +357,7 @@ private:
 
   void walkerCircle()
   {
-    for (size_t i = 0; i < WALKER_CYCLES; i++)
+    for (uint8_t i = 0; i < WALKER_CYCLES; i++)
     {
       if (!moveWalker(0))
       {
@@ -381,7 +381,7 @@ private:
       }
       if (level > 0)
       {
-        for (size_t i = 0; i < (1 + rand() % MAX_ENEMY_AMOUNT); i++)
+        for (uint8_t i = 0; i < (1 + rand() % MAX_ENEMY_AMOUNT); i++)
         {
           spawnObject(9);
         }
@@ -389,14 +389,14 @@ private:
     }
   }
 
-  bool spawnObject(size_t item)
+  bool spawnObject(uint8_t item)
   {
     switch (rand() % 4)
     {
     case 0:
-      for (size_t i = 1; i < SQUARE_AMOUNT_WEIGHT - 1; i++)
+      for (uint8_t i = 1; i < SQUARE_AMOUNT_WEIGHT - 1; i++)
       {
-        for (size_t j = 1; j < SQUARE_AMOUNT_HEIGHT - 1; j++)
+        for (uint8_t j = 1; j < SQUARE_AMOUNT_HEIGHT - 1; j++)
         {
           if (canSetItem(i, j))
           {
@@ -407,9 +407,9 @@ private:
       }
       break;
     case 1:
-      for (size_t i = 1; i < SQUARE_AMOUNT_WEIGHT - 1; i++)
+      for (uint8_t i = 1; i < SQUARE_AMOUNT_WEIGHT - 1; i++)
       {
-        for (size_t j = SQUARE_AMOUNT_HEIGHT - 2; j > 0; j--)
+        for (uint8_t j = SQUARE_AMOUNT_HEIGHT - 2; j > 0; j--)
         {
           if (canSetItem(i, j))
           {
@@ -420,9 +420,9 @@ private:
       }
       break;
     case 2:
-      for (size_t i = SQUARE_AMOUNT_WEIGHT - 2; i > 0; i--)
+      for (uint8_t i = SQUARE_AMOUNT_WEIGHT - 2; i > 0; i--)
       {
-        for (size_t j = SQUARE_AMOUNT_HEIGHT - 2; j > 0; j--)
+        for (uint8_t j = SQUARE_AMOUNT_HEIGHT - 2; j > 0; j--)
         {
           if (canSetItem(i, j))
           {
@@ -433,9 +433,9 @@ private:
       }
       break;
     case 3:
-      for (size_t i = SQUARE_AMOUNT_WEIGHT - 2; i > 0; i--)
+      for (uint8_t i = SQUARE_AMOUNT_WEIGHT - 2; i > 0; i--)
       {
-        for (size_t j = 0; j < SQUARE_AMOUNT_HEIGHT - 1; j++)
+        for (uint8_t j = 0; j < SQUARE_AMOUNT_HEIGHT - 1; j++)
         {
           if (canSetItem(i, j))
           {
@@ -450,7 +450,7 @@ private:
     return false;
   }
 
-  bool canSetItem(size_t i, size_t j)
+  bool canSetItem(uint8_t i, uint8_t j)
   {
     return (map[i][j] == 1 && map[i - 1][j] < 2 && map[i][j - 1] < 2 && map[i + 1][j] < 2 && map[i][j + 1] < 2);
   }
@@ -467,7 +467,7 @@ private:
     }
   }
 
-  void displayElements(size_t x, size_t y)
+  void displayElements(uint8_t x, uint8_t y)
   {
     if (!(x == playerXPosition && y == playerYPosition))
     {
@@ -501,7 +501,7 @@ private:
     }
   }
 
-  void displayMaze(size_t x, size_t y)
+  void displayMaze(uint8_t x, uint8_t y)
   {
     if (map[x][y] > 0)
     {
@@ -594,9 +594,9 @@ private:
     map[playerXPosition - 1][playerYPosition - 1] = 1;
   }
 
-  size_t move(const int extX, const int extY)
+  uint8_t move(const int extX, const int extY)
   {
-    size_t value = map[playerXPosition + extX][playerYPosition + extY];
+    uint8_t value = map[playerXPosition + extX][playerYPosition + extY];
     if (value > 0)
     {
       map[playerXPosition][playerYPosition] = 1;

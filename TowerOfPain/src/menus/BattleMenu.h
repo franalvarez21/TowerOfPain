@@ -3,7 +3,7 @@
 class BattleMenu : public Menu
 {
 protected:
-  size_t menu;
+  uint8_t menu;
   Dungeon *dungeon;
 
 public:

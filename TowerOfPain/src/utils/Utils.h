@@ -20,9 +20,9 @@ struct Utils
 
   bool sound;
   bool music;
-  size_t cycle;
-  size_t musicalLullaby[10] = {0, 1, 0, 1, 1, 0, 1, 1, 1, 0};
-  size_t lullaby = 0;
+  uint8_t cycle;
+  uint8_t musicalLullaby[10] = {0, 1, 0, 1, 1, 0, 1, 1, 1, 0};
+  uint8_t lullaby = 0;
 
   void init(Arduboy2 *arduboy, ArduboyTones *soundtones)
   {
@@ -67,7 +67,7 @@ struct Utils
     soundtones->tone(700, 50);
   }
 
-  size_t sizeTypeAbs(size_t a, size_t b)
+  uint8_t sizeTypeAbs(uint8_t a, uint8_t b)
   {
     return a < b ? b - a : a - b;
   }

@@ -165,7 +165,7 @@ struct Stats
 
   bool discardItem(uint8_t item)
   {
-    size_t x = where(item);
+    uint8_t x = where(item);
     if (x != ITEM_AMOUNT)
     {
       slots[x].discardItem();
@@ -191,9 +191,9 @@ struct Stats
     return 3;
   }
 
-  size_t where(size_t item)
+  uint8_t where(uint8_t item)
   {
-    for (size_t x = 0; x < ITEM_AMOUNT; x++)
+    for (uint8_t x = 0; x < ITEM_AMOUNT; x++)
     {
       if (slots[x].type == item)
       {

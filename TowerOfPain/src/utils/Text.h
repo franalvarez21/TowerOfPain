@@ -22,27 +22,27 @@ struct Text
     mode = false;
   }
 
-  void printCommonLine(size_t x, size_t y, uint8_t line)
+  void printCommonLine(uint8_t x, uint8_t y, uint8_t line)
   {
     char tBuffer[10];
     tinyfont->setCursor(x, y);
     tinyfont->print(strcpy_P(tBuffer, (char *)pgm_read_word(&(Commonlines::commonLines[line]))));
   }
 
-  void printStoryLine(size_t x, size_t y, uint8_t line)
+  void printStoryLine(uint8_t x, uint8_t y, uint8_t line)
   {
     char tBuffer[30];
     tinyfont->setCursor(x, y);
     tinyfont->print(strcpy_P(tBuffer, (char *)pgm_read_word(&(Storylines::storyLines[line]))));
   }
 
-  void printValue(const size_t x, const size_t y, const size_t value)
+  void printValue(const uint8_t x, const uint8_t y, const uint8_t value)
   {
     tinyfont->setCursor(x, y);
     tinyfont->print(value);
   }
 
-  void print(size_t level)
+  void print(uint8_t level)
   {
     if (mode)
     {
@@ -71,7 +71,7 @@ struct Text
     printSlotStats(utils, 99, 48, &stats->slots[3]);
   }
 
-  void printSlotStats(Utils *utils, size_t x, size_t y, Item *item)
+  void printSlotStats(Utils *utils, uint8_t x, uint8_t y, Item *item)
   {
     printIconStats(utils, x, y, item->type);
     if (item->amount > 1)
@@ -81,7 +81,7 @@ struct Text
     }
   }
 
-  void printIconStats(Utils *utils, size_t x, size_t y, uint8_t item)
+  void printIconStats(Utils *utils, uint8_t x, uint8_t y, uint8_t item)
   {
     switch (item)
     {

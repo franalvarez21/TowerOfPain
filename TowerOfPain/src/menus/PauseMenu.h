@@ -10,7 +10,7 @@ public:
     option = 0;
   }
 
-  size_t action()
+  uint8_t action()
   {
     upDownMovement();
 
@@ -60,12 +60,12 @@ public:
       utils->arduboy->drawBitmap(4, 4, Character::framePlayer2, 32, 48, WHITE);
     }
 
-    if (stats->where(5) == ITEM_AMOUNT)
+    if (stats->where(5) != ITEM_AMOUNT)
     {
       utils->arduboy->drawBitmap(8, 34, Character::frameShield, 8, 9, WHITE);
     }
 
-    if (stats->where(4) == ITEM_AMOUNT)
+    if (stats->where(4) != ITEM_AMOUNT)
     {
       utils->arduboy->drawBitmap(28, 20, Character::frameSword, 4, 23, WHITE);
     }

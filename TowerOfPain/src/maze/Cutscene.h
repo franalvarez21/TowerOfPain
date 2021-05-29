@@ -3,7 +3,7 @@ class Cutscene
 {
 protected:
   Utils *utils;
-  size_t timer;
+  uint8_t timer;
   bool gameOver;
 
 public:
@@ -23,7 +23,7 @@ public:
     return (timer == 0);
   }
 
-  void eventDisplay(Stats *stats, Text *text, const size_t monsterType, const size_t level)
+  void eventDisplay(Stats *stats, Text *text, const uint8_t monsterType, const uint8_t level)
   {
     printContinue(text);
     printPlayerFrame();

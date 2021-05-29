@@ -8,11 +8,11 @@ protected:
   Utils *utils;
   Text *text;
   Stats *stats;
-  size_t option;
-  size_t maxOption;
+  uint8_t option;
+  uint8_t maxOption;
 
 public:
-  Menu(size_t value = 4) : maxOption(value){};
+  Menu(uint8_t value = 4) : maxOption(value){};
 
   void init(Utils *utils, Text *text, Stats *stats)
   {
@@ -51,7 +51,7 @@ public:
     return utils->arduboy->justPressed(A_BUTTON) || utils->arduboy->justPressed(LEFT_BUTTON);
   }
 
-  void displayMenuCursor(size_t x, size_t y)
+  void displayMenuCursor(uint8_t x, uint8_t y)
   {
     text->printCommonLine(x, y + (SQUARE_SIZE * option), 25);
   }

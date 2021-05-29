@@ -2,7 +2,7 @@
 class Actions
 {
 public:
-  bool evaluateAction(Text *text, Stats *stats, Dungeon *dungeon, size_t action)
+  bool evaluateAction(Text *text, Stats *stats, Dungeon *dungeon, uint8_t action)
   {
     switch (action)
     {

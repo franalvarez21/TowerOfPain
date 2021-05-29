@@ -2,13 +2,13 @@
 class Monster
 {
 public:
-  size_t life;
-  size_t currentType;
+  uint8_t life;
+  uint8_t currentType;
 
 protected:
   Utils *utils;
-  size_t maxLife;
-  size_t previousType;
+  uint8_t maxLife;
+  uint8_t previousType;
   const uint8_t *monster1;
   const uint8_t *monster2;
   const uint8_t *monsterFrame1;
@@ -96,18 +96,18 @@ public:
     }
   }
 
-  void displayIn(const size_t x, const size_t y)
+  void displayIn(const uint8_t x, const uint8_t y)
   {
     displayImage(x, y, (utils->cycle <= 5) ? monster1 : monster2);
   }
 
-  void displayEnvironmentIn(const size_t x, const size_t y)
+  void displayEnvironmentIn(const uint8_t x, const uint8_t y)
   {
     displayImage(x, y, environment);
   }
 
 private:
-  void displayImage(const size_t x, const size_t y, const uint8_t *image)
+  void displayImage(const uint8_t x, const uint8_t y, const uint8_t *image)
   {
     utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, image, SQUARE_SIZE, SQUARE_SIZE, WHITE);
   }

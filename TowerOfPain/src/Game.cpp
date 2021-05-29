@@ -13,8 +13,8 @@ Arduboy2 arduboy;
 ArduboyTones sound(arduboy.audio.enabled);
 Tinyfont tinyfont = Tinyfont(arduboy.sBuffer, Arduboy2::width(), Arduboy2::height());
 
-size_t onStage;
-size_t action;
+uint8_t onStage;
+uint8_t action;
 
 Utils utils;
 
@@ -106,9 +106,8 @@ void Game::mainMenuTick(void)
 void Game::mainPauseTick(void)
 {
   pauseMenu.eventDisplay();
-  size_t option = pauseMenu.action();
 
-  switch (option)
+  switch (pauseMenu.action())
   {
   case 1:
     onStage = 2;
