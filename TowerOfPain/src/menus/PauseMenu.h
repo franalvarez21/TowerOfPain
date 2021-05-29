@@ -1,5 +1,4 @@
-
-#include "Menu.cpp"
+#pragma once
 
 class PauseMenu : public Menu
 {

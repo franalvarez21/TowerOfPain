@@ -1,5 +1,18 @@
 #pragma once
 
+#include <stdint.h>
+#include <stdlib.h>
+
+#include <Arduboy2.h>
+#include <ArduboyTones.h>
+#include <Tinyfont.h>
+
+#include "const/Map.h"
+#include "const/Common.h"
+#include "const/Character.h"
+#include "const/Lines.h"
+#include "const/Title.h"
+
 struct Utils
 {
   Arduboy2 *arduboy;
@@ -53,4 +66,12 @@ struct Utils
   {
     soundtones->tone(700, 50);
   }
+
+  size_t sizeTypeAbs(size_t a, size_t b)
+  {
+    return a < b ? b - a : a - b;
+  }
 };
+
+#include "Stats.h"
+#include "Text.h"

@@ -1,8 +1,6 @@
+#pragma once
 
 #include "../Game.h"
-
-#ifndef menudeclaration
-#define menudeclaration
 
 class Menu
 {
@@ -58,5 +56,3 @@ public:
     text->printCommonLine(x, y + (SQUARE_SIZE * option), 25);
   }
 };
-
-#endif

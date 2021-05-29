@@ -7,27 +7,9 @@
 #define MAX_LEVEL 999
 #define SQUARE_SIZE 8
 #define ITEM_AMOUNT 4
-
-#include <stdint.h>
-#include <stdlib.h>
-
-#include <Arduboy2.h>
-#include <ArduboyTones.h>
-#include <Tinyfont.h>
-
-#include "const/Map.h"
-#include "const/Common.h"
-#include "const/Character.h"
-#include "const/Lines.h"
-#include "const/Title.h"
+#define MAX_ENEMY_AMOUNT 3
 
 #include "utils/Utils.h"
-#include "utils/Stats.h"
-#include "utils/Text.h"
-
-#include "utils/Dungeon.h"
-#include "utils/Actions.h"
-#include "utils/Cutscene.h"
 
 class Game
 {

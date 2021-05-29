@@ -1,22 +1,24 @@
-
-#include "Menu.cpp"
+#pragma once
 
 class BattleMenu : public Menu
 {
 protected:
   size_t menu;
-  size_t battleEnemyLife;
-  size_t currentLevel;
+  Dungeon *dungeon;
 
 public:
   BattleMenu() : Menu(3){};
 
-  void refresh(size_t level)
+  void setup(Dungeon *dungeon)
+  {
+    this->dungeon = dungeon;
+  }
+
+  void refresh()
   {
     menu = 0;
     option = 0;
-    currentLevel = level;
-    battleEnemyLife = getRandomLevel();
+    dungeon->monster.setLife();
   }
 
   bool action()
@@ -60,7 +62,7 @@ public:
           }
           break;
         case 1:
-          if (currentLevel < 50)
+          if (dungeon->monster.currentType == 0)
           {
             utils->koBeep();
             text->printLog(69);
@@ -149,7 +151,7 @@ public:
       menu--;
     }
 
-    if (battleEnemyLife < 1)
+    if (dungeon->monster.life < 1)
     {
       utils->okBeep();
       stats->counter.killed++;
@@ -176,7 +178,7 @@ public:
 
   bool useSpareAttempt()
   {
-    if (spareHardCondition())
+    if (!dungeon->monster.canBeSpare())
     {
       text->printLog(33);
     }
@@ -214,7 +216,7 @@ public:
     {
       if (rand() % 2 == 0)
       {
-        battleEnemyLife = 0;
+        dungeon->monster.life = 0;
         text->printLog(28);
       }
       else
@@ -252,7 +254,7 @@ public:
       additionalDamage = 2;
     }
 
-    hitEnemy(stats->getSTR() + additionalDamage);
+    dungeon->monster.hitEnemy(stats->getSTR() + additionalDamage);
   }
 
   bool usePotionAttempt()
@@ -298,7 +300,7 @@ public:
 
   bool escapeAttempt()
   {
-    if (spareHardCondition())
+    if (!dungeon->monster.canBeSpare())
     {
       text->printLog(36);
       utils->koBeep();
@@ -319,56 +321,8 @@ public:
 
   void eventDisplay()
   {
-
-    if (currentLevel < 50)
-    {
-      if (spareHardCondition())
-      {
-        if (utils->cycle <= 5)
-        {
-          utils->arduboy->drawBitmap(4, 4, Character::frameSlime3, 32, 48, WHITE);
-        }
-        else
-        {
-          utils->arduboy->drawBitmap(4, 4, Character::frameSlime4, 32, 48, WHITE);
-        }
-      }
-      else
-      {
-        if (utils->cycle <= 5)
-        {
-          utils->arduboy->drawBitmap(4, 4, Character::frameSlime1, 32, 48, WHITE);
-        }
-        else
-        {
-          utils->arduboy->drawBitmap(4, 4, Character::frameSlime2, 32, 48, WHITE);
-        }
-      }
-    }
-    else if (currentLevel < 100)
-    {
-      if (utils->cycle <= 5)
-      {
-        utils->arduboy->drawBitmap(4, 4, Character::frameEye1, 32, 48, WHITE);
-      }
-      else
-      {
-        utils->arduboy->drawBitmap(4, 4, Character::frameEye2, 32, 48, WHITE);
-      }
-    }
-    else
-    {
-      if (utils->cycle <= 5)
-      {
-        utils->arduboy->drawBitmap(4, 4, Character::frameKnight1, 32, 48, WHITE);
-      }
-      else
-      {
-        utils->arduboy->drawBitmap(4, 4, Character::frameKnight2, 32, 48, WHITE);
-      }
-    }
-
-    text->printValue(7, 45, battleEnemyLife);
+    dungeon->monster.displayFrame();
+    text->printValue(7, 45, dungeon->monster.life);
     text->printCommonLine(24, 45, 1);
 
     switch (menu)
@@ -397,37 +351,5 @@ public:
     }
 
     displayMenuCursor(40, 20);
-  }
-
-  size_t getRandomLevel()
-  {
-    if (currentLevel < 50)
-    {
-      return (rand() % (min(currentLevel, 19) + 1)) + 1;
-    }
-
-    if (currentLevel < 100)
-    {
-      return (rand() % (min(currentLevel, 49) + 1)) + 1;
-    }
-
-    return (rand() % (min(currentLevel, 98) + 1)) + 1;
-  }
-
-  bool spareHardCondition()
-  {
-    return battleEnemyLife > (currentLevel / 2 + 1);
-  }
-
-  void hitEnemy(uint8_t str)
-  {
-    if (battleEnemyLife < str)
-    {
-      battleEnemyLife = 0;
-    }
-    else
-    {
-      battleEnemyLife = battleEnemyLife - str;
-    }
   }
 };

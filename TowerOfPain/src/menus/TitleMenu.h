@@ -1,5 +1,4 @@
-
-#include "Menu.cpp"
+#pragma once
 
 class TitleMenu : public Menu
 {

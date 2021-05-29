@@ -1,11 +1,12 @@
-#pragma once
 
-struct Cutscene
+class Cutscene
 {
+protected:
   Utils *utils;
   size_t number;
   size_t timer;
 
+public:
   void init(Utils *utils)
   {
     this->utils = utils;
@@ -51,19 +52,25 @@ struct Cutscene
 
     switch (number)
     {
-    case 0:
+    case 0: // Game Start
       text->printStoryLine(40, 8, 37);
       text->printStoryLine(40, 16, 38);
       text->printStoryLine(40, 24, 39);
       text->printStoryLine(40, 32, 40);
       break;
-    case 1:
+    case 1: // Game Over
       text->printStoryLine(40, 8, 41);
       text->printStoryLine(40, 16, 42);
       text->printStoryLine(40, 24, 43);
       text->printStoryLine(40, 32, 44);
       break;
-    case 2:
+    case 2: // Game Random Scene
+      text->printStoryLine(40, 8, 45);
+      text->printStoryLine(40, 16, 46);
+      text->printStoryLine(40, 24, 47);
+      text->printStoryLine(40, 32, 48);
+      break;
+    case 3: // Game Fixed Scene
       text->printStoryLine(40, 8, 45);
       text->printStoryLine(40, 16, 46);
       text->printStoryLine(40, 24, 47);

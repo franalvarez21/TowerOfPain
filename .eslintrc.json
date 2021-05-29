@@ -1,0 +1,40 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "prettier"
+  ],
+  "plugins": [
+    "prettier"
+  ],
+  "rules": {
+    "quotes": [
+      "warn",
+      "single"
+    ],
+    "indent": [
+      "error",
+      2
+    ],
+    "array-element-newline": [
+      "error",
+      {
+        "multilane": true,
+        "minItems": 3
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "printWidth": 80,
+        "tabWidth": 2,
+        "useTabs": false,
+        "semi": true,
+        "singleQuote": true,
+        "trailingComma": "all",
+        "bracketSpacing": true,
+        "jsxBracketSameLine": false,
+        "parser": "babylon"
+      }
+    ]
+  }
+}

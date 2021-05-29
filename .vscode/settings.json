@@ -1,12 +1,13 @@
 {
   "C_Cpp.errorSquiggles": "Disabled",
-  "editor.defaultFormatter": "ms-vscode.cpptools",
-  "editor.tabSize": 2,
-  "prettier.printWidth": 80,
   "cSpell.words": [
     "arduboy",
     "display",
     "menu",
     "texts"
-  ]
+  ],
+  "editor.formatOnSave": true, 
+  "editor.codeActionsOnSave": { 
+    "source.fixAll.eslint": true 
+  }
 }

@@ -1,7 +1,7 @@
-#pragma once
 
-struct Actions
+class Actions
 {
+public:
   bool evaluateAction(Text *text, Stats *stats, Dungeon *dungeon, size_t action)
   {
     switch (action)
@@ -75,6 +75,7 @@ struct Actions
     return (action == 9);
   }
 
+private:
   void randomItem(Text *text, Stats *stats)
   {
     text->printLog(9);

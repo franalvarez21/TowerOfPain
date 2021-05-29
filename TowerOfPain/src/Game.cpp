@@ -1,9 +1,13 @@
 
 #include "Game.h"
 
-#include "menus/BattleMenu.cpp"
-#include "menus/TitleMenu.cpp"
-#include "menus/PauseMenu.cpp"
+#include "maze/Dungeon.h"
+#include "maze/Actions.h"
+
+#include "menus/Menu.h"
+#include "menus/BattleMenu.h"
+#include "menus/TitleMenu.h"
+#include "menus/PauseMenu.h"
 
 Arduboy2 arduboy;
 ArduboyTones sound(arduboy.audio.enabled);
@@ -17,7 +21,6 @@ Utils utils;
 Stats stats;
 Text text;
 Dungeon dungeon;
-Cutscene cutscene;
 
 BattleMenu battleMenu;
 TitleMenu titleMenu;
@@ -35,11 +38,11 @@ void Game::setup(void)
 
   utils.init(&arduboy, &sound);
   text.init(&tinyfont);
-  cutscene.init(&utils);
   dungeon.init(&utils);
   titleMenu.init(&utils, &text, &stats);
   battleMenu.init(&utils, &text, &stats);
   pauseMenu.init(&utils, &text, &stats);
+  battleMenu.setup(&dungeon);
   restart();
 }
 
@@ -95,7 +98,7 @@ void Game::mainMenuTick(void)
     restart();
     utils.music = false;
     text.printLog(1);
-    cutscene.start(0);
+    dungeon.cutsceneStart(0);
     onStage = 4;
   }
 }
@@ -134,14 +137,18 @@ void Game::mainGameTick(void)
 
     if (action > 0 && actions.evaluateAction(&text, &stats, &dungeon, action))
     {
-      battleMenu.refresh(dungeon.level);
+      battleMenu.refresh();
       onStage = 3;
     }
 
-    if (dungeon.level == 99)
+    if (dungeon.level == 99 && !dungeon.cutsceneDone())
     {
-      dungeon.level = 100;
-      cutscene.start(2);
+      dungeon.cutsceneStart(3);
+      onStage = 4;
+    }
+    else if (dungeon.level > 0 && dungeon.level % 10 == 0 && !dungeon.cutsceneDone())
+    {
+      dungeon.cutsceneStart(2);
       onStage = 4;
     }
     else
@@ -171,7 +178,7 @@ void Game::mainGameBattleTick(void)
     utils.koBeep();
     restart();
     text.printLog(1);
-    cutscene.start(1);
+    dungeon.cutsceneStart(1);
     onStage = 4;
   }
   else
@@ -185,8 +192,8 @@ void Game::mainGameBattleTick(void)
 
 void Game::mainCutsceneTick(void)
 {
-  cutscene.eventDisplay(&stats, &text);
-  if (cutscene.enabled() && (arduboy.justPressed(A_BUTTON) || arduboy.justPressed(B_BUTTON) || arduboy.justPressed(LEFT_BUTTON) || arduboy.justPressed(RIGHT_BUTTON)))
+  dungeon.cutscene.eventDisplay(&stats, &text);
+  if (dungeon.cutscene.enabled() && (arduboy.justPressed(A_BUTTON) || arduboy.justPressed(B_BUTTON) || arduboy.justPressed(LEFT_BUTTON) || arduboy.justPressed(RIGHT_BUTTON)))
   {
     onStage = 2;
   }
