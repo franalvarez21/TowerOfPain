@@ -48,6 +48,7 @@ struct Stats
   uint8_t hp;
   uint8_t str;
   uint8_t def;
+  uint8_t maxLevel = 0;
   Item slots[ITEM_AMOUNT];
   Counter counter;
 
@@ -61,6 +62,16 @@ struct Stats
     {
       slots[i].init();
     }
+  }
+
+  void incMaxLevelReached(uint8_t val)
+  {
+    maxLevel = min(max(val, maxLevel), MAX_LEVEL);
+  }
+
+  uint8_t getMaxLevelReached()
+  {
+    return min(maxLevel, MAX_LEVEL);
   }
 
   void incHP(uint8_t val)
@@ -154,15 +165,12 @@ struct Stats
 
   bool discardItem(uint8_t item)
   {
-    for (uint8_t x = 0; x < ITEM_AMOUNT; x++)
+    size_t x = where(item);
+    if (x != ITEM_AMOUNT)
     {
-      if (slots[x].type == item)
-      {
-        slots[x].discardItem();
-        return true;
-      }
+      slots[x].discardItem();
+      return true;
     }
-
     return false;
   }
 
@@ -183,27 +191,15 @@ struct Stats
     return 3;
   }
 
-  bool hasShield()
+  size_t where(size_t item)
   {
-    for (uint8_t x = 0; x < ITEM_AMOUNT; x++)
+    for (size_t x = 0; x < ITEM_AMOUNT; x++)
     {
-      if (slots[x].type == 5)
+      if (slots[x].type == item)
       {
-        return true;
+        return x;
       }
     }
-    return false;
-  }
-
-  bool hasSword()
-  {
-    for (uint8_t x = 0; x < ITEM_AMOUNT; x++)
-    {
-      if (slots[x].type == 4)
-      {
-        return true;
-      }
-    }
-    return false;
+    return ITEM_AMOUNT;
   }
 };

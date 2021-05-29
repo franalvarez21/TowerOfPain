@@ -36,7 +36,7 @@ struct Text
     tinyfont->print(strcpy_P(tBuffer, (char *)pgm_read_word(&(Storylines::storyLines[line]))));
   }
 
-  void printValue(size_t x, size_t y, size_t value)
+  void printValue(const size_t x, const size_t y, const size_t value)
   {
     tinyfont->setCursor(x, y);
     tinyfont->print(value);

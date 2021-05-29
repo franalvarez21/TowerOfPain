@@ -15,8 +15,9 @@ public:
       break;
     case 2:
       dungeon->increaseLevel();
-      text->printLevel();
       dungeon->reset();
+      text->printLevel();
+      stats->incMaxLevelReached(dungeon->level);
       break;
     case 3:
       randomItem(text, stats);

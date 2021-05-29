@@ -98,7 +98,7 @@ void Game::mainMenuTick(void)
     restart();
     utils.music = false;
     text.printLog(1);
-    dungeon.cutsceneStart(0);
+    dungeon.cutsceneStart(true, false);
     onStage = 4;
   }
 }
@@ -141,14 +141,9 @@ void Game::mainGameTick(void)
       onStage = 3;
     }
 
-    if (dungeon.level == 99 && !dungeon.cutsceneDone())
+    if (dungeon.level > 0 && dungeon.level % 10 == 0 && !dungeon.cutsceneDone())
     {
-      dungeon.cutsceneStart(3);
-      onStage = 4;
-    }
-    else if (dungeon.level > 0 && dungeon.level % 10 == 0 && !dungeon.cutsceneDone())
-    {
-      dungeon.cutsceneStart(2);
+      dungeon.cutsceneStart(false, false);
       onStage = 4;
     }
     else
@@ -175,10 +170,10 @@ void Game::mainGameBattleTick(void)
 
   if (stats.getHP() < 1)
   {
-    utils.koBeep();
     restart();
+    utils.koBeep();
     text.printLog(1);
-    dungeon.cutsceneStart(1);
+    dungeon.cutsceneStart(true, true);
     onStage = 4;
   }
   else
@@ -192,7 +187,7 @@ void Game::mainGameBattleTick(void)
 
 void Game::mainCutsceneTick(void)
 {
-  dungeon.cutscene.eventDisplay(&stats, &text);
+  dungeon.cutscene.eventDisplay(&stats, &text, dungeon.monster.currentType, stats.getMaxLevelReached());
   if (dungeon.cutscene.enabled() && (arduboy.justPressed(A_BUTTON) || arduboy.justPressed(B_BUTTON) || arduboy.justPressed(LEFT_BUTTON) || arduboy.justPressed(RIGHT_BUTTON)))
   {
     onStage = 2;

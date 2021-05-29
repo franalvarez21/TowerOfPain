@@ -28,16 +28,9 @@ public:
     life = (maxLife / 3) + rand() % ((maxLife + 1) - (maxLife / 3));
   }
 
-  void hitEnemy(uint8_t str)
+  void hitEnemy(const uint8_t str)
   {
-    if (life < str)
-    {
-      life = 0;
-    }
-    else
-    {
-      life = life - str;
-    }
+    life = life < str ? 0 : life - str;
   }
 
   bool canBeSpare()
@@ -45,22 +38,10 @@ public:
     return life < (maxLife * 0.80);
   }
 
-  void displayFrame()
+  void refresh(const bool start)
   {
-    if (utils->cycle <= 5)
-    {
-      utils->arduboy->drawBitmap(4, 4, monsterFrame1, 32, 48, WHITE);
-    }
-    else
-    {
-      utils->arduboy->drawBitmap(4, 4, monsterFrame2, 32, 48, WHITE);
-    }
-  }
-
-  void refresh(size_t number)
-  {
-    currentType = number == 0 ? 0 : rand() % MAX_ENEMY_AMOUNT;
-    if (previousType == currentType && number > 0)
+    currentType = start ? 0 : rand() % MAX_ENEMY_AMOUNT;
+    if (previousType == currentType && !start)
     {
       currentType = currentType < MAX_ENEMY_AMOUNT ? currentType + 1 : currentType - 1;
     }
@@ -100,6 +81,18 @@ public:
       maxLife = 40;
       environment = Map::map_environment_2;
       break;
+    }
+  }
+
+  void displayFrame()
+  {
+    if (utils->cycle <= 5)
+    {
+      utils->arduboy->drawBitmap(4, 4, monsterFrame1, 32, 48, WHITE);
+    }
+    else
+    {
+      utils->arduboy->drawBitmap(4, 4, monsterFrame2, 32, 48, WHITE);
     }
   }
 

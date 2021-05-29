@@ -6,6 +6,7 @@ class Dungeon
 {
 public:
   size_t level;
+  size_t lastCutscene;
   Cutscene cutscene;
   Monster monster;
 
@@ -16,7 +17,6 @@ protected:
   size_t playerYPosition;
   size_t speedTick;
   bool justPressedLock;
-  size_t lastCutscene;
 
 public:
   void init(Utils *utils)
@@ -34,10 +34,10 @@ public:
     reset();
   }
 
-  void cutsceneStart(size_t number)
+  void cutsceneStart(const bool refresh, const bool start)
   {
-    monster.refresh(number);
-    cutscene.start(number);
+    monster.refresh(refresh);
+    cutscene.start(start);
     lastCutscene = level;
   }
 
@@ -52,102 +52,25 @@ public:
 
     if (pressed(utils, RIGHT_BUTTON))
     {
-      value = map[playerXPosition + 1][playerYPosition];
-      if (value == 1)
-      {
-        map[playerXPosition][playerYPosition] = 1;
-        playerXPosition++;
-        return 1;
-      }
-      else if (value > 1)
-      {
-        map[playerXPosition][playerYPosition] = 1;
-        map[playerXPosition + 1][playerYPosition] = 1;
-        playerXPosition++;
-        return value;
-      }
+      value = move(1, 0);
     }
 
     if (pressed(utils, LEFT_BUTTON))
     {
-      value = map[playerXPosition - 1][playerYPosition];
-      if (value == 1)
-      {
-        map[playerXPosition][playerYPosition] = 1;
-        playerXPosition--;
-        return 1;
-      }
-      else if (value > 1)
-      {
-        map[playerXPosition][playerYPosition] = 1;
-        map[playerXPosition - 1][playerYPosition] = 1;
-        playerXPosition--;
-        return value;
-      }
+      value = move(-1, 0);
     }
 
     if (pressed(utils, DOWN_BUTTON))
     {
-      value = map[playerXPosition][playerYPosition + 1];
-      if (value == 1)
-      {
-        map[playerXPosition][playerYPosition] = 1;
-        playerYPosition++;
-        return 1;
-      }
-      else if (value > 1)
-      {
-        map[playerXPosition][playerYPosition] = 1;
-        map[playerXPosition][playerYPosition + 1] = 1;
-        playerYPosition++;
-        return value;
-      }
+      value = move(0, 1);
     }
 
     if (pressed(utils, UP_BUTTON))
     {
-      value = map[playerXPosition][playerYPosition - 1];
-      if (value == 1)
-      {
-        map[playerXPosition][playerYPosition] = 1;
-        playerYPosition--;
-        return 1;
-      }
-      else if (value > 1)
-      {
-        map[playerXPosition][playerYPosition] = 1;
-        map[playerXPosition][playerYPosition - 1] = 1;
-        playerYPosition--;
-        return value;
-      }
+      value = move(0, -1);
     }
 
-    return 0;
-  }
-
-  bool pressed(Utils *utils, uint8_t button)
-  {
-    if (justPressedLock)
-    {
-      if (utils->arduboy->justPressed(button))
-      {
-        justPressedLock = false;
-        return true;
-      }
-    }
-    else
-    {
-      if (utils->arduboy->justPressed(button) || (utils->arduboy->pressed(button) && speedTick == 0))
-      {
-        speedTick = 2;
-        return true;
-      }
-      else if (utils->arduboy->pressed(button) && speedTick > 0)
-      {
-        speedTick--;
-      }
-    }
-    return false;
+    return value;
   }
 
   bool moveLeft(size_t key)
@@ -234,6 +157,112 @@ public:
     level++;
   }
 
+  size_t environmentChange()
+  {
+    size_t event = 0;
+
+    enemyChange();
+
+    for (size_t i = 1; i < SQUARE_AMOUNT_WEIGHT - 1; i++)
+    {
+      for (size_t j = 1; j < SQUARE_AMOUNT_HEIGHT - 1; j++)
+      {
+        if (map[i][j] > 9)
+        {
+          if (map[i][j] > 10)
+          {
+            event = 9;
+          }
+          map[i][j] = 9;
+        }
+      }
+    }
+
+    return event;
+  }
+
+  void reset()
+  {
+    justPressedLock = true;
+
+    clearMap();
+    clearPlayerPosition();
+
+    map[playerXPosition][playerYPosition] = 1;
+
+    walkerCircle();
+
+    lockPlayerBorders();
+
+    spawnObjects();
+
+    unlockPlayerBorders();
+  }
+
+  void canvas(size_t weight = SQUARE_AMOUNT_WEIGHT, size_t height = SQUARE_AMOUNT_HEIGHT)
+  {
+    utils->arduboy->drawBitmap(0, 0, Map::map_top_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    utils->arduboy->drawBitmap(SQUARE_SIZE * (weight - 2), 0, Map::map_top_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    utils->arduboy->drawBitmap(0, SQUARE_SIZE * (height - 2), Map::map_bottom_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    utils->arduboy->drawBitmap(SQUARE_SIZE * (weight - 2), SQUARE_SIZE * (height - 2), Map::map_bottom_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+
+    for (size_t x = 1; x < weight - 2; x++)
+    {
+      utils->arduboy->drawBitmap(x * SQUARE_SIZE, 0, Map::map_top, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      utils->arduboy->drawBitmap(x * SQUARE_SIZE, SQUARE_SIZE * (height - 2), Map::map_bottom, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    }
+
+    for (size_t y = 1; y < height - 2; y++)
+    {
+      utils->arduboy->drawBitmap(0, y * SQUARE_SIZE, Map::map_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      utils->arduboy->drawBitmap(SQUARE_SIZE * (weight - 2), y * SQUARE_SIZE, Map::map_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    }
+  }
+
+  void completeCanvas()
+  {
+    canvas(MAX_SQUARE_AMOUNT_WEIGHT, MAX_SQUARE_AMOUNT_HEIGHT);
+  }
+
+  void display()
+  {
+    displayPlayer();
+    for (size_t x = 1; x < SQUARE_AMOUNT_WEIGHT - 1; x++)
+    {
+      for (size_t y = 1; y < SQUARE_AMOUNT_HEIGHT - 1; y++)
+      {
+        displayElements(x, y);
+        displayMaze(x, y);
+      }
+    }
+  }
+
+private:
+  bool pressed(Utils *utils, uint8_t button)
+  {
+    if (justPressedLock)
+    {
+      if (utils->arduboy->justPressed(button))
+      {
+        justPressedLock = false;
+        return true;
+      }
+    }
+    else
+    {
+      if (utils->arduboy->justPressed(button) || (utils->arduboy->pressed(button) && speedTick == 0))
+      {
+        speedTick = 2;
+        return true;
+      }
+      else if (utils->arduboy->pressed(button) && speedTick > 0)
+      {
+        speedTick--;
+      }
+    }
+    return false;
+  }
+
   void moveEnemy(size_t x, size_t y, size_t i, size_t j)
   {
     map[x][y] = 1;
@@ -309,48 +338,6 @@ public:
     }
   }
 
-  size_t environmentChange()
-  {
-    size_t event = 0;
-
-    enemyChange();
-
-    for (size_t i = 1; i < SQUARE_AMOUNT_WEIGHT - 1; i++)
-    {
-      for (size_t j = 1; j < SQUARE_AMOUNT_HEIGHT - 1; j++)
-      {
-        if (map[i][j] > 9)
-        {
-          if (map[i][j] > 10)
-          {
-            event = 9;
-          }
-          map[i][j] = 9;
-        }
-      }
-    }
-
-    return event;
-  }
-
-  void reset()
-  {
-    justPressedLock = true;
-
-    clearMap();
-    clearPlayerPosition();
-
-    map[playerXPosition][playerYPosition] = 1;
-
-    walkerCircle();
-
-    lockPlayerBorders();
-
-    spawnObjects();
-
-    unlockPlayerBorders();
-  }
-
   void clearPlayerPosition()
   {
     playerXPosition = 6;
@@ -370,7 +357,7 @@ public:
 
   void walkerCircle()
   {
-    for (size_t i = 0; i < 35; i++)
+    for (size_t i = 0; i < WALKER_CYCLES; i++)
     {
       if (!moveWalker(0))
       {
@@ -381,16 +368,6 @@ public:
     }
 
     clearPlayerPosition();
-  }
-
-  bool setItem(size_t item, size_t i, size_t j)
-  {
-    if (map[i][j] == 1 && map[i - 1][j] < 2 && map[i][j - 1] < 2 && map[i + 1][j] < 2 && map[i][j + 1] < 2)
-    {
-      map[i][j] = item;
-      return true;
-    }
-    return false;
   }
 
   void spawnObjects()
@@ -421,88 +398,61 @@ public:
       {
         for (size_t j = 1; j < SQUARE_AMOUNT_HEIGHT - 1; j++)
         {
-          if (setItem(item, i, j))
+          if (canSetItem(i, j))
           {
+            map[i][j] = item;
             return true;
           }
         }
       }
-      return false;
+      break;
     case 1:
       for (size_t i = 1; i < SQUARE_AMOUNT_WEIGHT - 1; i++)
       {
         for (size_t j = SQUARE_AMOUNT_HEIGHT - 2; j > 0; j--)
         {
-          if (setItem(item, i, j))
+          if (canSetItem(i, j))
           {
+            map[i][j] = item;
             return true;
           }
         }
       }
-      return false;
+      break;
     case 2:
       for (size_t i = SQUARE_AMOUNT_WEIGHT - 2; i > 0; i--)
       {
         for (size_t j = SQUARE_AMOUNT_HEIGHT - 2; j > 0; j--)
         {
-          if (setItem(item, i, j))
+          if (canSetItem(i, j))
           {
+            map[i][j] = item;
             return true;
           }
         }
       }
-      return false;
+      break;
     case 3:
       for (size_t i = SQUARE_AMOUNT_WEIGHT - 2; i > 0; i--)
       {
         for (size_t j = 0; j < SQUARE_AMOUNT_HEIGHT - 1; j++)
         {
-          if (setItem(item, i, j))
+          if (canSetItem(i, j))
           {
+            map[i][j] = item;
             return true;
           }
         }
       }
-      return false;
+      break;
     }
+
+    return false;
   }
 
-  void canvas(size_t weight = SQUARE_AMOUNT_WEIGHT, size_t height = SQUARE_AMOUNT_HEIGHT)
+  bool canSetItem(size_t i, size_t j)
   {
-    utils->arduboy->drawBitmap(0, 0, Map::map_top_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
-    utils->arduboy->drawBitmap(SQUARE_SIZE * (weight - 2), 0, Map::map_top_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
-    utils->arduboy->drawBitmap(0, SQUARE_SIZE * (height - 2), Map::map_bottom_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
-    utils->arduboy->drawBitmap(SQUARE_SIZE * (weight - 2), SQUARE_SIZE * (height - 2), Map::map_bottom_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
-
-    for (size_t x = 1; x < weight - 2; x++)
-    {
-      utils->arduboy->drawBitmap(x * SQUARE_SIZE, 0, Map::map_top, SQUARE_SIZE, SQUARE_SIZE, WHITE);
-      utils->arduboy->drawBitmap(x * SQUARE_SIZE, SQUARE_SIZE * (height - 2), Map::map_bottom, SQUARE_SIZE, SQUARE_SIZE, WHITE);
-    }
-
-    for (size_t y = 1; y < height - 2; y++)
-    {
-      utils->arduboy->drawBitmap(0, y * SQUARE_SIZE, Map::map_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
-      utils->arduboy->drawBitmap(SQUARE_SIZE * (weight - 2), y * SQUARE_SIZE, Map::map_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
-    }
-  }
-
-  void completeCanvas()
-  {
-    canvas(MAX_SQUARE_AMOUNT_WEIGHT, MAX_SQUARE_AMOUNT_HEIGHT);
-  }
-
-  void display()
-  {
-    displayPlayer();
-    for (size_t x = 1; x < SQUARE_AMOUNT_WEIGHT - 1; x++)
-    {
-      for (size_t y = 1; y < SQUARE_AMOUNT_HEIGHT - 1; y++)
-      {
-        displayElements(x, y);
-        displayMaze(x, y);
-      }
-    }
+    return (map[i][j] == 1 && map[i - 1][j] < 2 && map[i][j - 1] < 2 && map[i + 1][j] < 2 && map[i][j + 1] < 2);
   }
 
   void displayPlayer()
@@ -546,8 +496,6 @@ public:
         break;
       case 9:
         monster.displayIn(x, y);
-        break;
-      default:
         break;
       }
     }
@@ -644,5 +592,22 @@ public:
     map[playerXPosition + 1][playerYPosition - 1] = 1;
     map[playerXPosition - 1][playerYPosition + 1] = 1;
     map[playerXPosition - 1][playerYPosition - 1] = 1;
+  }
+
+  size_t move(const int extX, const int extY)
+  {
+    size_t value = map[playerXPosition + extX][playerYPosition + extY];
+    if (value > 0)
+    {
+      map[playerXPosition][playerYPosition] = 1;
+      playerXPosition += extX;
+      playerYPosition += extY;
+      if (value > 1)
+      {
+        map[playerXPosition][playerYPosition] = 1;
+      }
+      return value;
+    }
+    return 0;
   }
 };

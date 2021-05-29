@@ -161,6 +161,41 @@ public:
     return true;
   }
 
+  void eventDisplay()
+  {
+    dungeon->monster.displayFrame();
+    text->printValue(7, 45, dungeon->monster.life);
+    text->printCommonLine(24, 45, 1);
+
+    switch (menu)
+    {
+    case 0:
+      text->printCommonLine(40, 8, 8);
+      text->printCommonLine(48, 20, 9);
+      text->printCommonLine(48, 28, 14);
+      text->printCommonLine(48, 36, 11);
+      text->printCommonLine(48, 44, 16);
+      break;
+    case 1:
+      text->printCommonLine(40, 8, 11);
+      text->printCommonLine(48, 20, 7);
+      text->printCommonLine(48, 28, 13);
+      text->printCommonLine(48, 36, 10);
+      text->printCommonLine(48, 44, 15);
+      break;
+    default:
+      text->printCommonLine(40, 8, 10);
+      text->printCommonLine(48, 20, 30);
+      text->printCommonLine(48, 28, 31);
+      text->printCommonLine(48, 36, 32);
+      text->printCommonLine(48, 44, 15);
+      break;
+    }
+
+    displayMenuCursor(40, 20);
+  }
+
+private:
   bool useThreatAttempt()
   {
     return true;
@@ -317,39 +352,5 @@ public:
     stats->counter.escaped++;
     text->printLog(15);
     return false;
-  }
-
-  void eventDisplay()
-  {
-    dungeon->monster.displayFrame();
-    text->printValue(7, 45, dungeon->monster.life);
-    text->printCommonLine(24, 45, 1);
-
-    switch (menu)
-    {
-    case 0:
-      text->printCommonLine(40, 8, 8);
-      text->printCommonLine(48, 20, 9);
-      text->printCommonLine(48, 28, 14);
-      text->printCommonLine(48, 36, 11);
-      text->printCommonLine(48, 44, 16);
-      break;
-    case 1:
-      text->printCommonLine(40, 8, 11);
-      text->printCommonLine(48, 20, 7);
-      text->printCommonLine(48, 28, 13);
-      text->printCommonLine(48, 36, 10);
-      text->printCommonLine(48, 44, 15);
-      break;
-    default:
-      text->printCommonLine(40, 8, 10);
-      text->printCommonLine(48, 20, 30);
-      text->printCommonLine(48, 28, 31);
-      text->printCommonLine(48, 36, 32);
-      text->printCommonLine(48, 44, 15);
-      break;
-    }
-
-    displayMenuCursor(40, 20);
   }
 };
