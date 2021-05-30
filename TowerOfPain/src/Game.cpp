@@ -90,6 +90,8 @@ void Game::loop(void)
 
 void Game::mainMenuTick(void)
 {
+  // force some level of randomness at the start
+  rand() % analogRead(0);
   utils.music = 2;
   titleMenu.eventDisplay(&utils, &text);
   if (!titleMenu.action(&utils, &sound))
