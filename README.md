@@ -25,6 +25,10 @@ There is an emulator named 'ProjectABE' that can be used. But please be aware of
 
 Regarding the last point, Tower Of Pain sound seems to work well on the Arduboy system, but on emulators not so much.. as it relies on the frame count to determine when to produce a beep.
 
+https://github.com/felipemanga/ProjectABE
+
+./ProjectABE TowerOfPain/distributable/TowerOfPain.ino.leonardo.hex
+
 ## Details
 
 Point pending so far:
