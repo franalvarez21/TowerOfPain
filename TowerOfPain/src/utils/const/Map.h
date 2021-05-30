@@ -5,10 +5,10 @@ namespace Map
   const uint8_t PROGMEM map_environment_0[] = {
       0x42,
       0xa9,
-      0x16,
-      0x68,
-      0x16,
-      0x68,
+      0x02,
+      0x48,
+      0x12,
+      0x40,
       0x95,
       0x42,
   };

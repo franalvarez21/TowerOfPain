@@ -33,6 +33,7 @@ public:
             utils->arduboy->audio.on();
             utils->okBeep(soundtones);
             utils->sound = true;
+            utils->lullaby = 0;
           }
         }
         else if (option == 0)

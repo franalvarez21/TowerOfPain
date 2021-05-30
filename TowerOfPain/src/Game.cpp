@@ -57,8 +57,7 @@ void Game::loop(void)
 
   arduboy.pollButtons();
   arduboy.clear();
-
-  utils.tick(&sound);
+  utils.music = 0;
 
   switch (onStage)
   {
@@ -79,20 +78,22 @@ void Game::loop(void)
     break;
   }
 
+  utils.tick(&sound);
+
   arduboy.display();
 }
 
 void Game::mainMenuTick(void)
 {
-  utils.music = true;
+  utils.music = 2;
   titleMenu.eventDisplay(&utils, &text);
   if (!titleMenu.action(&utils, &sound))
   {
     restart();
-    utils.music = false;
     text.printLog(1);
     dungeon.cutsceneStart(true, false);
     onStage = 4;
+    utils.lullaby = 0;
   }
 }
 
@@ -103,9 +104,11 @@ void Game::mainPauseTick()
   {
   case 1:
     onStage = 2;
+    utils.lullaby = 0;
     break;
   case 2:
     onStage = 0;
+    utils.lullaby = 0;
     break;
   default:
     text.print(dungeon.level);
@@ -121,22 +124,25 @@ void Game::mainGameTick(void)
   {
     pauseMenu.refresh();
     onStage = 1;
+    utils.lullaby = 0;
   }
   else
   {
     action = dungeon.movePlayer(&utils);
 
-    if (action > 0 && actions.evaluateAction(&utils, &text, &stats, &dungeon, action))
+    if (action > 0 && actions.evaluateAction(&utils, &text, &stats, &dungeon, action, &sound))
     {
       battleMenu.refresh();
       dungeon.monster.setLife();
       onStage = 3;
+      utils.lullaby = 0;
     }
 
-    if (dungeon.level > 0 && dungeon.level % 10 == 0 && !dungeon.cutsceneDone())
+    if (dungeon.level > 0 && dungeon.level % CHANGE_LEVEL_AT == 0 && !dungeon.cutsceneDone())
     {
       dungeon.cutsceneStart(false, false);
       onStage = 4;
+      utils.lullaby = 0;
     }
     else
     {
@@ -154,10 +160,12 @@ void Game::mainGameTick(void)
 
 void Game::mainGameBattleTick(void)
 {
+  utils.music = 1;
   battleMenu.eventDisplay(&utils, &text, &dungeon);
   if (!battleMenu.action(&utils, &text, &stats, &dungeon, &sound))
   {
     onStage = 2;
+    utils.lullaby = 0;
   }
 
   if (stats.getHP() < 1)
@@ -167,6 +175,7 @@ void Game::mainGameBattleTick(void)
     text.printLog(1);
     dungeon.cutsceneStart(true, true);
     onStage = 4;
+    utils.lullaby = 0;
   }
   else
   {
@@ -183,6 +192,7 @@ void Game::mainCutsceneTick(void)
   if (dungeon.cutscene.enabled() && (arduboy.justPressed(A_BUTTON) || arduboy.justPressed(B_BUTTON) || arduboy.justPressed(LEFT_BUTTON) || arduboy.justPressed(RIGHT_BUTTON)))
   {
     onStage = 2;
+    utils.lullaby = 0;
   }
 
   dungeon.completeCanvas(&utils);

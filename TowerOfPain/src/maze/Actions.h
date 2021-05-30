@@ -2,7 +2,7 @@
 class Actions
 {
 public:
-  bool evaluateAction(Utils *utils, Text *text, Stats *stats, Dungeon *dungeon, uint8_t action)
+  bool evaluateAction(Utils *utils, Text *text, Stats *stats, Dungeon *dungeon, uint8_t action, ArduboyTones *soundtones)
   {
     switch (action)
     {
@@ -23,59 +23,76 @@ public:
       }
       else
       {
-        text->printLog(21);
+        utils->subtleKoBeep(soundtones);
       }
       break;
     case 3:
-      randomItem(text, stats);
+      if (randomItem(text, stats))
+      {
+        utils->subtleOkBeep(soundtones);
+      }
+      else
+      {
+        utils->subtleKoBeep(soundtones);
+      }
       break;
     case 4:
       if (stats->addItem(4))
       {
         text->printLog(2);
+        utils->subtleOkBeep(soundtones);
       }
       else
       {
         text->printLog(3);
+        utils->subtleKoBeep(soundtones);
       }
       break;
     case 5:
       if (stats->addItem(5))
       {
         text->printLog(4);
+        utils->subtleOkBeep(soundtones);
       }
       else
       {
         text->printLog(3);
+        utils->subtleKoBeep(soundtones);
       }
       break;
     case 6:
       stats->incHP(1);
       text->printLog(5);
+      utils->subtleOkBeep(soundtones);
       break;
     case 7:
       if (stats->addItem(7))
       {
         text->printLog(6);
+        utils->subtleOkBeep(soundtones);
       }
       else
       {
         text->printLog(3);
+        utils->subtleKoBeep(soundtones);
       }
       break;
     case 8:
       if (stats->addItem(8))
       {
         text->printLog(7);
+        utils->subtleOkBeep(soundtones);
       }
       else
       {
         text->printLog(3);
+        utils->subtleKoBeep(soundtones);
       }
       break;
     case 9:
       dungeon->keyFound();
       text->printLog(52);
+      utils->subtleOkBeep(soundtones);
       break;
     case 10:
       text->printLog(8);
@@ -88,7 +105,7 @@ public:
   }
 
 private:
-  void randomItem(Text *text, Stats *stats)
+  bool randomItem(Text *text, Stats *stats)
   {
     text->printLog(9);
     switch (rand() % 4)
@@ -97,26 +114,31 @@ private:
       if (stats->addItem(4))
       {
         text->printLog(10);
+        return true;
       }
       break;
     case 1:
       if (stats->addItem(5))
       {
         text->printLog(11);
+        return true;
       }
       break;
     case 2:
       if (stats->addItem(7))
       {
         text->printLog(12);
+        return true;
       }
       break;
     case 3:
       if (stats->addItem(8))
       {
         text->printLog(13);
+        return true;
       }
       break;
     }
+    return false;
   }
 };
