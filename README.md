@@ -40,6 +40,6 @@ Point pending so far:
 
 ## Compilation log
 
-May 30, 2021
-Sketch uses 27942 bytes (97%) of program storage space. Maximum is 28672 bytes.
+May 31, 2021
+Sketch uses 28018 bytes (97%) of program storage space. Maximum is 28672 bytes.
 Global variables use 1520 bytes (59%) of dynamic memory, leaving 1040 bytes for local variables. Maximum is 2560 bytes.
