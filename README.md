@@ -1,4 +1,4 @@
-# TowerOfPain
+# Tower Of Pain
 
 Tower Of Pain game for Arduboy
 
