@@ -68,6 +68,72 @@ namespace MiniCharacter
       0x00,
   };
 
+  const uint8_t PROGMEM eye_3[] = {
+      0x00,
+      0x08,
+      0x14,
+      0x56,
+      0x3c,
+      0x08,
+      0x00,
+      0x00,
+  };
+
+  const uint8_t PROGMEM eye_4[] = {
+      0x00,
+      0x08,
+      0x3c,
+      0x56,
+      0x14,
+      0x08,
+      0x00,
+      0x00,
+  };
+
+  const uint8_t PROGMEM eye_5[] = {
+      0x00,
+      0x08,
+      0x14,
+      0x5c,
+      0x14,
+      0x08,
+      0x00,
+      0x00,
+  };
+
+  const uint8_t PROGMEM eye_6[] = {
+      0x00,
+      0x08,
+      0x1c,
+      0x54,
+      0x14,
+      0x08,
+      0x00,
+      0x00,
+  };
+
+  const uint8_t PROGMEM knife_1[] = {
+      0x00,
+      0x00,
+      0x50,
+      0x2e,
+      0x3a,
+      0x60,
+      0x00,
+      0x00,
+  };
+
+  const uint8_t PROGMEM knife_2[] = {
+      0x00,
+      0x00,
+      0x60,
+      0x3a,
+      0x2e,
+      0x50,
+      0x00,
+      0x00,
+  };
+
   const uint8_t PROGMEM knight_1[] = {
       0x00,
       0x10,
@@ -100,6 +166,7 @@ namespace MiniCharacter
       0x10,
       0x00,
   };
+
   const uint8_t PROGMEM shield_2[] = {
       0x00,
       0x10,
@@ -110,6 +177,7 @@ namespace MiniCharacter
       0x1c,
       0x00,
   };
+
   const uint8_t PROGMEM flower_1[] = {
       0x04,
       0x0a,
@@ -120,6 +188,7 @@ namespace MiniCharacter
       0x0e,
       0x00,
   };
+
   const uint8_t PROGMEM flower_2[] = {
       0x00,
       0x0e,
@@ -130,6 +199,7 @@ namespace MiniCharacter
       0x0a,
       0x04,
   };
+
   const uint8_t PROGMEM lancer_1[] = {
       0x00,
       0x3f,
@@ -140,6 +210,7 @@ namespace MiniCharacter
       0x10,
       0x00,
   };
+
   const uint8_t PROGMEM lancer_2[] = {
       0x00,
       0x10,
@@ -150,6 +221,29 @@ namespace MiniCharacter
       0x3f,
       0x00,
   };
+
+  const uint8_t PROGMEM axe_1[] = {
+      0x00,
+      0x10,
+      0x4c,
+      0x2e,
+      0x3b,
+      0x48,
+      0x14,
+      0x0c,
+  };
+
+  const uint8_t PROGMEM axe_2[] = {
+      0x0c,
+      0x14,
+      0x48,
+      0x3b,
+      0x2e,
+      0x4c,
+      0x10,
+      0x00,
+  };
+
   const uint8_t PROGMEM centaur_1[] = {
       0x00,
       0x60,
@@ -160,6 +254,7 @@ namespace MiniCharacter
       0x00,
       0x00,
   };
+
   const uint8_t PROGMEM centaur_2[] = {
       0x00,
       0x00,
@@ -170,6 +265,7 @@ namespace MiniCharacter
       0x60,
       0x00,
   };
+
   const uint8_t PROGMEM mage_1[] = {
       0x00,
       0x00,
@@ -180,6 +276,7 @@ namespace MiniCharacter
       0x08,
       0x00,
   };
+
   const uint8_t PROGMEM mage_2[] = {
       0x00,
       0x08,
@@ -190,6 +287,7 @@ namespace MiniCharacter
       0x00,
       0x00,
   };
+
   const uint8_t PROGMEM rabbit_1[] = {
       0x00,
       0x00,
@@ -200,6 +298,7 @@ namespace MiniCharacter
       0x00,
       0x00,
   };
+
   const uint8_t PROGMEM rabbit_2[] = {
       0x00,
       0x00,

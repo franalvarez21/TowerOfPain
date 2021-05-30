@@ -23,6 +23,7 @@ public:
       }
       else
       {
+        text->printLog(21);
         utils->subtleKoBeep(soundtones);
       }
       break;

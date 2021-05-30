@@ -390,7 +390,7 @@ private:
           spawnObject(ENEMY_NUMBER_ACTION);
         }
 
-        if (rand() % 2 == 0)
+        if (rand() % 3 == 0)
         {
           if (spawnObject(9))
           {

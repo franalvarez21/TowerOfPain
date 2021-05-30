@@ -29,7 +29,7 @@ public:
 
   bool canBeSpare()
   {
-    return life < (maxLife * 0.60);
+    return life < (maxLife * 0.80);
   }
 
   void refresh(const bool start)
@@ -68,70 +68,110 @@ public:
       monsterFrame1 = Character::frameSlime3;
       monsterFrame2 = Character::frameSlime4;
       maxLife = 15;
-      environment = Map::map_environment_0;
+      environment = Map::map_environment_1;
       break;
     case 2:
+      monster1 = MiniCharacter::slime_1;
+      monster2 = MiniCharacter::slime_2;
+      monsterFrame1 = Character::frameSlime5;
+      monsterFrame2 = Character::frameSlime6;
+      maxLife = 20;
+      environment = Map::map_environment_0;
+      break;
+    case 3:
       monster1 = MiniCharacter::eye_1;
       monster2 = MiniCharacter::eye_2;
       monsterFrame1 = Character::frameEye1;
       monsterFrame2 = Character::frameEye2;
-      maxLife = 20;
-      environment = Map::map_environment_1;
-      break;
-    case 3:
-      monster1 = MiniCharacter::flower_1;
-      monster2 = MiniCharacter::flower_2;
-      monsterFrame1 = Character::frameFlower1;
-      monsterFrame2 = Character::frameFlower2;
       maxLife = 25;
       environment = Map::map_environment_1;
       break;
     case 4:
-      monster1 = MiniCharacter::lancer_1;
-      monster2 = MiniCharacter::lancer_2;
-      monsterFrame1 = Character::frameLancer1;
-      monsterFrame2 = Character::frameLancer2;
+      monster1 = MiniCharacter::eye_3;
+      monster2 = MiniCharacter::eye_4;
+      monsterFrame1 = Character::frameEye3;
+      monsterFrame2 = Character::frameEye4;
       maxLife = 30;
       environment = Map::map_environment_2;
       break;
     case 5:
+      monster1 = MiniCharacter::eye_5;
+      monster2 = MiniCharacter::eye_6;
+      monsterFrame1 = Character::frameEye5;
+      monsterFrame2 = Character::frameEye6;
+      maxLife = 35;
+      environment = Map::map_environment_2;
+      break;
+    case 6:
+      monster1 = MiniCharacter::flower_1;
+      monster2 = MiniCharacter::flower_2;
+      monsterFrame1 = Character::frameFlower1;
+      monsterFrame2 = Character::frameFlower2;
+      maxLife = 40;
+      environment = Map::map_environment_3;
+      break;
+    case 7:
+      monster1 = MiniCharacter::lancer_1;
+      monster2 = MiniCharacter::lancer_2;
+      monsterFrame1 = Character::frameLancer1;
+      monsterFrame2 = Character::frameLancer2;
+      maxLife = 45;
+      environment = Map::map_environment_3;
+      break;
+    case 8:
       monster1 = MiniCharacter::centaur_1;
       monster2 = MiniCharacter::centaur_2;
       monsterFrame1 = Character::frameCentaur1;
       monsterFrame2 = Character::frameCentaur2;
-      maxLife = 35;
-      environment = Map::map_environment_3;
+      maxLife = 50;
+      environment = Map::map_environment_4;
       break;
-    case 6:
+    case 9:
       monster1 = MiniCharacter::mage_1;
       monster2 = MiniCharacter::mage_2;
       monsterFrame1 = Character::frameMage1;
       monsterFrame2 = Character::frameMage2;
-      maxLife = 40;
+      maxLife = 55;
       environment = Map::map_environment_4;
       break;
-    case 7:
+    case 10:
       monster1 = MiniCharacter::rabbit_1;
       monster2 = MiniCharacter::rabbit_2;
       monsterFrame1 = Character::frameRabbit1;
       monsterFrame2 = Character::frameRabbit2;
-      maxLife = 45;
+      maxLife = 60;
       environment = Map::map_environment_5;
       break;
-    case 8:
+    case 11:
       monster1 = MiniCharacter::knight_1;
       monster2 = MiniCharacter::knight_2;
       monsterFrame1 = Character::frameKnight1;
       monsterFrame2 = Character::frameKnight2;
-      maxLife = 50;
+      maxLife = 65;
       environment = Map::map_environment_6;
+      break;
+    case 12:
+      monster1 = MiniCharacter::axe_1;
+      monster2 = MiniCharacter::axe_2;
+      monsterFrame1 = Character::frameAxe1;
+      monsterFrame2 = Character::frameAxe2;
+      maxLife = 70;
+      environment = Map::map_environment_7;
+      break;
+    case 13:
+      monster1 = MiniCharacter::knife_1;
+      monster2 = MiniCharacter::knife_2;
+      monsterFrame1 = Character::frameKnife1;
+      monsterFrame2 = Character::frameKnife2;
+      maxLife = 75;
+      environment = Map::map_environment_7;
       break;
     default:
       monster1 = MiniCharacter::shield_1;
       monster2 = MiniCharacter::shield_2;
       monsterFrame1 = Character::frameShield1;
       monsterFrame2 = Character::frameShield2;
-      maxLife = 55;
+      maxLife = 80;
       environment = Map::map_environment_6;
       break;
     }

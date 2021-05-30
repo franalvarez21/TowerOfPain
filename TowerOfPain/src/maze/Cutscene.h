@@ -61,22 +61,22 @@ public:
 
       switch (monsterType)
       {
-      case 0 ... 1: // Slime
+      case 0 ... 2: // Slime
         text->printStoryLine(40, 24, 45);
         break;
-      case 2: // Eyes
+      case 3 ... 5: // Eyes
         text->printStoryLine(40, 24, 49);
         break;
-      case 3: // Flowers
+      case 6: // Flowers
         text->printStoryLine(40, 24, 48);
         break;
-      case 4 ... 5: // Careful
+      case 7 ... 8: // Careful
         text->printStoryLine(40, 24, 50);
         break;
-      case 6: // Cold
+      case 9: // Cold
         text->printStoryLine(40, 24, 46);
         break;
-      case 7: // Go Fast
+      case 10: // Go Fast
         text->printStoryLine(40, 24, 51);
         break;
       default: // Metal

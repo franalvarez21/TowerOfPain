@@ -45,7 +45,7 @@ public:
         switch (menu)
         {
         case 1:
-          if (dungeon->monster.currentType == 0)
+          if (dungeon->monster.currentType < 3)
           {
             utils->koBeep(soundtones);
             text->printLog(69);

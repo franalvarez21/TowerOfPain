@@ -21,7 +21,7 @@ struct Utils
   bool sound;
   uint8_t music;
   uint8_t cycle;
-  uint8_t musicalLullaby[4][10] = {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 1, 2, 0, 1, 1, 2, 0}, {0, 1, 2, 0, 1, 2, 0, 1, 1, 2}, {0, 0, 0, 1, 0, 0, 1, 0, 0, 1}};
+  uint8_t musicalLullaby[4][10] = {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 1, 2, 0, 1, 1, 2, 0}, {0, 1, 2, 0, 1, 2, 0, 1, 1, 2}, {0, 1, 1, 1, 3, 3, 3, 1, 1, 1}};
   uint8_t lullaby = 0;
 
   void init(Arduboy2 *arduboy)
@@ -50,9 +50,13 @@ struct Utils
         {
           soundtones->tone(80, 25);
         }
+        else if (musicalLullaby[music][lullaby] == 2)
+        {
+          soundtones->tone(50, 50);
+        }
         else
         {
-          soundtones->tone(50, 25);
+          soundtones->tone(80, 50);
         }
       }
       cycle = 10;

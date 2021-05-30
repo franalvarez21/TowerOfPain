@@ -79,6 +79,17 @@ namespace Map
       0x10,
   };
 
+  const uint8_t PROGMEM map_environment_7[] = {
+      0x89,
+      0x04,
+      0x40,
+      0x80,
+      0x01,
+      0x02,
+      0x20,
+      0x91,
+  };
+
   const uint8_t PROGMEM map_top[] = {
       0x01,
       0x01,
