@@ -10,6 +10,7 @@
 #include "const/Map.h"
 #include "const/Common.h"
 #include "const/Character.h"
+#include "const/MiniCharacter.h"
 #include "const/Lines.h"
 #include "const/Title.h"
 

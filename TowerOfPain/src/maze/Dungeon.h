@@ -459,11 +459,11 @@ private:
   {
     if (utils->cycle <= 5)
     {
-      utils->arduboy->drawBitmap(SQUARE_SIZE * playerXPosition - 4, SQUARE_SIZE * playerYPosition - 4, Character::player_1, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      utils->arduboy->drawBitmap(SQUARE_SIZE * playerXPosition - 4, SQUARE_SIZE * playerYPosition - 4, MiniCharacter::player_1, SQUARE_SIZE, SQUARE_SIZE, WHITE);
     }
     else
     {
-      utils->arduboy->drawBitmap(SQUARE_SIZE * playerXPosition - 4, SQUARE_SIZE * playerYPosition - 4, Character::player_2, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      utils->arduboy->drawBitmap(SQUARE_SIZE * playerXPosition - 4, SQUARE_SIZE * playerYPosition - 4, MiniCharacter::player_2, SQUARE_SIZE, SQUARE_SIZE, WHITE);
     }
   }
 

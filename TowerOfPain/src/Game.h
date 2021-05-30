@@ -8,6 +8,7 @@
 #define SQUARE_SIZE 8
 #define ITEM_AMOUNT 4
 #define MAX_ENEMY_AMOUNT 3
+#define ENEMY_AMOUNT 10
 #define CUTSCENE_TIMER 10
 #define WALKER_CYCLES 50
 

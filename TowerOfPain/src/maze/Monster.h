@@ -40,46 +40,105 @@ public:
 
   void refresh(const bool start)
   {
-    currentType = start ? 0 : rand() % MAX_ENEMY_AMOUNT;
+    currentType = start ? 0 : rand() % ENEMY_AMOUNT;
     if (previousType == currentType && !start)
     {
-      currentType = currentType < MAX_ENEMY_AMOUNT ? currentType + 1 : currentType - 1;
+      if (currentType == 0)
+      {
+        currentType = ENEMY_AMOUNT - 1;
+      }
+      else if (currentType == (ENEMY_AMOUNT - 1))
+      {
+        currentType = 0;
+      }
+      else
+      {
+        currentType = currentType + 1;
+      }
     }
     previousType = currentType;
 
     switch (currentType)
     {
     case 0:
-      monster1 = Character::slime_1;
-      monster2 = Character::slime_2;
+      monster1 = MiniCharacter::slime_1;
+      monster2 = MiniCharacter::slime_2;
       monsterFrame1 = Character::frameSlime1;
       monsterFrame2 = Character::frameSlime2;
       maxLife = 10;
       environment = Map::map_environment_0;
       break;
     case 1:
-      monster1 = Character::slime_1;
-      monster2 = Character::slime_2;
+      monster1 = MiniCharacter::slime_1;
+      monster2 = MiniCharacter::slime_2;
       monsterFrame1 = Character::frameSlime3;
       monsterFrame2 = Character::frameSlime4;
       maxLife = 15;
-      environment = Map::map_environment_1;
+      environment = Map::map_environment_0;
       break;
     case 2:
-      monster1 = Character::eye_1;
-      monster2 = Character::eye_2;
+      monster1 = MiniCharacter::eye_1;
+      monster2 = MiniCharacter::eye_2;
       monsterFrame1 = Character::frameEye1;
       monsterFrame2 = Character::frameEye2;
       maxLife = 20;
       environment = Map::map_environment_1;
       break;
-    default:
-      monster1 = Character::knight_1;
-      monster2 = Character::knight_2;
+    case 3:
+      monster1 = MiniCharacter::flower_1;
+      monster2 = MiniCharacter::flower_2;
+      monsterFrame1 = Character::frameFlower1;
+      monsterFrame2 = Character::frameFlower2;
+      maxLife = 25;
+      environment = Map::map_environment_1;
+      break;
+    case 4:
+      monster1 = MiniCharacter::lancer_1;
+      monster2 = MiniCharacter::lancer_2;
+      monsterFrame1 = Character::frameLancer1;
+      monsterFrame2 = Character::frameLancer2;
+      maxLife = 30;
+      environment = Map::map_environment_2;
+      break;
+    case 5:
+      monster1 = MiniCharacter::centaur_1;
+      monster2 = MiniCharacter::centaur_2;
+      monsterFrame1 = Character::frameCentaur1;
+      monsterFrame2 = Character::frameCentaur2;
+      maxLife = 35;
+      environment = Map::map_environment_3;
+      break;
+    case 6:
+      monster1 = MiniCharacter::mage_1;
+      monster2 = MiniCharacter::mage_2;
+      monsterFrame1 = Character::frameMage1;
+      monsterFrame2 = Character::frameMage2;
+      maxLife = 40;
+      environment = Map::map_environment_4;
+      break;
+    case 7:
+      monster1 = MiniCharacter::rabbit_1;
+      monster2 = MiniCharacter::rabbit_2;
+      monsterFrame1 = Character::frameRabbit1;
+      monsterFrame2 = Character::frameRabbit2;
+      maxLife = 45;
+      environment = Map::map_environment_5;
+      break;
+    case 8:
+      monster1 = MiniCharacter::knight_1;
+      monster2 = MiniCharacter::knight_2;
       monsterFrame1 = Character::frameKnight1;
       monsterFrame2 = Character::frameKnight2;
-      maxLife = 40;
-      environment = Map::map_environment_2;
+      maxLife = 50;
+      environment = Map::map_environment_6;
+      break;
+    default:
+      monster1 = MiniCharacter::shield_1;
+      monster2 = MiniCharacter::shield_2;
+      monsterFrame1 = Character::frameShield1;
+      monsterFrame2 = Character::frameShield2;
+      maxLife = 55;
+      environment = Map::map_environment_6;
       break;
     }
   }
