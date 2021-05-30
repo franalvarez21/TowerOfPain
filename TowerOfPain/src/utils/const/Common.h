@@ -2,6 +2,28 @@
 
 namespace Common
 {
+  const uint8_t PROGMEM logo_1[] = {
+      0x08,
+      0x24,
+      0x4e,
+      0x4e,
+      0x4e,
+      0x4a,
+      0x24,
+      0x08,
+  };
+
+  const uint8_t PROGMEM logo_2[] = {
+      0x08,
+      0x24,
+      0x4e,
+      0x4e,
+      0x4a,
+      0x4e,
+      0x24,
+      0x08,
+  };
+
   const uint8_t PROGMEM chest[] = {
       0x00,
       0x7c,

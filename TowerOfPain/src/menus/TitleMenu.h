@@ -58,10 +58,20 @@ public:
   {
     utils->arduboy->drawBitmap(0, 0, Title::logo, 128, 32, WHITE);
     utils->arduboy->drawBitmap(120, 32, Title::options, 8, 32, WHITE);
+    if (utils->cycle <= 5)
+    {
+      utils->arduboy->drawBitmap(22, 57, MiniCharacter::slime_1, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      utils->arduboy->drawBitmap(0, 22, Common::logo_1, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    }
+    else
+    {
+      utils->arduboy->drawBitmap(22, 57, MiniCharacter::slime_2, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      utils->arduboy->drawBitmap(0, 22, Common::logo_2, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    }
 
     if (about)
     {
-      text->printStoryLine(38, 60, 35);
+      text->printStoryLine(58, 60, 35);
     }
     else
     {

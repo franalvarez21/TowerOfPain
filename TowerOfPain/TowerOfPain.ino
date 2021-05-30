@@ -3,10 +3,12 @@
 
 Game game;
 
-void setup() {
-	game.setup();
+void setup()
+{
+  game.setup();
 }
 
-void loop() {
-	game.loop();
+void loop()
+{
+  game.loop();
 }

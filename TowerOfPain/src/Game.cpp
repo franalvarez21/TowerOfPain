@@ -34,6 +34,8 @@ void Game::setup(void)
   arduboy.setFrameRate(15);
   arduboy.initRandomSeed();
   arduboy.systemButtons();
+  arduboy.waitNoButtons();
+  arduboy.audio.off();
   Serial.begin(9600);
 
   utils.init(&arduboy);
