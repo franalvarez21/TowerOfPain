@@ -6,7 +6,6 @@ public:
   uint8_t currentType;
 
 protected:
-  Utils *utils;
   uint8_t maxLife;
   uint8_t previousType;
   const uint8_t *monster1;
@@ -17,11 +16,6 @@ protected:
 
 public:
   Monster() : currentType(0), previousType(0), life(0), maxLife(0){};
-
-  void init(Utils *utils)
-  {
-    this->utils = utils;
-  }
 
   void setLife()
   {
@@ -35,7 +29,7 @@ public:
 
   bool canBeSpare()
   {
-    return life < (maxLife * 0.80);
+    return life < (maxLife * 0.50);
   }
 
   void refresh(const bool start)
@@ -143,7 +137,7 @@ public:
     }
   }
 
-  void displayFrame()
+  void displayFrame(Utils *utils)
   {
     if (utils->cycle <= 5)
     {
@@ -155,18 +149,18 @@ public:
     }
   }
 
-  void displayIn(const uint8_t x, const uint8_t y)
+  void displayIn(Utils *utils, const uint8_t x, const uint8_t y)
   {
-    displayImage(x, y, (utils->cycle <= 5) ? monster1 : monster2);
+    displayImage(utils, x, y, (utils->cycle <= 5) ? monster1 : monster2);
   }
 
-  void displayEnvironmentIn(const uint8_t x, const uint8_t y)
+  void displayEnvironmentIn(Utils *utils, const uint8_t x, const uint8_t y)
   {
-    displayImage(x, y, environment);
+    displayImage(utils, x, y, environment);
   }
 
 private:
-  void displayImage(const uint8_t x, const uint8_t y, const uint8_t *image)
+  void displayImage(Utils *utils, const uint8_t x, const uint8_t y, const uint8_t *image)
   {
     utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, image, SQUARE_SIZE, SQUARE_SIZE, WHITE);
   }

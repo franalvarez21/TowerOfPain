@@ -2,16 +2,10 @@
 class Cutscene
 {
 protected:
-  Utils *utils;
   uint8_t timer;
   bool gameOver;
 
 public:
-  void init(Utils *utils)
-  {
-    this->utils = utils;
-  }
-
   void start(const bool gameOver)
   {
     timer = CUTSCENE_TIMER;
@@ -23,10 +17,10 @@ public:
     return (timer == 0);
   }
 
-  void eventDisplay(Stats *stats, Text *text, const uint8_t monsterType, const uint8_t level)
+  void eventDisplay(Utils *utils, Stats *stats, Text *text, const uint8_t monsterType, const uint8_t level)
   {
     printContinue(text);
-    printPlayerFrame();
+    printPlayerFrame(utils);
 
     if (gameOver)
     {
@@ -43,7 +37,7 @@ public:
       case 0: // Strong
         text->printStoryLine(40, 8, 37);
         break;
-      case 1: //Resourceful
+      case 1: // Smart
         text->printStoryLine(40, 8, 38);
         break;
       case 2: // Wise
@@ -59,11 +53,23 @@ public:
       case 0 ... 1: // Slime
         text->printStoryLine(40, 24, 45);
         break;
-      case 3: // Metal
-        text->printStoryLine(40, 24, 47);
+      case 2: // Eyes
+        text->printStoryLine(40, 24, 49);
         break;
-      default: // Cold
+      case 3: // Flowers
+        text->printStoryLine(40, 24, 48);
+        break;
+      case 4 ... 5: // Careful
+        text->printStoryLine(40, 24, 50);
+        break;
+      case 6: // Cold
         text->printStoryLine(40, 24, 46);
+        break;
+      case 7: // Go Fast
+        text->printStoryLine(40, 24, 51);
+        break;
+      default: // Metal
+        text->printStoryLine(40, 24, 47);
         break;
       }
 
@@ -85,7 +91,7 @@ private:
     }
   }
 
-  void printPlayerFrame()
+  void printPlayerFrame(Utils *utils)
   {
     if (gameOver)
     {

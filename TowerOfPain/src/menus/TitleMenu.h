@@ -8,17 +8,17 @@ protected:
 public:
   TitleMenu() : Menu(2), about(false){};
 
-  bool action()
+  bool action(Utils *utils, ArduboyTones *soundtones)
   {
     if (!about)
     {
-      upDownMovement();
+      upDownMovement(utils);
 
-      if (okMovement())
+      if (okMovement(utils))
       {
         if (option == 2)
         {
-          utils->okBeep();
+          utils->okBeep(soundtones);
           about = true;
         }
         else if (option == 1)
@@ -31,20 +31,20 @@ public:
           else
           {
             utils->arduboy->audio.on();
-            utils->okBeep();
+            utils->okBeep(soundtones);
             utils->sound = true;
           }
         }
         else if (option == 0)
         {
-          utils->okBeep();
+          utils->okBeep(soundtones);
           return false;
         }
       }
     }
     else
     {
-      if (okMovement() || koMovement())
+      if (okMovement(utils) || koMovement(utils))
       {
         about = false;
       }
@@ -53,7 +53,7 @@ public:
     return true;
   }
 
-  void eventDisplay()
+  void eventDisplay(Utils *utils, Text *text)
   {
     utils->arduboy->drawBitmap(0, 0, Title::logo, 128, 32, WHITE);
     utils->arduboy->drawBitmap(120, 32, Title::options, 8, 32, WHITE);
@@ -76,7 +76,7 @@ public:
       }
       text->printCommonLine(98, 60, 23);
 
-      displayMenuCursor(90, 44);
+      displayMenuCursor(text, 90, 44);
     }
 
     text->printCommonLine(0, 60, 24);

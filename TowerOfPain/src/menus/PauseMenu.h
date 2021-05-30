@@ -10,11 +10,11 @@ public:
     option = 0;
   }
 
-  uint8_t action()
+  uint8_t action(Utils *utils, ArduboyTones *soundtones)
   {
-    upDownMovement();
+    upDownMovement(utils);
 
-    if (okMovement())
+    if (okMovement(utils))
     {
       if (option == 2)
       {
@@ -22,7 +22,7 @@ public:
       }
       else if (option == 1)
       {
-        utils->okBeep();
+        utils->okBeep(soundtones);
         return 2;
       }
       else if (option == 0)
@@ -35,13 +35,13 @@ public:
         else
         {
           utils->arduboy->audio.on();
-          utils->okBeep();
+          utils->okBeep(soundtones);
           utils->sound = true;
         }
       }
     }
 
-    if (koMovement())
+    if (koMovement(utils))
     {
       return 1;
     }
@@ -49,7 +49,7 @@ public:
     return 0;
   }
 
-  void eventDisplay()
+  void eventDisplay(Utils *utils, Text *text, Stats *stats)
   {
     if (utils->cycle <= 5)
     {
@@ -82,6 +82,6 @@ public:
     text->printCommonLine(48, 28, 22);
     text->printCommonLine(48, 36, 15);
 
-    displayMenuCursor(40, 20);
+    displayMenuCursor(text, 40, 20);
   }
 };

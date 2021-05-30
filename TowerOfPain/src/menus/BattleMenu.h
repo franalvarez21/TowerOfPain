@@ -4,41 +4,34 @@ class BattleMenu : public Menu
 {
 protected:
   uint8_t menu;
-  Dungeon *dungeon;
 
 public:
   BattleMenu() : Menu(3){};
-
-  void setup(Dungeon *dungeon)
-  {
-    this->dungeon = dungeon;
-  }
 
   void refresh()
   {
     menu = 0;
     option = 0;
-    dungeon->monster.setLife();
   }
 
-  bool action()
+  bool action(Utils *utils, Text *text, Stats *stats, Dungeon *dungeon, ArduboyTones *soundtones)
   {
-    upDownMovement();
+    upDownMovement(utils);
 
-    if (okMovement())
+    if (okMovement(utils))
     {
       if (option == 3)
       {
         switch (menu)
         {
         case 0:
-          if (escapeAttempt())
+          if (escapeAttempt(utils, text, stats, dungeon, soundtones))
           {
-            utils->koBeep();
+            utils->koBeep(soundtones);
           }
           else
           {
-            utils->okBeep();
+            utils->okBeep(soundtones);
             return false;
           }
           break;
@@ -51,25 +44,26 @@ public:
       {
         switch (menu)
         {
-        case 2:
-          if (useExplainAttempt())
-          {
-            utils->koBeep();
-          }
-          else
-          {
-            utils->okBeep();
-          }
-          break;
         case 1:
           if (dungeon->monster.currentType == 0)
           {
-            utils->koBeep();
+            utils->koBeep(soundtones);
             text->printLog(69);
           }
           else
           {
             menu++;
+          }
+          break;
+        case 2:
+          if (useExplainAttempt(stats, text, dungeon))
+          {
+            utils->koBeep(soundtones);
+          }
+          else
+          {
+            utils->okBeep(soundtones);
+            return false;
           }
           break;
         default:
@@ -82,34 +76,35 @@ public:
         switch (menu)
         {
         case 0:
-          if (useSpareAttempt())
+          if (useSpareAttempt(stats, text, dungeon))
           {
-            utils->koBeep();
+            utils->koBeep(soundtones);
           }
           else
           {
-            utils->okBeep();
+            utils->okBeep(soundtones);
             return false;
           }
           break;
         case 1:
-          if (useRelicAttempt())
+          if (useRelicAttempt(stats, text, dungeon))
           {
-            utils->koBeep();
+            utils->koBeep(soundtones);
           }
           else
           {
-            utils->okBeep();
+            utils->okBeep(soundtones);
           }
           break;
         default:
-          if (useApproachAttempt())
+          if (useApproachAttempt(stats, text, dungeon))
           {
-            utils->koBeep();
+            utils->koBeep(soundtones);
           }
           else
           {
-            utils->okBeep();
+            utils->okBeep(soundtones);
+            return false;
           }
           break;
         }
@@ -119,41 +114,42 @@ public:
         switch (menu)
         {
         case 0:
-          attackAttempt();
-          utils->okBeep();
+          attackAttempt(stats, text, dungeon);
+          utils->okBeep(soundtones);
           break;
         case 1:
-          if (usePotionAttempt())
+          if (usePotionAttempt(stats, text))
           {
-            utils->koBeep();
+            utils->koBeep(soundtones);
           }
           else
           {
-            utils->okBeep();
+            utils->okBeep(soundtones);
           }
           break;
         default:
-          if (useThreatAttempt())
+          if (useThreatAttempt(stats, text, dungeon))
           {
-            utils->koBeep();
+            utils->koBeep(soundtones);
           }
           else
           {
-            utils->okBeep();
+            utils->okBeep(soundtones);
+            return false;
           }
           break;
         }
       }
     }
 
-    if (menu > 0 && koMovement())
+    if (menu > 0 && koMovement(utils))
     {
       menu--;
     }
 
     if (dungeon->monster.life < 1)
     {
-      utils->okBeep();
+      utils->okBeep(soundtones);
       stats->counter.killed++;
       return false;
     }
@@ -161,9 +157,9 @@ public:
     return true;
   }
 
-  void eventDisplay()
+  void eventDisplay(Utils *utils, Text *text, Dungeon *dungeon)
   {
-    dungeon->monster.displayFrame();
+    dungeon->monster.displayFrame(utils);
     text->printValue(7, 45, dungeon->monster.life);
     text->printCommonLine(24, 45, 1);
 
@@ -192,26 +188,134 @@ public:
       break;
     }
 
-    displayMenuCursor(40, 20);
+    displayMenuCursor(text, 40, 20);
   }
 
 private:
-  bool useThreatAttempt()
+  bool useThreatAttempt(Stats *stats, Text *text, Dungeon *dungeon)
   {
+    if (stats->getStatusText() == 0 && !dungeon->monster.canBeSpare())
+    {
+      switch (rand() % 7)
+      {
+      case 0: // "YELLS BACK";
+        text->printLog(71);
+        stats->hit();
+        return true;
+      case 1: // "ATTACKS, HP DOWN";
+        stats->hit();
+        text->printLog(72);
+        return true;
+      case 2: // "ATTACKS, DEF DOWN";
+        stats->decDEF(1);
+        stats->hit();
+        text->printLog(73);
+        return true;
+      case 3: // "FAINTS";
+        text->printLog(74);
+        return false;
+      case 4: // "AFRAID, DEF UP";
+        stats->incDEF(1);
+        text->printLog(75);
+        return false;
+      case 5: // "SCARE, DEF UP";
+        stats->incDEF(1);
+        text->printLog(76);
+        return false;
+      default: // "HITS AND RUNS";
+        text->printLog(77);
+        stats->hit();
+        return false;
+      }
+    }
+    text->printLog(70);
     return true;
   }
 
-  bool useApproachAttempt()
+  bool useApproachAttempt(Stats *stats, Text *text, Dungeon *dungeon)
   {
+    if (stats->getStatusText() == 1 && !dungeon->monster.canBeSpare())
+    {
+      switch (rand() % 7)
+      {
+      case 0: // "ATTACKS, STR DOWN";
+        stats->decSTR(1);
+        stats->hit();
+        text->printLog(79);
+        return true;
+      case 1: // "IS AFRAID";
+        text->printLog(80);
+        return true;
+      case 2: // "STEALS FROM YOU";
+        if (!stats->discardItem(8))
+        {
+          stats->discardItem(7);
+        }
+        text->printLog(81);
+        return true;
+      case 3: // "GIVES YOU A POTION";
+        stats->addItem(8);
+        text->printLog(82);
+        return false;
+      case 4: // "GIVES A RELIC";
+        stats->addItem(7);
+        text->printLog(83);
+        return false;
+      case 5: // "HIT AND RUNS";
+        text->printLog(84);
+        stats->hit();
+        return false;
+      default: // "HIT AND ESCAPE";
+        text->printLog(85);
+        stats->hit();
+        return false;
+      }
+    }
+    text->printLog(78);
     return true;
   }
 
-  bool useExplainAttempt()
+  bool useExplainAttempt(Stats *stats, Text *text, Dungeon *dungeon)
   {
+    if (stats->getStatusText() == 2 && !dungeon->monster.canBeSpare())
+    {
+      switch (rand() % 7)
+      {
+      case 0: // "ATTACKS, DEF DOWN";
+        stats->decDEF(1);
+        stats->hit();
+        text->printLog(87);
+        return true;
+      case 1: // "ATTACKS";
+        stats->hit();
+        text->printLog(88);
+        return true;
+      case 2: // "ACCEPTS, RELIC FOUND";
+        stats->addItem(7);
+        text->printLog(89);
+        return false;
+      case 3: // "NODS, GIVES POTION";
+        stats->addItem(8);
+        text->printLog(90);
+        return false;
+      case 4: // "LEAVES IN ANGER";
+        text->printLog(91);
+        stats->hit();
+        return false;
+      case 5: // "UNDERSTAND";
+        text->printLog(92);
+        return true;
+      default: // "HIT AND RUNS";
+        text->printLog(93);
+        stats->hit();
+        return false;
+      }
+    }
+    text->printLog(86);
     return true;
   }
 
-  bool useSpareAttempt()
+  bool useSpareAttempt(Stats *stats, Text *text, Dungeon *dungeon)
   {
     if (!dungeon->monster.canBeSpare())
     {
@@ -245,7 +349,7 @@ private:
     return true;
   }
 
-  bool useRelicAttempt()
+  bool useRelicAttempt(Stats *stats, Text *text, Dungeon *dungeon)
   {
     if (stats->discardItem(7))
     {
@@ -270,7 +374,7 @@ private:
     }
   }
 
-  void attackAttempt()
+  void attackAttempt(Stats *stats, Text *text, Dungeon *dungeon)
   {
     uint8_t additionalDamage = 0;
 
@@ -289,10 +393,15 @@ private:
       additionalDamage = 2;
     }
 
+    if (stats->getSTR() == 0)
+    {
+      text->printLog(20);
+    }
+
     dungeon->monster.hitEnemy(stats->getSTR() + additionalDamage);
   }
 
-  bool usePotionAttempt()
+  bool usePotionAttempt(Stats *stats, Text *text)
   {
     if (stats->discardItem(8))
     {
@@ -333,12 +442,12 @@ private:
     }
   }
 
-  bool escapeAttempt()
+  bool escapeAttempt(Utils *utils, Text *text, Stats *stats, Dungeon *dungeon, ArduboyTones *soundtones)
   {
     if (!dungeon->monster.canBeSpare())
     {
       text->printLog(36);
-      utils->koBeep();
+      utils->koBeep(soundtones);
       return true;
     }
 

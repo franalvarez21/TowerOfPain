@@ -17,7 +17,6 @@
 struct Utils
 {
   Arduboy2 *arduboy;
-  ArduboyTones *soundtones;
 
   bool sound;
   bool music;
@@ -25,17 +24,16 @@ struct Utils
   uint8_t musicalLullaby[10] = {0, 1, 0, 1, 1, 0, 1, 1, 1, 0};
   uint8_t lullaby = 0;
 
-  void init(Arduboy2 *arduboy, ArduboyTones *soundtones)
+  void init(Arduboy2 *arduboy)
   {
     this->arduboy = arduboy;
-    this->soundtones = soundtones;
 
     cycle = 10;
     sound = false;
     music = false;
   }
 
-  void tick(void)
+  void tick(ArduboyTones *soundtones)
   {
     cycle--;
     if (cycle < 1)
@@ -45,12 +43,12 @@ struct Utils
       {
         lullaby = 0;
       }
-      doBeep();
+      doBeep(soundtones);
       cycle = 10;
     }
   }
 
-  void doBeep()
+  void doBeep(ArduboyTones *soundtones)
   {
     if (musicalLullaby[lullaby] == 1 && music)
     {
@@ -58,12 +56,12 @@ struct Utils
     }
   }
 
-  void koBeep()
+  void koBeep(ArduboyTones *soundtones)
   {
     soundtones->tone(250, 50);
   }
 
-  void okBeep()
+  void okBeep(ArduboyTones *soundtones)
   {
     soundtones->tone(700, 50);
   }

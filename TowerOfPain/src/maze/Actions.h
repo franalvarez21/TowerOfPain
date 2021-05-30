@@ -2,12 +2,12 @@
 class Actions
 {
 public:
-  bool evaluateAction(Text *text, Stats *stats, Dungeon *dungeon, uint8_t action)
+  bool evaluateAction(Utils *utils, Text *text, Stats *stats, Dungeon *dungeon, uint8_t action)
   {
     switch (action)
     {
     case 1:
-      if (dungeon->environmentChange() == 9)
+      if (dungeon->environmentChange(utils) == 9)
       {
         text->printLog(8);
         action = 9;

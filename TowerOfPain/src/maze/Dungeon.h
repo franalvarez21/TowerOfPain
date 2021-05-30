@@ -11,7 +11,6 @@ public:
   Monster monster;
 
 protected:
-  Utils *utils;
   uint8_t map[SQUARE_AMOUNT_WEIGHT][SQUARE_AMOUNT_HEIGHT];
   uint8_t playerXPosition;
   uint8_t playerYPosition;
@@ -19,13 +18,6 @@ protected:
   bool justPressedLock;
 
 public:
-  void init(Utils *utils)
-  {
-    this->utils = utils;
-    monster.init(utils);
-    cutscene.init(utils);
-  }
-
   void refresh()
   {
     level = 0;
@@ -46,7 +38,7 @@ public:
     return lastCutscene == level;
   }
 
-  uint8_t movePlayer()
+  uint8_t movePlayer(Utils *utils)
   {
     uint8_t value = 0;
 
@@ -157,11 +149,11 @@ public:
     level++;
   }
 
-  uint8_t environmentChange()
+  uint8_t environmentChange(Utils *utils)
   {
     uint8_t event = 0;
 
-    enemyChange();
+    enemyChange(utils);
 
     for (uint8_t i = 1; i < SQUARE_AMOUNT_WEIGHT - 1; i++)
     {
@@ -199,7 +191,7 @@ public:
     unlockPlayerBorders();
   }
 
-  void canvas(uint8_t weight = SQUARE_AMOUNT_WEIGHT, uint8_t height = SQUARE_AMOUNT_HEIGHT)
+  void canvas(Utils *utils, uint8_t weight = SQUARE_AMOUNT_WEIGHT, uint8_t height = SQUARE_AMOUNT_HEIGHT)
   {
     utils->arduboy->drawBitmap(0, 0, Map::map_top_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
     utils->arduboy->drawBitmap(SQUARE_SIZE * (weight - 2), 0, Map::map_top_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
@@ -219,20 +211,20 @@ public:
     }
   }
 
-  void completeCanvas()
+  void completeCanvas(Utils *utils)
   {
-    canvas(MAX_SQUARE_AMOUNT_WEIGHT, MAX_SQUARE_AMOUNT_HEIGHT);
+    canvas(utils, MAX_SQUARE_AMOUNT_WEIGHT, MAX_SQUARE_AMOUNT_HEIGHT);
   }
 
-  void display()
+  void display(Utils *utils)
   {
-    displayPlayer();
+    displayPlayer(utils);
     for (uint8_t x = 1; x < SQUARE_AMOUNT_WEIGHT - 1; x++)
     {
       for (uint8_t y = 1; y < SQUARE_AMOUNT_HEIGHT - 1; y++)
       {
-        displayElements(x, y);
-        displayMaze(x, y);
+        displayElements(utils, x, y);
+        displayMaze(utils, x, y);
       }
     }
   }
@@ -276,7 +268,7 @@ private:
     }
   }
 
-  void enemyChange()
+  void enemyChange(Utils *utils)
   {
     for (uint8_t i = 1; i < SQUARE_AMOUNT_WEIGHT - 1; i++)
     {
@@ -455,7 +447,7 @@ private:
     return (map[i][j] == 1 && map[i - 1][j] < 2 && map[i][j - 1] < 2 && map[i + 1][j] < 2 && map[i][j + 1] < 2);
   }
 
-  void displayPlayer()
+  void displayPlayer(Utils *utils)
   {
     if (utils->cycle <= 5)
     {
@@ -467,7 +459,7 @@ private:
     }
   }
 
-  void displayElements(uint8_t x, uint8_t y)
+  void displayElements(Utils *utils, uint8_t x, uint8_t y)
   {
     if (!(x == playerXPosition && y == playerYPosition))
     {
@@ -495,13 +487,13 @@ private:
         utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::potion, SQUARE_SIZE, SQUARE_SIZE, WHITE);
         break;
       case 9:
-        monster.displayIn(x, y);
+        monster.displayIn(utils, x, y);
         break;
       }
     }
   }
 
-  void displayMaze(uint8_t x, uint8_t y)
+  void displayMaze(Utils *utils, uint8_t x, uint8_t y)
   {
     if (map[x][y] > 0)
     {
@@ -564,7 +556,7 @@ private:
     }
     else
     {
-      monster.displayEnvironmentIn(x, y);
+      monster.displayEnvironmentIn(utils, x, y);
     }
   }
 
