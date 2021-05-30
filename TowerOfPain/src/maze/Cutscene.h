@@ -94,7 +94,7 @@ private:
   {
     if (enabled())
     {
-      text->printCommonLine(80, 52, 28);
+      text->printCommonLine(80, 52, 26);
     }
     else
     {

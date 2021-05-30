@@ -48,7 +48,7 @@ public:
           if (dungeon->monster.currentType < 3)
           {
             utils->koBeep(soundtones);
-            text->printLog(69);
+            text->printLog(55);
           }
           else
           {
@@ -181,9 +181,9 @@ public:
       break;
     default:
       text->printCommonLine(40, 8, 10);
-      text->printCommonLine(48, 20, 30);
-      text->printCommonLine(48, 28, 31);
-      text->printCommonLine(48, 36, 32);
+      text->printCommonLine(48, 20, 27);
+      text->printCommonLine(48, 28, 28);
+      text->printCommonLine(48, 36, 29);
       text->printCommonLine(48, 44, 15);
       break;
     }
@@ -199,36 +199,36 @@ private:
       switch (rand() % 7)
       {
       case 0: // "YELLS BACK";
-        text->printLog(71);
+        text->printLog(57);
         stats->hit();
         return true;
       case 1: // "ATTACKS, HP DOWN";
         stats->hit();
-        text->printLog(72);
+        text->printLog(58);
         return true;
       case 2: // "ATTACKS, DEF DOWN";
         stats->decDEF(1);
         stats->hit();
-        text->printLog(73);
+        text->printLog(59);
         return true;
       case 3: // "FAINTS";
-        text->printLog(74);
+        text->printLog(60);
         return false;
       case 4: // "AFRAID, DEF UP";
         stats->incDEF(1);
-        text->printLog(75);
+        text->printLog(61);
         return false;
       case 5: // "SCARE, DEF UP";
         stats->incDEF(1);
-        text->printLog(76);
+        text->printLog(62);
         return false;
       default: // "HITS AND RUNS";
-        text->printLog(77);
+        text->printLog(63);
         stats->hit();
         return false;
       }
     }
-    text->printLog(70);
+    text->printLog(56);
     return true;
   }
 
@@ -241,37 +241,37 @@ private:
       case 0: // "ATTACKS, STR DOWN";
         stats->decSTR(1);
         stats->hit();
-        text->printLog(79);
+        text->printLog(65);
         return true;
       case 1: // "IS AFRAID";
-        text->printLog(80);
+        text->printLog(66);
         return true;
       case 2: // "STEALS FROM YOU";
         if (!stats->discardItem(8))
         {
           stats->discardItem(7);
         }
-        text->printLog(81);
+        text->printLog(67);
         return true;
       case 3: // "GIVES YOU A POTION";
         stats->addItem(8);
-        text->printLog(82);
+        text->printLog(68);
         return false;
       case 4: // "GIVES A RELIC";
         stats->addItem(7);
-        text->printLog(83);
+        text->printLog(69);
         return false;
       case 5: // "HIT AND RUNS";
-        text->printLog(84);
+        text->printLog(70);
         stats->hit();
         return false;
       default: // "HIT AND ESCAPE";
-        text->printLog(85);
+        text->printLog(71);
         stats->hit();
         return false;
       }
     }
-    text->printLog(78);
+    text->printLog(64);
     return true;
   }
 
@@ -284,34 +284,34 @@ private:
       case 0: // "ATTACKS, DEF DOWN";
         stats->decDEF(1);
         stats->hit();
-        text->printLog(87);
+        text->printLog(73);
         return true;
       case 1: // "ATTACKS";
         stats->hit();
-        text->printLog(88);
+        text->printLog(74);
         return true;
       case 2: // "ACCEPTS, RELIC FOUND";
         stats->addItem(7);
-        text->printLog(89);
+        text->printLog(75);
         return false;
       case 3: // "NODS, GIVES POTION";
         stats->addItem(8);
-        text->printLog(90);
+        text->printLog(76);
         return false;
       case 4: // "LEAVES IN ANGER";
-        text->printLog(91);
+        text->printLog(77);
         stats->hit();
         return false;
       case 5: // "UNDERSTAND";
-        text->printLog(92);
+        text->printLog(78);
         return true;
       default: // "HIT AND RUNS";
-        text->printLog(93);
+        text->printLog(79);
         stats->hit();
         return false;
       }
     }
-    text->printLog(86);
+    text->printLog(72);
     return true;
   }
 
