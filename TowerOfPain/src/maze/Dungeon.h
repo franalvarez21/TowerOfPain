@@ -5,8 +5,8 @@
 class Dungeon
 {
 public:
-  uint8_t level;
-  uint8_t lastCutscene;
+  size_t level;
+  size_t lastCutscene;
   bool keyNeeded;
   Cutscene cutscene;
   Monster monster;

@@ -27,4 +27,5 @@ public:
   void mainGameTick(void);
   void mainGameBattleTick(void);
   void mainCutsceneTick(void);
+  void mainLastCutsceneTick(void);
 };

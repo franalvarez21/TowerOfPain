@@ -2,10 +2,10 @@
 
 struct Counter
 {
-  uint8_t killed;
-  uint8_t escaped;
-  uint8_t utils;
-  uint8_t spared;
+  size_t killed;
+  size_t escaped;
+  size_t utils;
+  size_t spared;
 
   void init()
   {
@@ -48,7 +48,7 @@ struct Stats
   uint8_t hp;
   uint8_t str;
   uint8_t def;
-  uint8_t maxLevel = 0;
+  size_t maxLevel = 0;
   Item slots[ITEM_AMOUNT];
   Counter counter;
 
@@ -64,12 +64,12 @@ struct Stats
     }
   }
 
-  void incMaxLevelReached(uint8_t val)
+  void incMaxLevelReached(size_t val)
   {
     maxLevel = min(max(val, maxLevel), MAX_LEVEL);
   }
 
-  uint8_t getMaxLevelReached()
+  size_t getMaxLevelReached()
   {
     return min(maxLevel, MAX_LEVEL);
   }

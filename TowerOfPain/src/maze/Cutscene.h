@@ -17,13 +17,22 @@ public:
     return (timer == 0);
   }
 
-  void eventDisplay(Utils *utils, Stats *stats, Text *text, const uint8_t monsterType, const uint8_t level)
+  void eventDisplay(Utils *utils, Stats *stats, Text *text, const uint8_t monsterType, const size_t level)
   {
-    printContinue(text);
     printPlayerFrame(utils);
 
-    if (gameOver)
+    if (level == MAX_LEVEL)
     {
+      text->printStoryLine(40, 8, 53);
+      text->printStoryLine(40, 16, 54);
+      text->printStoryLine(40, 24, 42);
+      text->printStoryLine(40, 32, 44);
+      text->printValue(100, 32, level);
+    }
+    else if (gameOver)
+    {
+      printContinue(text);
+
       text->printStoryLine(40, 8, 41);
       text->printStoryLine(40, 16, 43);
       text->printStoryLine(40, 24, 42);
@@ -32,6 +41,8 @@ public:
     }
     else
     {
+      printContinue(text);
+
       switch (stats->getStatusText())
       {
       case 0: // Strong

@@ -129,8 +129,8 @@ namespace Storylines
   const char storyLine50[] PROGMEM = "CAREFUL";
   const char storyLine51[] PROGMEM = "GO FAST";
   const char storyLine52[] PROGMEM = "KEY FOUND!";
-  const char storyLine53[] PROGMEM = "";
-  const char storyLine54[] PROGMEM = "";
+  const char storyLine53[] PROGMEM = "YOU MADE IT!";
+  const char storyLine54[] PROGMEM = "BUT, NOW WHAT?";
   const char storyLine55[] PROGMEM = "";
   const char storyLine56[] PROGMEM = "";
   const char storyLine57[] PROGMEM = "";

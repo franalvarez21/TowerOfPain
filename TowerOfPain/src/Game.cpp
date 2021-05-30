@@ -73,8 +73,11 @@ void Game::loop(void)
   case 3:
     mainGameBattleTick();
     break;
-  default:
+  case 4:
     mainCutsceneTick();
+    break;
+  default:
+    mainLastCutsceneTick();
     break;
   }
 
@@ -138,7 +141,13 @@ void Game::mainGameTick(void)
       utils.lullaby = 0;
     }
 
-    if (dungeon.level > 0 && dungeon.level % CHANGE_LEVEL_AT == 0 && !dungeon.cutsceneDone())
+    if (dungeon.level == MAX_LEVEL)
+    {
+      dungeon.cutsceneStart(false, false);
+      onStage = 5;
+      utils.lullaby = 0;
+    }
+    else if (dungeon.level > 0 && dungeon.level % CHANGE_LEVEL_AT == 0 && !dungeon.cutsceneDone())
     {
       dungeon.cutsceneStart(false, false);
       onStage = 4;
@@ -195,5 +204,12 @@ void Game::mainCutsceneTick(void)
     utils.lullaby = 0;
   }
 
+  dungeon.completeCanvas(&utils);
+}
+
+void Game::mainLastCutsceneTick(void)
+{
+  utils.music = 3;
+  dungeon.cutscene.eventDisplay(&utils, &stats, &text, dungeon.monster.currentType, stats.getMaxLevelReached());
   dungeon.completeCanvas(&utils);
 }
