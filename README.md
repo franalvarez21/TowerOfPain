@@ -10,6 +10,8 @@ Please refer to https://community.arduboy.com/ on how to acquire, compile or upl
 
 Tower Of Pain is heavily based on random chance, as such your ability to reach the highest level may take some time (but is not impossible). A variety of options are available in each encounter, for each level in the tower (some may be locked based on your actions).
 
+https://github.com/franalvarez21/TowerOfPain/blob/main/TowerOfPain/images/demo.gif
+
 You can:
 - Attack, spare or run from an encounter.
 - Use some of the items found in the dungeon.
