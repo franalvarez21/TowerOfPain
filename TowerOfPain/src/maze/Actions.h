@@ -7,17 +7,24 @@ public:
     switch (action)
     {
     case 1:
-      if (dungeon->environmentChange(utils) == 9)
+      if (dungeon->environmentChange(utils) == ENEMY_NUMBER_ACTION)
       {
         text->printLog(8);
-        action = 9;
+        return true;
       }
       break;
     case 2:
-      dungeon->increaseLevel();
-      dungeon->reset();
-      text->printLevel();
-      stats->incMaxLevelReached(dungeon->level);
+      if (dungeon->canContinue())
+      {
+        dungeon->increaseLevel();
+        dungeon->reset();
+        text->printLevel();
+        stats->incMaxLevelReached(dungeon->level);
+      }
+      else
+      {
+        text->printLog(21);
+      }
       break;
     case 3:
       randomItem(text, stats);
@@ -67,13 +74,17 @@ public:
       }
       break;
     case 9:
+      dungeon->keyFound();
+      text->printLog(52);
+      break;
+    case 10:
       text->printLog(8);
       break;
     default:
       break;
     }
 
-    return (action == 9);
+    return (action == ENEMY_NUMBER_ACTION);
   }
 
 private:

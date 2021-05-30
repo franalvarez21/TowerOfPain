@@ -97,7 +97,7 @@ namespace Storylines
   const char storyLine18[] PROGMEM = "BOTH DID.. PAIN SHARED";
   const char storyLine19[] PROGMEM = "PAIN INFLICTED";
   const char storyLine20[] PROGMEM = "YOU FEEL WEAK";
-  const char storyLine21[] PROGMEM = "";
+  const char storyLine21[] PROGMEM = "KEY NEEDED";
   const char storyLine22[] PROGMEM = "YOU FAILED.. TRY AGAIN?";
   const char storyLine23[] PROGMEM = "MEDIUM HP UP";
   const char storyLine24[] PROGMEM = "STR UP";
@@ -128,7 +128,7 @@ namespace Storylines
   const char storyLine49[] PROGMEM = "DARK LOOMS";
   const char storyLine50[] PROGMEM = "CAREFUL";
   const char storyLine51[] PROGMEM = "GO FAST";
-  const char storyLine52[] PROGMEM = "";
+  const char storyLine52[] PROGMEM = "KEY FOUND!";
   const char storyLine53[] PROGMEM = "";
   const char storyLine54[] PROGMEM = "";
   const char storyLine55[] PROGMEM = "";

@@ -78,4 +78,15 @@ namespace Common
       0x20,
       0x00,
   };
+
+  const uint8_t PROGMEM key[] = {
+      0x00,
+      0x70,
+      0x50,
+      0x78,
+      0x1c,
+      0x06,
+      0x12,
+      0x08,
+  };
 }

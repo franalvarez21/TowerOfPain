@@ -7,6 +7,7 @@ class Dungeon
 public:
   uint8_t level;
   uint8_t lastCutscene;
+  bool keyNeeded;
   Cutscene cutscene;
   Monster monster;
 
@@ -31,6 +32,16 @@ public:
     monster.refresh(refresh);
     cutscene.start(start);
     lastCutscene = level;
+  }
+
+  bool canContinue()
+  {
+    return !keyNeeded;
+  }
+
+  void keyFound()
+  {
+    keyNeeded = false;
   }
 
   bool cutsceneDone()
@@ -159,13 +170,13 @@ public:
     {
       for (uint8_t j = 1; j < SQUARE_AMOUNT_HEIGHT - 1; j++)
       {
-        if (map[i][j] > 9)
+        if (map[i][j] > ENEMY_NUMBER_ACTION)
         {
-          if (map[i][j] > 10)
+          if (map[i][j] > ENEMY_NUMBER_ACTION + 1)
           {
-            event = 9;
+            event = ENEMY_NUMBER_ACTION;
           }
-          map[i][j] = 9;
+          map[i][j] = ENEMY_NUMBER_ACTION;
         }
       }
     }
@@ -260,11 +271,11 @@ private:
     map[x][y] = 1;
     if (!(i == playerXPosition && j == playerYPosition))
     {
-      map[i][j] = 10;
+      map[i][j] = ENEMY_NUMBER_ACTION + 1;
     }
     else
     {
-      map[i][j] = 11;
+      map[i][j] = ENEMY_NUMBER_ACTION + 2;
     }
   }
 
@@ -274,7 +285,7 @@ private:
     {
       for (uint8_t j = 1; j < SQUARE_AMOUNT_HEIGHT - 1; j++)
       {
-        if (map[i][j] == 9)
+        if (map[i][j] == ENEMY_NUMBER_ACTION)
         {
           if (utils->sizeTypeAbs(playerXPosition, i) < 4 && utils->sizeTypeAbs(playerYPosition, j) < 4 && (rand() % 4 < 3))
           {
@@ -364,6 +375,7 @@ private:
 
   void spawnObjects()
   {
+    keyNeeded = false;
     if (level < MAX_LEVEL)
     {
       spawnObject(2);
@@ -375,7 +387,15 @@ private:
       {
         for (uint8_t i = 0; i < (1 + rand() % MAX_ENEMY_AMOUNT); i++)
         {
-          spawnObject(9);
+          spawnObject(ENEMY_NUMBER_ACTION);
+        }
+
+        if (rand() % 2 == 0)
+        {
+          if (spawnObject(9))
+          {
+            keyNeeded = true;
+          }
         }
       }
     }
@@ -487,6 +507,9 @@ private:
         utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::potion, SQUARE_SIZE, SQUARE_SIZE, WHITE);
         break;
       case 9:
+        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::key, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+        break;
+      case 10:
         monster.displayIn(utils, x, y);
         break;
       }
@@ -591,10 +614,13 @@ private:
     uint8_t value = map[playerXPosition + extX][playerYPosition + extY];
     if (value > 0)
     {
-      map[playerXPosition][playerYPosition] = 1;
+      if (map[playerXPosition][playerYPosition] > 2)
+      {
+        map[playerXPosition][playerYPosition] = 1;
+      }
       playerXPosition += extX;
       playerYPosition += extY;
-      if (value > 1)
+      if (value > 2)
       {
         map[playerXPosition][playerYPosition] = 1;
       }
