@@ -42,7 +42,7 @@ Visual hints are displayed only if the sounds are disabled.
 Point pending so far:
 - Better sound control
 - Better map and enemy spawning (currently uses a simple walker method)
-- 15 out of 20 enemies are available (current code capacity is at 97%)
+- 15 out of 20 enemies are available (current code capacity is at 98%)
 
 ## Compilation log
 
