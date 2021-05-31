@@ -57,6 +57,8 @@ struct Text
 
   void printStats(Stats *stats, Utils *utils)
   {
+    stats->giveFeedback(utils);
+
     printValue(100, 2, stats->getHP());
     printValue(100, 9, stats->getSTR());
     printValue(100, 16, stats->getDEF());

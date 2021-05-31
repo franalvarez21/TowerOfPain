@@ -31,6 +31,12 @@ https://github.com/felipemanga/ProjectABE
 
 ./ProjectABE TowerOfPain/distributable/TowerOfPain.ino.leonardo.hex
 
+## Sound
+
+Sound is always disabled by default, can be enabled in the main and pause menu.
+
+Visual hints are displayed only if the sounds are disabled.
+
 ## Details
 
 Point pending so far:
@@ -41,5 +47,5 @@ Point pending so far:
 ## Compilation log
 
 May 31, 2021
-Sketch uses 28018 bytes (97%) of program storage space. Maximum is 28672 bytes.
-Global variables use 1520 bytes (59%) of dynamic memory, leaving 1040 bytes for local variables. Maximum is 2560 bytes.
+Sketch uses 28192 bytes (98%) of program storage space. Maximum is 28672 bytes.
+Global variables use 1522 bytes (59%) of dynamic memory, leaving 1038 bytes for local variables. Maximum is 2560 bytes.

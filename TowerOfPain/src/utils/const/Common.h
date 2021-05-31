@@ -24,6 +24,17 @@ namespace Common
       0x08,
   };
 
+  const uint8_t PROGMEM update_1[] = {
+      0x00,
+      0x2c,
+      0x30,
+      0x38,
+      0x00,
+      0x1c,
+      0x0c,
+      0x34,
+  };
+
   const uint8_t PROGMEM chest[] = {
       0x00,
       0x7c,

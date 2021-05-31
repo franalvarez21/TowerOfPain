@@ -4,6 +4,7 @@ class BattleMenu : public Menu
 {
 protected:
   uint8_t menu;
+  uint8_t feedbackCounter;
 
 public:
   BattleMenu() : Menu(3){};
@@ -12,14 +13,23 @@ public:
   {
     menu = 0;
     option = 0;
+    feedbackCounter = 0;
   }
 
   bool action(Utils *utils, Text *text, Stats *stats, Dungeon *dungeon, ArduboyTones *soundtones)
   {
+    if (feedbackCounter > 0 && !utils->sound)
+    {
+      feedbackCounter--;
+      utils->arduboy->drawBitmap(84, 46, Common::update_1, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    }
+
     upDownMovement(utils);
 
     if (okMovement(utils))
     {
+      feedbackCounter = FEEDBACK_COUNTER;
+
       if (option == 3)
       {
         switch (menu)
@@ -37,6 +47,7 @@ public:
           break;
         default:
           menu--;
+          feedbackCounter = 0;
           break;
         }
       }
@@ -53,6 +64,7 @@ public:
           else
           {
             menu++;
+            feedbackCounter = 0;
           }
           break;
         case 2:
@@ -68,6 +80,7 @@ public:
           break;
         default:
           menu++;
+          feedbackCounter = 0;
           break;
         }
       }
@@ -145,6 +158,7 @@ public:
     if (menu > 0 && koMovement(utils))
     {
       menu--;
+      feedbackCounter = 0;
     }
 
     if (dungeon->monster.life < 1)

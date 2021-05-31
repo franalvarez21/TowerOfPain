@@ -13,6 +13,7 @@
 #define ENEMY_NUMBER_ACTION 10
 #define CUTSCENE_TIMER 15
 #define WALKER_CYCLES 50
+#define FEEDBACK_COUNTER 10
 
 #include "utils/Utils.h"
 

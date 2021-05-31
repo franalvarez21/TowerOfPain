@@ -29,7 +29,7 @@ public:
 
   bool canBeSpare()
   {
-    return life < (maxLife * 0.80);
+    return life < (maxLife * 0.50);
   }
 
   void refresh(const bool start)

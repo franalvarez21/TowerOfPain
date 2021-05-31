@@ -48,6 +48,7 @@ struct Stats
   uint8_t hp;
   uint8_t str;
   uint8_t def;
+  uint8_t feedbackCounter;
   size_t maxLevel = 0;
   Item slots[ITEM_AMOUNT];
   Counter counter;
@@ -57,6 +58,7 @@ struct Stats
     hp = 9;
     str = 1;
     def = 0;
+    feedbackCounter = 0;
     counter.init();
     for (uint8_t i = 0; i < ITEM_AMOUNT - 1; i++)
     {
@@ -76,31 +78,37 @@ struct Stats
 
   void incHP(uint8_t val)
   {
+    feedbackCounter = FEEDBACK_COUNTER;
     hp = min(hp + val, 9);
   }
 
   void decHP(uint8_t val)
   {
+    feedbackCounter = FEEDBACK_COUNTER;
     hp = max(hp - val, 0);
   }
 
   void incSTR(uint8_t val)
   {
+    feedbackCounter = FEEDBACK_COUNTER;
     str = min(str + val, 9);
   }
 
   void decSTR(uint8_t val)
   {
+    feedbackCounter = FEEDBACK_COUNTER;
     str = max(str - val, 0);
   }
 
   void incDEF(uint8_t val)
   {
+    feedbackCounter = FEEDBACK_COUNTER;
     def = min(def + val, 9);
   }
 
   void decDEF(uint8_t val)
   {
+    feedbackCounter = FEEDBACK_COUNTER;
     def = max(def - val, 0);
   }
 
@@ -134,6 +142,15 @@ struct Stats
 
     decHP(1);
     return (hp <= 0);
+  }
+
+  void giveFeedback(Utils *utils)
+  {
+    if (feedbackCounter > 0 && !utils->sound)
+    {
+      feedbackCounter--;
+      utils->arduboy->drawBitmap(120, 0, Common::update_1, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    }
   }
 
   bool addItem(uint8_t item)
