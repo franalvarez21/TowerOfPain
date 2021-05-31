@@ -39,13 +39,14 @@ Visual hints are displayed only if the sounds are disabled.
 
 ## Details
 
-Point pending so far:
-- Better sound control
-- Better map and enemy spawning (currently uses a simple walker method)
+Nice to have (pending):
+- Better sound control (for emulation compatibility)
+- Better map and enemy spawning (currently uses a simple walker method, could be better)
 - 15 out of 20 enemies are available (current code capacity is at 98%)
 
 ## Compilation log
 
 May 31, 2021
-Sketch uses 28192 bytes (98%) of program storage space. Maximum is 28672 bytes.
+
+Sketch uses 28236 bytes (98%) of program storage space. Maximum is 28672 bytes.
 Global variables use 1522 bytes (59%) of dynamic memory, leaving 1038 bytes for local variables. Maximum is 2560 bytes.
