@@ -150,6 +150,7 @@ namespace Storylines
   const char storyLine77[] PROGMEM = "LEAVES IN ANGER";
   const char storyLine78[] PROGMEM = "UNDERSTAND";
   const char storyLine79[] PROGMEM = "HITS AND RUNS";
+  const char storyLine80[] PROGMEM = "YOU HIT WITH ANGER";
 
   const char *const storyLines[] PROGMEM = {
       storyLine0,
@@ -231,5 +232,6 @@ namespace Storylines
       storyLine76,
       storyLine77,
       storyLine78,
-      storyLine79};
+      storyLine79,
+      storyLine80};
 }

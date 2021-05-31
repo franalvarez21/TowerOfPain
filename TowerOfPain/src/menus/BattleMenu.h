@@ -391,6 +391,7 @@ private:
   void attackAttempt(Stats *stats, Text *text, Dungeon *dungeon)
   {
     uint8_t additionalDamage = 0;
+    uint8_t baseDamage = stats->getSTR();
 
     if (rand() % 2 == 0)
     {
@@ -412,7 +413,13 @@ private:
       text->printLog(20);
     }
 
-    dungeon->monster.hitEnemy(stats->getSTR() + additionalDamage);
+    if (stats->getStatusText() == 0)
+    {
+      text->printLog(80);
+      baseDamage = stats->getSTR() * ((rand() % 2) + 2);
+    }
+
+    dungeon->monster.hitEnemy(baseDamage + additionalDamage);
   }
 
   bool usePotionAttempt(Stats *stats, Text *text)
