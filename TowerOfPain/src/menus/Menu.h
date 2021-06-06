@@ -42,6 +42,6 @@ public:
 
   void displayMenuCursor(Text *text, uint8_t x, uint8_t y)
   {
-    text->printCommonLine(x, y + (SQUARE_SIZE * option), 25);
+    text->printCommonLine(x, y + (SQUARE_SIZE * option), 24);
   }
 };

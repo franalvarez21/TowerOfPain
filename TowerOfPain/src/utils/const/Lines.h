@@ -26,13 +26,12 @@ namespace Commonlines
   const char commonLine21[] PROGMEM = "S. OFF";
   const char commonLine22[] PROGMEM = "M. MENU";
   const char commonLine23[] PROGMEM = "ABOUT";
-  const char commonLine24[] PROGMEM = "V1.0";
-  const char commonLine25[] PROGMEM = "#";
-  const char commonLine26[] PROGMEM = "CONTINUE";
-  const char commonLine27[] PROGMEM = "THREAT";
-  const char commonLine28[] PROGMEM = "APPROACH";
-  const char commonLine29[] PROGMEM = "EXPLAIN";
-  const char commonLine30[] PROGMEM = "x";
+  const char commonLine24[] PROGMEM = "#";
+  const char commonLine25[] PROGMEM = "CONTINUE";
+  const char commonLine26[] PROGMEM = "THREAT";
+  const char commonLine27[] PROGMEM = "APPROACH";
+  const char commonLine28[] PROGMEM = "EXPLAIN";
+  const char commonLine29[] PROGMEM = "x";
 
   const char *const commonLines[] PROGMEM = {
       commonLine0,
@@ -64,8 +63,7 @@ namespace Commonlines
       commonLine26,
       commonLine27,
       commonLine28,
-      commonLine29,
-      commonLine30};
+      commonLine29};
 }
 
 namespace Storylines
@@ -105,7 +103,7 @@ namespace Storylines
   const char storyLine32[] PROGMEM = "LEAVES, POTION FOUND";
   const char storyLine33[] PROGMEM = "TOO STRONG, CAN'T SPARE";
   const char storyLine34[] PROGMEM = "NO RELIC AVAILABLE";
-  const char storyLine35[] PROGMEM = "FRANALVAREZ21";
+  const char storyLine35[] PROGMEM = "NORTH V1.1";
   const char storyLine36[] PROGMEM = "TOO STRONG, CAN'T ESCAPE";
   const char storyLine37[] PROGMEM = "YOU ARE STRONG";
   const char storyLine38[] PROGMEM = "YOU ARE SMART";

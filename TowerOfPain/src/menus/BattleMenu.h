@@ -195,9 +195,9 @@ public:
       break;
     default:
       text->printCommonLine(40, 8, 10);
-      text->printCommonLine(48, 20, 27);
-      text->printCommonLine(48, 28, 28);
-      text->printCommonLine(48, 36, 29);
+      text->printCommonLine(48, 20, 26);
+      text->printCommonLine(48, 28, 27);
+      text->printCommonLine(48, 36, 28);
       text->printCommonLine(48, 44, 15);
       break;
     }

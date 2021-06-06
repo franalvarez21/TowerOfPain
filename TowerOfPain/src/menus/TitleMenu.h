@@ -58,6 +58,8 @@ public:
   {
     utils->arduboy->drawBitmap(0, 0, Title::logo, 128, 32, WHITE);
     utils->arduboy->drawBitmap(120, 32, Title::options, 8, 32, WHITE);
+    utils->arduboy->drawBitmap(0, 40, Title::stairs, 32, 24, WHITE);
+
     if (utils->cycle <= 5)
     {
       utils->arduboy->drawBitmap(0, 22, Common::logo_1, SQUARE_SIZE, SQUARE_SIZE, WHITE);
@@ -69,7 +71,7 @@ public:
 
     if (about)
     {
-      text->printStoryLine(58, 60, 35);
+      text->printStoryLine(73, 60, 35);
     }
     else
     {
@@ -87,7 +89,5 @@ public:
 
       displayMenuCursor(text, 90, 44);
     }
-
-    text->printCommonLine(0, 60, 24);
   }
 };
