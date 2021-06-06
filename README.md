@@ -1,6 +1,6 @@
 # Tower Of Pain
 
-Tower Of Pain is a simple roguelike video game for the Arduboy, inspired by the classics like Hack (1982), but extremely simplified to fit in Arduboy miniature game system.
+Tower Of Pain is a simple roguelike game for the Arduboy, inspired by the classics like Hack (1982), but extremely simplified to fit in Arduboy miniature game system.
 
 ## Arduboy
 
