@@ -58,7 +58,7 @@ public:
   {
     utils->arduboy->drawBitmap(0, 0, Title::logo, 128, 32, WHITE);
     utils->arduboy->drawBitmap(120, 32, Title::options, 8, 32, WHITE);
-    utils->arduboy->drawBitmap(0, 40, Title::stairs, 32, 24, WHITE);
+    utils->arduboy->drawBitmap(0, 42, Title::player, 17, 22, WHITE);
 
     if (utils->cycle <= 5)
     {
@@ -71,7 +71,7 @@ public:
 
     if (about)
     {
-      text->printStoryLine(73, 60, 35);
+      text->printStoryLine(63, 60, 35);
     }
     else
     {

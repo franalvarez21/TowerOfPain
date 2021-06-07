@@ -36,7 +36,6 @@ void Game::setup(void)
   arduboy.systemButtons();
   arduboy.waitNoButtons();
   arduboy.audio.off();
-  Serial.begin(9600);
 
   utils.init(&arduboy);
   text.init(&tinyfont);

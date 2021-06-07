@@ -103,7 +103,7 @@ namespace Storylines
   const char storyLine32[] PROGMEM = "LEAVES, POTION FOUND";
   const char storyLine33[] PROGMEM = "TOO STRONG, CAN'T SPARE";
   const char storyLine34[] PROGMEM = "NO RELIC AVAILABLE";
-  const char storyLine35[] PROGMEM = "NORTH V1.1";
+  const char storyLine35[] PROGMEM = "NORTH V1.1.1";
   const char storyLine36[] PROGMEM = "TOO STRONG, CAN'T ESCAPE";
   const char storyLine37[] PROGMEM = "YOU ARE STRONG";
   const char storyLine38[] PROGMEM = "YOU ARE SMART";
@@ -124,7 +124,7 @@ namespace Storylines
   const char storyLine53[] PROGMEM = "YOU MADE IT!";
   const char storyLine54[] PROGMEM = "BUT, NOW WHAT?";
   const char storyLine55[] PROGMEM = "CAN'T TALK WITH SLIMES";
-  const char storyLine56[] PROGMEM = "YOU REFUSE"; // THREAT
+  const char storyLine56[] PROGMEM = "YOU REFUSE";
   const char storyLine57[] PROGMEM = "YELLS BACK";
   const char storyLine58[] PROGMEM = "ATTACKS, HP DOWN";
   const char storyLine59[] PROGMEM = "ATTACKS, DEF DOWN";
@@ -132,7 +132,7 @@ namespace Storylines
   const char storyLine61[] PROGMEM = "AFRAID, DEF UP";
   const char storyLine62[] PROGMEM = "SCARE, DEF UP";
   const char storyLine63[] PROGMEM = "HITS AND RUNS";
-  const char storyLine64[] PROGMEM = "NOT BRAVE ENOUGH"; // APPROACH
+  const char storyLine64[] PROGMEM = "NOT BRAVE ENOUGH";
   const char storyLine65[] PROGMEM = "ATTACKS, STR DOWN";
   const char storyLine66[] PROGMEM = "IS AFRAID";
   const char storyLine67[] PROGMEM = "STEALS FROM YOU";
@@ -140,7 +140,7 @@ namespace Storylines
   const char storyLine69[] PROGMEM = "GIVES A RELIC";
   const char storyLine70[] PROGMEM = "HITS AND RUNS";
   const char storyLine71[] PROGMEM = "HITS AND ESCAPE";
-  const char storyLine72[] PROGMEM = "WILL NOT LISTEN"; // EXPLAIN
+  const char storyLine72[] PROGMEM = "WILL NOT LISTEN";
   const char storyLine73[] PROGMEM = "ATTACKS, DEF DOWN";
   const char storyLine74[] PROGMEM = "ATTACKS";
   const char storyLine75[] PROGMEM = "ACCEPTS, RELIC FOUND";
