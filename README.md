@@ -1,6 +1,6 @@
 # Tower Of Pain
 
-Tower Of Pain is a simple hack game base for Arduboy, inspired by the classics like Hack (1982), but extremely simplified to fit in Arduboy miniature game system. Contains other elements inspired by different rpg games, but much was done without checking the source to avoid copy & paste of "how" it should work.
+Tower Of Pain is a simple roguelike game for the Arduboy, inspired by the classics like Hack (1982), but extremely simplified to fit in Arduboy miniature game system.
 
 ## Arduboy
 
@@ -8,7 +8,7 @@ Please refer to https://community.arduboy.com/ on how to acquire, compile or upl
 
 ## Gameplay
 
-Tower Of Pain is heavily based on random chance, as such your ability to reach the highest level may take some time (but is not impossible). A variety of options are available in each encounter, for each level in the tower (some may be locked based on your actions).
+Tower Of Pain is a game of chance, as such your ability to reach the highest level may take some time (but is not impossible). A variety of options are available in each encounter and each level in the tower (some may be locked based on your actions).
 
 ![Alt Text](https://github.com/franalvarez21/TowerOfPain/blob/main/TowerOfPain/images/demo.gif)
 
@@ -42,11 +42,17 @@ Visual hints are displayed only if the sounds are disabled.
 Nice to have (pending):
 - Better sound control (for emulation compatibility)
 - Better map and enemy spawning (currently uses a simple walker method, could be better)
+- Code space optimizations.
 - 15 out of 20 enemies are available (current code capacity is at 98%)
 
 ## Compilation log
 
-May 31, 2021
+June 7, 2021. V1.1
+
+Sketch uses 28332 bytes (98%) of program storage space. Maximum is 28672 bytes.
+Global variables use 1522 bytes (59%) of dynamic memory, leaving 1038 bytes for local variables. Maximum is 2560 bytes.
+
+May 31, 2021. V1.0
 
 Sketch uses 28236 bytes (98%) of program storage space. Maximum is 28672 bytes.
 Global variables use 1522 bytes (59%) of dynamic memory, leaving 1038 bytes for local variables. Maximum is 2560 bytes.
