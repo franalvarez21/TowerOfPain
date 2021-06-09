@@ -47,14 +47,14 @@ namespace Map
   };
 
   const uint8_t PROGMEM map_environment_4[] = {
-      0x00,
+      0x91,
       0x20,
       0x1a,
-      0x24,
-      0x24,
+      0x25,
+      0xa4,
       0x58,
       0x04,
-      0x00,
+      0x89,
   };
 
   const uint8_t PROGMEM map_environment_5[] = {

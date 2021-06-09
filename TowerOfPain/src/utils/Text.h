@@ -57,29 +57,29 @@ struct Text
 
   void printStats(Stats *stats, Utils *utils)
   {
-    stats->giveFeedback(utils);
-
-    printValue(100, 2, stats->getHP());
-    printValue(100, 9, stats->getSTR());
-    printValue(100, 16, stats->getDEF());
-
-    printCommonLine(108, 2, 1);
-    printCommonLine(108, 9, 2);
-    printCommonLine(108, 16, 3);
-
-    printSlotStats(utils, 99, 24, &stats->slots[0]);
-    printSlotStats(utils, 99, 32, &stats->slots[1]);
-    printSlotStats(utils, 99, 40, &stats->slots[2]);
-    printSlotStats(utils, 99, 48, &stats->slots[3]);
+    printMainSlotStats(utils, 107, 1, stats->getHP(), Common::heart);
+    printMainSlotStats(utils, 107, 8, stats->getDEF(), Common::shield_1);
+    printMainSlotStats(utils, 107, 15, stats->getSTR(), Common::strength);
+    printSlotStats(utils, 107, 24, stats);
   }
 
-  void printSlotStats(Utils *utils, uint8_t x, uint8_t y, Item *item)
+  void printMainSlotStats(Utils *utils, uint8_t x, uint8_t y, uint8_t amount, const uint8_t image[])
   {
-    printIconStats(utils, x, y, item->type);
-    if (item->amount > 1)
+    utils->arduboy->drawBitmap(x, y, image, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    printCommonLine(x + 10, y + 1, 29);
+    printValue(x + 16, y + 1, amount);
+  }
+
+  void printSlotStats(Utils *utils, uint8_t x, uint8_t y, Stats *stats)
+  {
+    for (uint8_t i = 0; i < ITEM_AMOUNT; i++)
     {
-      printCommonLine(x + 10, y + 2, 29);
-      printValue(x + 16, y + 2, item->amount);
+      printIconStats(utils, x, y + (i * 8), stats->slots[i].type);
+      if (stats->slots[i].amount > 1)
+      {
+        printCommonLine(x + 10, y + (i * 8) + 2, 29);
+        printValue(x + 16, y + (i * 8) + 2, stats->slots[i].amount);
+      }
     }
   }
 
@@ -91,7 +91,7 @@ struct Text
       utils->arduboy->drawBitmap(x, y, Common::sword, SQUARE_SIZE, SQUARE_SIZE, WHITE);
       break;
     case 5:
-      utils->arduboy->drawBitmap(x, y, Common::shield, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      utils->arduboy->drawBitmap(x, y, Common::shield_2, SQUARE_SIZE, SQUARE_SIZE, WHITE);
       break;
     case 7:
       utils->arduboy->drawBitmap(x, y, Common::relic, SQUARE_SIZE, SQUARE_SIZE, WHITE);

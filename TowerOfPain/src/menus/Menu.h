@@ -44,4 +44,9 @@ public:
   {
     text->printCommonLine(x, y + (SQUARE_SIZE * option), 24);
   }
+
+  void displayFeedbackCursor(Utils *utils, uint8_t x, uint8_t y)
+  {
+    utils->arduboy->drawBitmap(x, y + (SQUARE_SIZE * option), Common::update_1, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+  }
 };

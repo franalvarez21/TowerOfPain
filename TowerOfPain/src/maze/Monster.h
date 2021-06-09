@@ -59,7 +59,7 @@ public:
       monster2 = MiniCharacter::slime_2;
       monsterFrame1 = Character::frameSlime1;
       monsterFrame2 = Character::frameSlime2;
-      maxLife = 10;
+      maxLife = 5;
       environment = Map::map_environment_0;
       break;
     case 1:
@@ -67,7 +67,7 @@ public:
       monster2 = MiniCharacter::slime_2;
       monsterFrame1 = Character::frameSlime3;
       monsterFrame2 = Character::frameSlime4;
-      maxLife = 15;
+      maxLife = 10;
       environment = Map::map_environment_1;
       break;
     case 2:
@@ -75,7 +75,7 @@ public:
       monster2 = MiniCharacter::slime_2;
       monsterFrame1 = Character::frameSlime5;
       monsterFrame2 = Character::frameSlime6;
-      maxLife = 20;
+      maxLife = 12;
       environment = Map::map_environment_0;
       break;
     case 3:
@@ -83,7 +83,7 @@ public:
       monster2 = MiniCharacter::eye_2;
       monsterFrame1 = Character::frameEye1;
       monsterFrame2 = Character::frameEye2;
-      maxLife = 25;
+      maxLife = 15;
       environment = Map::map_environment_1;
       break;
     case 4:
@@ -91,7 +91,7 @@ public:
       monster2 = MiniCharacter::eye_4;
       monsterFrame1 = Character::frameEye3;
       monsterFrame2 = Character::frameEye4;
-      maxLife = 30;
+      maxLife = 15;
       environment = Map::map_environment_2;
       break;
     case 5:
@@ -99,7 +99,7 @@ public:
       monster2 = MiniCharacter::eye_6;
       monsterFrame1 = Character::frameEye5;
       monsterFrame2 = Character::frameEye6;
-      maxLife = 35;
+      maxLife = 20;
       environment = Map::map_environment_2;
       break;
     case 6:
@@ -107,7 +107,7 @@ public:
       monster2 = MiniCharacter::flower_2;
       monsterFrame1 = Character::frameFlower1;
       monsterFrame2 = Character::frameFlower2;
-      maxLife = 40;
+      maxLife = 12;
       environment = Map::map_environment_3;
       break;
     case 7:
@@ -115,7 +115,7 @@ public:
       monster2 = MiniCharacter::lancer_2;
       monsterFrame1 = Character::frameLancer1;
       monsterFrame2 = Character::frameLancer2;
-      maxLife = 45;
+      maxLife = 15;
       environment = Map::map_environment_3;
       break;
     case 8:
@@ -123,7 +123,7 @@ public:
       monster2 = MiniCharacter::centaur_2;
       monsterFrame1 = Character::frameCentaur1;
       monsterFrame2 = Character::frameCentaur2;
-      maxLife = 50;
+      maxLife = 20;
       environment = Map::map_environment_4;
       break;
     case 9:
@@ -131,7 +131,7 @@ public:
       monster2 = MiniCharacter::mage_2;
       monsterFrame1 = Character::frameMage1;
       monsterFrame2 = Character::frameMage2;
-      maxLife = 55;
+      maxLife = 22;
       environment = Map::map_environment_4;
       break;
     case 10:
@@ -139,7 +139,7 @@ public:
       monster2 = MiniCharacter::rabbit_2;
       monsterFrame1 = Character::frameRabbit1;
       monsterFrame2 = Character::frameRabbit2;
-      maxLife = 60;
+      maxLife = 30;
       environment = Map::map_environment_5;
       break;
     case 11:
@@ -147,7 +147,7 @@ public:
       monster2 = MiniCharacter::knight_2;
       monsterFrame1 = Character::frameKnight1;
       monsterFrame2 = Character::frameKnight2;
-      maxLife = 65;
+      maxLife = 25;
       environment = Map::map_environment_6;
       break;
     case 12:
@@ -155,7 +155,7 @@ public:
       monster2 = MiniCharacter::axe_2;
       monsterFrame1 = Character::frameAxe1;
       monsterFrame2 = Character::frameAxe2;
-      maxLife = 70;
+      maxLife = 25;
       environment = Map::map_environment_7;
       break;
     case 13:
@@ -163,7 +163,7 @@ public:
       monster2 = MiniCharacter::knife_2;
       monsterFrame1 = Character::frameKnife1;
       monsterFrame2 = Character::frameKnife2;
-      maxLife = 75;
+      maxLife = 22;
       environment = Map::map_environment_7;
       break;
     default:
@@ -171,7 +171,7 @@ public:
       monster2 = MiniCharacter::shield_2;
       monsterFrame1 = Character::frameShield1;
       monsterFrame2 = Character::frameShield2;
-      maxLife = 80;
+      maxLife = 35;
       environment = Map::map_environment_6;
       break;
     }

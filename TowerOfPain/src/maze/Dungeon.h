@@ -495,7 +495,7 @@ private:
         utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::sword, SQUARE_SIZE, SQUARE_SIZE, WHITE);
         break;
       case 5:
-        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::shield, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::shield_2, SQUARE_SIZE, SQUARE_SIZE, WHITE);
         break;
       case 6:
         utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::heart, SQUARE_SIZE, SQUARE_SIZE, WHITE);

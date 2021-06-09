@@ -59,16 +59,16 @@ namespace Common
 
   const uint8_t PROGMEM sword[] = {
       0x00,
-      0x06,
-      0x0e,
-      0x1c,
-      0x18,
-      0x20,
       0x40,
+      0x10,
+      0x30,
+      0x18,
+      0x0c,
+      0x06,
       0x00,
   };
 
-  const uint8_t PROGMEM shield[] = {
+  const uint8_t PROGMEM shield_1[] = {
       0x00,
       0x1e,
       0x22,
@@ -76,6 +76,28 @@ namespace Common
       0x42,
       0x26,
       0x1e,
+      0x00,
+  };
+
+  const uint8_t PROGMEM shield_2[] = {
+      0x00,
+      0x1e,
+      0x22,
+      0x72,
+      0x7a,
+      0x3e,
+      0x1e,
+      0x00,
+  };
+
+  const uint8_t PROGMEM strength[] = {
+      0x00,
+      0x30,
+      0x60,
+      0x50,
+      0x0a,
+      0x06,
+      0x0c,
       0x00,
   };
 

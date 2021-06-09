@@ -18,12 +18,6 @@ public:
 
   bool action(Utils *utils, Text *text, Stats *stats, Dungeon *dungeon, ArduboyTones *soundtones)
   {
-    if (feedbackCounter > 0 && !utils->sound)
-    {
-      feedbackCounter--;
-      utils->arduboy->drawBitmap(84, 46, Common::update_1, SQUARE_SIZE, SQUARE_SIZE, WHITE);
-    }
-
     upDownMovement(utils);
 
     if (okMovement(utils))
@@ -60,6 +54,11 @@ public:
           {
             utils->koBeep(soundtones);
             text->printLog(55);
+          }
+          else if (stats->getStatusText() == 3 || dungeon->monster.canBeSpare())
+          {
+            utils->koBeep(soundtones);
+            text->printLog(72);
           }
           else
           {
@@ -175,34 +174,42 @@ public:
   {
     dungeon->monster.displayFrame(utils);
     text->printValue(7, 45, dungeon->monster.life);
-    text->printCommonLine(24, 45, 1);
+    utils->arduboy->drawBitmap(26, 43, Common::heart, SQUARE_SIZE, SQUARE_SIZE, WHITE);
 
     switch (menu)
     {
     case 0:
       text->printCommonLine(40, 8, 8);
-      text->printCommonLine(48, 20, 9);
-      text->printCommonLine(48, 28, 14);
-      text->printCommonLine(48, 36, 11);
-      text->printCommonLine(48, 44, 16);
+      text->printCommonLine(51, 20, 9);
+      text->printCommonLine(51, 28, 14);
+      text->printCommonLine(51, 36, 11);
+      text->printCommonLine(51, 44, 16);
       break;
     case 1:
       text->printCommonLine(40, 8, 11);
-      text->printCommonLine(48, 20, 7);
-      text->printCommonLine(48, 28, 13);
-      text->printCommonLine(48, 36, 10);
-      text->printCommonLine(48, 44, 15);
+      text->printCommonLine(51, 20, 7);
+      text->printCommonLine(51, 28, 13);
+      text->printCommonLine(51, 36, 10);
+      text->printCommonLine(51, 44, 15);
       break;
     default:
       text->printCommonLine(40, 8, 10);
-      text->printCommonLine(48, 20, 26);
-      text->printCommonLine(48, 28, 27);
-      text->printCommonLine(48, 36, 28);
-      text->printCommonLine(48, 44, 15);
+      text->printCommonLine(51, 20, 26);
+      text->printCommonLine(51, 28, 27);
+      text->printCommonLine(51, 36, 28);
+      text->printCommonLine(51, 44, 15);
       break;
     }
 
-    displayMenuCursor(text, 40, 20);
+    if (feedbackCounter > 0 && !utils->sound)
+    {
+      feedbackCounter--;
+      displayFeedbackCursor(utils, 39, 18);
+    }
+    else
+    {
+      displayMenuCursor(text, 43, 20);
+    }
   }
 
 private:
