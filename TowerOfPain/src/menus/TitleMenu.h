@@ -8,44 +8,33 @@ protected:
 public:
   TitleMenu() : Menu(2), about(false){};
 
-  bool action(Utils *utils, ArduboyTones *soundtones)
+  bool action(Utils *utils)
   {
     if (!about)
     {
-      upDownMovement(utils);
+      upDownMovement();
 
-      if (okMovement(utils))
+      if (okMovement())
       {
         if (option == 2)
         {
-          utils->okBeep(soundtones);
+          utils->okBeep();
           about = true;
         }
         else if (option == 1)
         {
-          if (utils->sound)
-          {
-            utils->arduboy->audio.off();
-            utils->sound = false;
-          }
-          else
-          {
-            utils->arduboy->audio.on();
-            utils->okBeep(soundtones);
-            utils->sound = true;
-            utils->lullaby = 0;
-          }
+          utils->changesoundFlag();
         }
         else if (option == 0)
         {
-          utils->okBeep(soundtones);
+          utils->okBeep();
           return false;
         }
       }
     }
     else
     {
-      if (okMovement(utils) || koMovement(utils))
+      if (okMovement() || koMovement())
       {
         about = false;
       }
@@ -54,40 +43,40 @@ public:
     return true;
   }
 
-  void eventDisplay(Utils *utils, Text *text)
+  void eventDisplay(Utils *utils)
   {
-    utils->arduboy->drawBitmap(0, 0, Title::logo, 128, 32, WHITE);
-    utils->arduboy->drawBitmap(120, 32, Title::options, 8, 32, WHITE);
-    utils->arduboy->drawBitmap(0, 42, Title::player, 17, 22, WHITE);
+    Arduboy2Base::drawBitmap(0, 0, Title::logo, 128, 32, WHITE);
+    Arduboy2Base::drawBitmap(120, 32, Title::options, 8, 32, WHITE);
+    Arduboy2Base::drawBitmap(0, 42, Title::player, 17, 22, WHITE);
 
     if (utils->cycle <= 5)
     {
-      utils->arduboy->drawBitmap(0, 22, Common::logo_1, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      Arduboy2Base::drawBitmap(0, 22, Common::logo_1, SQUARE_SIZE, SQUARE_SIZE, WHITE);
     }
     else
     {
-      utils->arduboy->drawBitmap(0, 22, Common::logo_2, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      Arduboy2Base::drawBitmap(0, 22, Common::logo_2, SQUARE_SIZE, SQUARE_SIZE, WHITE);
     }
 
     if (about)
     {
-      text->printStoryLine(63, 60, 35);
+      utils->texts.printStoryLine(63, 60, 35);
     }
     else
     {
-      text->printCommonLine(98, 44, 17);
-      text->printCommonLine(98, 52, 12);
-      if (utils->sound)
+      utils->texts.printCommonLine(98, 44, 17);
+      utils->texts.printCommonLine(98, 52, 12);
+      if (utils->soundFlag)
       {
-        text->printCommonLine(77, 52, 18);
+        utils->texts.printCommonLine(77, 52, 18);
       }
       else
       {
-        text->printCommonLine(72, 52, 19);
+        utils->texts.printCommonLine(72, 52, 19);
       }
-      text->printCommonLine(98, 60, 23);
+      utils->texts.printCommonLine(98, 60, 23);
 
-      displayMenuCursor(text, 90, 44);
+      displayMenuCursor(utils, 90, 44);
     }
   }
 };

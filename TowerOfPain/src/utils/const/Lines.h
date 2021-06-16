@@ -103,7 +103,7 @@ namespace Storylines
   const char storyLine32[] PROGMEM = "LEAVES, POTION FOUND";
   const char storyLine33[] PROGMEM = "TOO STRONG, CAN'T SPARE";
   const char storyLine34[] PROGMEM = "NO RELIC AVAILABLE";
-  const char storyLine35[] PROGMEM = "NORTH V1.1.2";
+  const char storyLine35[] PROGMEM = "NORTH V1.1.3";
   const char storyLine36[] PROGMEM = "TOO STRONG, CAN'T ESCAPE";
   const char storyLine37[] PROGMEM = "YOU ARE STRONG";
   const char storyLine38[] PROGMEM = "YOU ARE SMART";

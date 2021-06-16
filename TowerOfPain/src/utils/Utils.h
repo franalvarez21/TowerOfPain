@@ -14,26 +14,33 @@
 #include "const/Lines.h"
 #include "const/Title.h"
 
+#include "Stats.h"
+#include "Texts.h"
+
 struct Utils
 {
-  Arduboy2 *arduboy;
+  Arduboy2 arduboy;
+  Tinyfont tinyfont = Tinyfont(arduboy.sBuffer, Arduboy2::width(), Arduboy2::height());
+  Stats stats;
+  Texts texts;
 
-  bool sound;
+  bool soundFlag;
   uint8_t music;
   uint8_t cycle;
   uint8_t musicalLullaby[4][10] = {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0, 1, 0, 1, 2, 0, 1, 1, 2, 0}, {0, 1, 2, 0, 1, 2, 0, 1, 1, 2}, {0, 1, 1, 1, 3, 3, 3, 1, 1, 1}};
   uint8_t lullaby = 0;
 
-  void init(Arduboy2 *arduboy)
+  void init()
   {
-    this->arduboy = arduboy;
+    ArduboyTones sound(arduboy.audio.enabled);
+    texts.init(&tinyfont);
 
     cycle = 10;
-    sound = false;
+    soundFlag = false;
     music = 0;
   }
 
-  void tick(ArduboyTones *soundtones)
+  void tick()
   {
     cycle--;
     if (cycle < 1)
@@ -48,39 +55,55 @@ struct Utils
       {
         if (musicalLullaby[music][lullaby] == 1)
         {
-          soundtones->tone(80, 25);
+          ArduboyTones::tone(80, 25);
         }
         else if (musicalLullaby[music][lullaby] == 2)
         {
-          soundtones->tone(50, 50);
+          ArduboyTones::tone(50, 50);
         }
         else
         {
-          soundtones->tone(80, 50);
+          ArduboyTones::tone(80, 50);
         }
       }
       cycle = 10;
     }
   }
 
-  void koBeep(ArduboyTones *soundtones)
+  void changesoundFlag()
   {
-    soundtones->tone(250, 50);
+    if (soundFlag)
+    {
+      soundFlag = false;
+      Arduboy2Base::audio.off();
+    }
+    else
+    {
+      soundFlag = true;
+      Arduboy2Base::audio.on();
+      okBeep();
+      lullaby = 0;
+    }
   }
 
-  void okBeep(ArduboyTones *soundtones)
+  void koBeep()
   {
-    soundtones->tone(700, 50);
+    ArduboyTones::tone(250, 50);
   }
 
-  void subtleKoBeep(ArduboyTones *soundtones)
+  void okBeep()
   {
-    soundtones->tone(200, 40);
+    ArduboyTones::tone(700, 50);
   }
 
-  void subtleOkBeep(ArduboyTones *soundtones)
+  void subtleKoBeep()
   {
-    soundtones->tone(600, 40);
+    ArduboyTones::tone(200, 40);
+  }
+
+  void subtleOkBeep()
+  {
+    ArduboyTones::tone(600, 40);
   }
 
   uint8_t sizeTypeAbs(uint8_t a, uint8_t b)
@@ -88,6 +111,3 @@ struct Utils
     return a < b ? b - a : a - b;
   }
 };
-
-#include "Stats.h"
-#include "Text.h"

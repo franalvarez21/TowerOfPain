@@ -2,14 +2,14 @@
 class Actions
 {
 public:
-  bool evaluateAction(Utils *utils, Text *text, Stats *stats, Dungeon *dungeon, uint8_t action, ArduboyTones *soundtones)
+  bool evaluateAction(Utils *utils, Dungeon *dungeon, uint8_t action)
   {
     switch (action)
     {
     case 1:
       if (dungeon->environmentChange(utils) == ENEMY_NUMBER_ACTION)
       {
-        text->printLog(8);
+        utils->texts.printLog(8);
         return true;
       }
       break;
@@ -18,85 +18,85 @@ public:
       {
         dungeon->increaseLevel();
         dungeon->reset();
-        text->printLevel();
-        stats->incMaxLevelReached(dungeon->level);
+        utils->texts.printLevel();
+        utils->stats.incMaxLevelReached(dungeon->level);
       }
       else
       {
-        text->printLog(21);
-        utils->subtleKoBeep(soundtones);
+        utils->texts.printLog(21);
+        utils->subtleKoBeep();
       }
       break;
     case 3:
-      if (randomItem(text, stats))
+      if (randomItem(utils))
       {
-        utils->subtleOkBeep(soundtones);
+        utils->subtleOkBeep();
       }
       else
       {
-        utils->subtleKoBeep(soundtones);
+        utils->subtleKoBeep();
       }
       break;
     case 4:
-      if (stats->addItem(4))
+      if (utils->stats.addItem(4))
       {
-        text->printLog(2);
-        utils->subtleOkBeep(soundtones);
+        utils->texts.printLog(2);
+        utils->subtleOkBeep();
       }
       else
       {
-        text->printLog(3);
-        utils->subtleKoBeep(soundtones);
+        utils->texts.printLog(3);
+        utils->subtleKoBeep();
       }
       break;
     case 5:
-      if (stats->addItem(5))
+      if (utils->stats.addItem(5))
       {
-        text->printLog(4);
-        utils->subtleOkBeep(soundtones);
+        utils->texts.printLog(4);
+        utils->subtleOkBeep();
       }
       else
       {
-        text->printLog(3);
-        utils->subtleKoBeep(soundtones);
+        utils->texts.printLog(3);
+        utils->subtleKoBeep();
       }
       break;
     case 6:
-      stats->incHP(1);
-      text->printLog(5);
-      utils->subtleOkBeep(soundtones);
+      utils->stats.incHP(1);
+      utils->texts.printLog(5);
+      utils->subtleOkBeep();
       break;
     case 7:
-      if (stats->addItem(7))
+      if (utils->stats.addItem(7))
       {
-        text->printLog(6);
-        utils->subtleOkBeep(soundtones);
+        utils->texts.printLog(6);
+        utils->subtleOkBeep();
       }
       else
       {
-        text->printLog(3);
-        utils->subtleKoBeep(soundtones);
+        utils->texts.printLog(3);
+        utils->subtleKoBeep();
       }
       break;
     case 8:
-      if (stats->addItem(8))
+      if (utils->stats.addItem(8))
       {
-        text->printLog(7);
-        utils->subtleOkBeep(soundtones);
+        utils->texts.printLog(7);
+        utils->subtleOkBeep();
       }
       else
       {
-        text->printLog(3);
-        utils->subtleKoBeep(soundtones);
+        utils->texts.printLog(3);
+        utils->subtleKoBeep();
       }
       break;
     case 9:
       dungeon->keyFound();
-      text->printLog(52);
-      utils->subtleOkBeep(soundtones);
+      utils->texts.printLog(52);
+      utils->subtleOkBeep();
       break;
     case 10:
-      text->printLog(8);
+      utils->texts.printLog(8);
       break;
     default:
       break;
@@ -106,36 +106,36 @@ public:
   }
 
 private:
-  bool randomItem(Text *text, Stats *stats)
+  bool randomItem(Utils *utils)
   {
-    text->printLog(9);
+    utils->texts.printLog(9);
     switch (rand() % 4)
     {
     case 0:
-      if (stats->addItem(4))
+      if (utils->stats.addItem(4))
       {
-        text->printLog(10);
+        utils->texts.printLog(10);
         return true;
       }
       break;
     case 1:
-      if (stats->addItem(5))
+      if (utils->stats.addItem(5))
       {
-        text->printLog(11);
+        utils->texts.printLog(11);
         return true;
       }
       break;
     case 2:
-      if (stats->addItem(7))
+      if (utils->stats.addItem(7))
       {
-        text->printLog(12);
+        utils->texts.printLog(12);
         return true;
       }
       break;
     case 3:
-      if (stats->addItem(8))
+      if (utils->stats.addItem(8))
       {
-        text->printLog(13);
+        utils->texts.printLog(13);
         return true;
       }
       break;

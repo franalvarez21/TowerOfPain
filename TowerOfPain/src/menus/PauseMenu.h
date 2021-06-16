@@ -10,11 +10,11 @@ public:
     option = 0;
   }
 
-  uint8_t action(Utils *utils, ArduboyTones *soundtones)
+  uint8_t action(Utils *utils)
   {
-    upDownMovement(utils);
+    upDownMovement();
 
-    if (okMovement(utils))
+    if (okMovement())
     {
       if (option == 2)
       {
@@ -22,27 +22,16 @@ public:
       }
       else if (option == 1)
       {
-        utils->okBeep(soundtones);
+        utils->okBeep();
         return 2;
       }
       else if (option == 0)
       {
-        if (utils->sound)
-        {
-          utils->arduboy->audio.off();
-          utils->sound = false;
-        }
-        else
-        {
-          utils->arduboy->audio.on();
-          utils->okBeep(soundtones);
-          utils->sound = true;
-          utils->lullaby = 0;
-        }
+        utils->changesoundFlag();
       }
     }
 
-    if (koMovement(utils))
+    if (koMovement())
     {
       return 1;
     }
@@ -50,39 +39,39 @@ public:
     return 0;
   }
 
-  void eventDisplay(Utils *utils, Text *text, Stats *stats)
+  void eventDisplay(Utils *utils)
   {
     if (utils->cycle <= 5)
     {
-      utils->arduboy->drawBitmap(4, 4, Character::framePlayer1, 32, 48, WHITE);
+      Arduboy2Base::drawBitmap(4, 4, Character::framePlayer1, 32, 48, WHITE);
     }
     else
     {
-      utils->arduboy->drawBitmap(4, 4, Character::framePlayer2, 32, 48, WHITE);
+      Arduboy2Base::drawBitmap(4, 4, Character::framePlayer2, 32, 48, WHITE);
     }
 
-    if (stats->where(5) != ITEM_AMOUNT)
+    if (utils->stats.where(5) != ITEM_AMOUNT)
     {
-      utils->arduboy->drawBitmap(8, 34, Character::frameShield, 8, 9, WHITE);
+      Arduboy2Base::drawBitmap(8, 34, Character::frameShield, 8, 9, WHITE);
     }
 
-    if (stats->where(4) != ITEM_AMOUNT)
+    if (utils->stats.where(4) != ITEM_AMOUNT)
     {
-      utils->arduboy->drawBitmap(28, 20, Character::frameSword, 4, 23, WHITE);
+      Arduboy2Base::drawBitmap(28, 20, Character::frameSword, 4, 23, WHITE);
     }
 
-    text->printCommonLine(40, 8, 8);
-    if (utils->sound)
+    utils->texts.printCommonLine(40, 8, 8);
+    if (utils->soundFlag)
     {
-      text->printCommonLine(48, 20, 20);
+      utils->texts.printCommonLine(48, 20, 20);
     }
     else
     {
-      text->printCommonLine(48, 20, 21);
+      utils->texts.printCommonLine(48, 20, 21);
     }
-    text->printCommonLine(48, 28, 22);
-    text->printCommonLine(48, 36, 15);
+    utils->texts.printCommonLine(48, 28, 22);
+    utils->texts.printCommonLine(48, 36, 15);
 
-    displayMenuCursor(text, 40, 20);
+    displayMenuCursor(utils, 40, 20);
   }
 };

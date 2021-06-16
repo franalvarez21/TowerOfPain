@@ -17,84 +17,84 @@ public:
     return (timer == 0);
   }
 
-  void eventDisplay(Utils *utils, Stats *stats, Text *text, const uint8_t monsterType, const size_t level)
+  void eventDisplay(Utils *utils, const uint8_t monsterType, const size_t level)
   {
     printPlayerFrame(utils);
 
     if (level == MAX_LEVEL)
     {
-      text->printStoryLine(40, 8, 53);
-      text->printStoryLine(40, 16, 54);
-      text->printStoryLine(40, 24, 42);
-      text->printStoryLine(40, 32, 44);
-      text->printValue(100, 32, level);
+      utils->texts.printStoryLine(40, 8, 53);
+      utils->texts.printStoryLine(40, 16, 54);
+      utils->texts.printStoryLine(40, 24, 42);
+      utils->texts.printStoryLine(40, 32, 44);
+      utils->texts.printValue(100, 32, level);
     }
     else if (gameOver)
     {
-      printContinue(text);
+      printContinue(utils);
 
-      text->printStoryLine(40, 8, 41);
-      text->printStoryLine(40, 16, 43);
-      text->printStoryLine(40, 24, 42);
-      text->printStoryLine(40, 32, 44);
-      text->printValue(100, 32, level);
+      utils->texts.printStoryLine(40, 8, 41);
+      utils->texts.printStoryLine(40, 16, 43);
+      utils->texts.printStoryLine(40, 24, 42);
+      utils->texts.printStoryLine(40, 32, 44);
+      utils->texts.printValue(100, 32, level);
     }
     else
     {
-      printContinue(text);
+      printContinue(utils);
 
-      switch (stats->getStatusText())
+      switch (utils->stats.getStatusText())
       {
       case 0: // Strong
-        text->printStoryLine(40, 8, 37);
+        utils->texts.printStoryLine(40, 8, 37);
         break;
       case 1: // Smart
-        text->printStoryLine(40, 8, 38);
+        utils->texts.printStoryLine(40, 8, 38);
         break;
       case 2: // Wise
-        text->printStoryLine(40, 8, 39);
+        utils->texts.printStoryLine(40, 8, 39);
         break;
       case 3: // Hopeful
-        text->printStoryLine(40, 8, 40);
+        utils->texts.printStoryLine(40, 8, 40);
         break;
       }
 
       switch (monsterType)
       {
       case 0 ... 2: // Slime
-        text->printStoryLine(40, 24, 45);
+        utils->texts.printStoryLine(40, 24, 45);
         break;
       case 3 ... 5: // Eyes
-        text->printStoryLine(40, 24, 49);
+        utils->texts.printStoryLine(40, 24, 49);
         break;
       case 6: // Flowers
-        text->printStoryLine(40, 24, 48);
+        utils->texts.printStoryLine(40, 24, 48);
         break;
       case 7 ... 8: // Careful
-        text->printStoryLine(40, 24, 50);
+        utils->texts.printStoryLine(40, 24, 50);
         break;
       case 9: // Cold
-        text->printStoryLine(40, 24, 46);
+        utils->texts.printStoryLine(40, 24, 46);
         break;
       case 10: // Go Fast
-        text->printStoryLine(40, 24, 51);
+        utils->texts.printStoryLine(40, 24, 51);
         break;
       default: // Metal
-        text->printStoryLine(40, 24, 47);
+        utils->texts.printStoryLine(40, 24, 47);
         break;
       }
 
-      text->printStoryLine(40, 16, 42);
-      text->printStoryLine(40, 32, 42);
+      utils->texts.printStoryLine(40, 16, 42);
+      utils->texts.printStoryLine(40, 32, 42);
     }
   }
 
 private:
-  void printContinue(Text *text)
+  void printContinue(Utils *utils)
   {
     if (enabled())
     {
-      text->printCommonLine(80, 52, 25);
+      utils->texts.printCommonLine(80, 52, 25);
     }
     else
     {
@@ -106,17 +106,17 @@ private:
   {
     if (gameOver)
     {
-      utils->arduboy->drawBitmap(4, 4, Character::framePlayer3, 32, 48, WHITE);
+      Arduboy2Base::drawBitmap(4, 4, Character::framePlayer3, 32, 48, WHITE);
     }
     else
     {
       if (utils->cycle <= 5)
       {
-        utils->arduboy->drawBitmap(4, 4, Character::framePlayer1, 32, 48, WHITE);
+        Arduboy2Base::drawBitmap(4, 4, Character::framePlayer1, 32, 48, WHITE);
       }
       else
       {
-        utils->arduboy->drawBitmap(4, 4, Character::framePlayer2, 32, 48, WHITE);
+        Arduboy2Base::drawBitmap(4, 4, Character::framePlayer2, 32, 48, WHITE);
       }
     }
   }

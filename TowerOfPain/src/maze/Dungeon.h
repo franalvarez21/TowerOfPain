@@ -53,22 +53,22 @@ public:
   {
     uint8_t value = 0;
 
-    if (pressed(utils, RIGHT_BUTTON))
+    if (pressed(RIGHT_BUTTON))
     {
       value = move(1, 0);
     }
 
-    if (pressed(utils, LEFT_BUTTON))
+    if (pressed(LEFT_BUTTON))
     {
       value = move(-1, 0);
     }
 
-    if (pressed(utils, DOWN_BUTTON))
+    if (pressed(DOWN_BUTTON))
     {
       value = move(0, 1);
     }
 
-    if (pressed(utils, UP_BUTTON))
+    if (pressed(UP_BUTTON))
     {
       value = move(0, -1);
     }
@@ -202,29 +202,29 @@ public:
     unlockPlayerBorders();
   }
 
-  void canvas(Utils *utils, uint8_t weight = SQUARE_AMOUNT_WEIGHT, uint8_t height = SQUARE_AMOUNT_HEIGHT)
+  void canvas(uint8_t weight = SQUARE_AMOUNT_WEIGHT, uint8_t height = SQUARE_AMOUNT_HEIGHT)
   {
-    utils->arduboy->drawBitmap(0, 0, Map::map_top_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
-    utils->arduboy->drawBitmap(SQUARE_SIZE * (weight - 2), 0, Map::map_top_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
-    utils->arduboy->drawBitmap(0, SQUARE_SIZE * (height - 2), Map::map_bottom_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
-    utils->arduboy->drawBitmap(SQUARE_SIZE * (weight - 2), SQUARE_SIZE * (height - 2), Map::map_bottom_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    Arduboy2Base::drawBitmap(0, 0, Map::map_top_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    Arduboy2Base::drawBitmap(SQUARE_SIZE * (weight - 2), 0, Map::map_top_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    Arduboy2Base::drawBitmap(0, SQUARE_SIZE * (height - 2), Map::map_bottom_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    Arduboy2Base::drawBitmap(SQUARE_SIZE * (weight - 2), SQUARE_SIZE * (height - 2), Map::map_bottom_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
 
     for (uint8_t x = 1; x < weight - 2; x++)
     {
-      utils->arduboy->drawBitmap(x * SQUARE_SIZE, 0, Map::map_top, SQUARE_SIZE, SQUARE_SIZE, WHITE);
-      utils->arduboy->drawBitmap(x * SQUARE_SIZE, SQUARE_SIZE * (height - 2), Map::map_bottom, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      Arduboy2Base::drawBitmap(x * SQUARE_SIZE, 0, Map::map_top, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      Arduboy2Base::drawBitmap(x * SQUARE_SIZE, SQUARE_SIZE * (height - 2), Map::map_bottom, SQUARE_SIZE, SQUARE_SIZE, WHITE);
     }
 
     for (uint8_t y = 1; y < height - 2; y++)
     {
-      utils->arduboy->drawBitmap(0, y * SQUARE_SIZE, Map::map_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
-      utils->arduboy->drawBitmap(SQUARE_SIZE * (weight - 2), y * SQUARE_SIZE, Map::map_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      Arduboy2Base::drawBitmap(0, y * SQUARE_SIZE, Map::map_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      Arduboy2Base::drawBitmap(SQUARE_SIZE * (weight - 2), y * SQUARE_SIZE, Map::map_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
     }
   }
 
-  void completeCanvas(Utils *utils)
+  void completeCanvas()
   {
-    canvas(utils, MAX_SQUARE_AMOUNT_WEIGHT, MAX_SQUARE_AMOUNT_HEIGHT);
+    canvas(MAX_SQUARE_AMOUNT_WEIGHT, MAX_SQUARE_AMOUNT_HEIGHT);
   }
 
   void display(Utils *utils)
@@ -235,17 +235,17 @@ public:
       for (uint8_t y = 1; y < SQUARE_AMOUNT_HEIGHT - 1; y++)
       {
         displayElements(utils, x, y);
-        displayMaze(utils, x, y);
+        displayMaze(x, y);
       }
     }
   }
 
 private:
-  bool pressed(Utils *utils, uint8_t button)
+  bool pressed(uint8_t button)
   {
     if (justPressedLock)
     {
-      if (utils->arduboy->justPressed(button))
+      if (Arduboy2Base::justPressed(button))
       {
         justPressedLock = false;
         return true;
@@ -253,12 +253,12 @@ private:
     }
     else
     {
-      if (utils->arduboy->justPressed(button) || (utils->arduboy->pressed(button) && speedTick == 0))
+      if (Arduboy2Base::justPressed(button) || (Arduboy2Base::pressed(button) && speedTick == 0))
       {
         speedTick = 2;
         return true;
       }
-      else if (utils->arduboy->pressed(button) && speedTick > 0)
+      else if (Arduboy2Base::pressed(button) && speedTick > 0)
       {
         speedTick--;
       }
@@ -471,11 +471,11 @@ private:
   {
     if (utils->cycle <= 5)
     {
-      utils->arduboy->drawBitmap(SQUARE_SIZE * playerXPosition - 4, SQUARE_SIZE * playerYPosition - 4, MiniCharacter::player_1, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      Arduboy2Base::drawBitmap(SQUARE_SIZE * playerXPosition - 4, SQUARE_SIZE * playerYPosition - 4, MiniCharacter::player_1, SQUARE_SIZE, SQUARE_SIZE, WHITE);
     }
     else
     {
-      utils->arduboy->drawBitmap(SQUARE_SIZE * playerXPosition - 4, SQUARE_SIZE * playerYPosition - 4, MiniCharacter::player_2, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+      Arduboy2Base::drawBitmap(SQUARE_SIZE * playerXPosition - 4, SQUARE_SIZE * playerYPosition - 4, MiniCharacter::player_2, SQUARE_SIZE, SQUARE_SIZE, WHITE);
     }
   }
 
@@ -486,28 +486,28 @@ private:
       switch (map[x][y])
       {
       case 2:
-        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::door, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+        Arduboy2Base::drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::door, SQUARE_SIZE, SQUARE_SIZE, WHITE);
         break;
       case 3:
-        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::chest, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+        Arduboy2Base::drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::chest, SQUARE_SIZE, SQUARE_SIZE, WHITE);
         break;
       case 4:
-        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::sword, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+        Arduboy2Base::drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::sword, SQUARE_SIZE, SQUARE_SIZE, WHITE);
         break;
       case 5:
-        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::shield_2, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+        Arduboy2Base::drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::shield_2, SQUARE_SIZE, SQUARE_SIZE, WHITE);
         break;
       case 6:
-        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::heart, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+        Arduboy2Base::drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::heart, SQUARE_SIZE, SQUARE_SIZE, WHITE);
         break;
       case 7:
-        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::relic, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+        Arduboy2Base::drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::relic, SQUARE_SIZE, SQUARE_SIZE, WHITE);
         break;
       case 8:
-        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::potion, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+        Arduboy2Base::drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::potion, SQUARE_SIZE, SQUARE_SIZE, WHITE);
         break;
       case 9:
-        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::key, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+        Arduboy2Base::drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Common::key, SQUARE_SIZE, SQUARE_SIZE, WHITE);
         break;
       case 10:
         monster.displayIn(utils, x, y);
@@ -516,70 +516,70 @@ private:
     }
   }
 
-  void displayMaze(Utils *utils, uint8_t x, uint8_t y)
+  void displayMaze(uint8_t x, uint8_t y)
   {
     if (map[x][y] > 0)
     {
       if (map[x - 1][y] > 0 && map[x + 1][y] > 0 && map[x][y - 1] == 0 && map[x][y + 1] > 0)
       {
-        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_top, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+        Arduboy2Base::drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_top, SQUARE_SIZE, SQUARE_SIZE, WHITE);
       }
       else if (map[x - 1][y] > 0 && map[x + 1][y] == 0 && map[x][y - 1] > 0 && map[x][y + 1] > 0)
       {
-        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+        Arduboy2Base::drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
       }
       else if (map[x - 1][y] == 0 && map[x + 1][y] > 0 && map[x][y - 1] > 0 && map[x][y + 1] > 0)
       {
-        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+        Arduboy2Base::drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
       }
       else if (map[x - 1][y] > 0 && map[x + 1][y] > 0 && map[x][y - 1] > 0 && map[x][y + 1] == 0)
       {
-        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_bottom, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+        Arduboy2Base::drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_bottom, SQUARE_SIZE, SQUARE_SIZE, WHITE);
       }
       else if (map[x - 1][y] == 0 && map[x + 1][y] > 0 && map[x][y - 1] == 0 && map[x][y + 1] > 0)
       {
-        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_top_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+        Arduboy2Base::drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_top_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
       }
       else if (map[x - 1][y] > 0 && map[x + 1][y] == 0 && map[x][y - 1] == 0 && map[x][y + 1] > 0)
       {
-        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_top_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+        Arduboy2Base::drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_top_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
       }
       else if (map[x - 1][y] > 0 && map[x + 1][y] == 0 && map[x][y - 1] > 0 && map[x][y + 1] == 0)
       {
-        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_bottom_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+        Arduboy2Base::drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_bottom_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
       }
       else if (map[x - 1][y] == 0 && map[x + 1][y] > 0 && map[x][y - 1] > 0 && map[x][y + 1] == 0)
       {
-        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_bottom_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+        Arduboy2Base::drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_bottom_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
       }
       else if (map[x - 1][y] == 0 && map[x + 1][y] > 0 && map[x][y - 1] == 0 && map[x][y + 1] == 0)
       {
-        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_top_bottom_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+        Arduboy2Base::drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_top_bottom_left, SQUARE_SIZE, SQUARE_SIZE, WHITE);
       }
       else if (map[x - 1][y] > 0 && map[x + 1][y] == 0 && map[x][y - 1] == 0 && map[x][y + 1] == 0)
       {
-        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_top_bottom_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+        Arduboy2Base::drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_top_bottom_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
       }
       else if (map[x - 1][y] == 0 && map[x + 1][y] == 0 && map[x][y - 1] > 0 && map[x][y + 1] == 0)
       {
-        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_bottom_left_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+        Arduboy2Base::drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_bottom_left_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
       }
       else if (map[x - 1][y] == 0 && map[x + 1][y] == 0 && map[x][y - 1] == 0 && map[x][y + 1] > 0)
       {
-        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_top_left_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+        Arduboy2Base::drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_top_left_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
       }
       else if (map[x - 1][y] > 0 && map[x + 1][y] > 0 && map[x][y - 1] == 0 && map[x][y + 1] == 0)
       {
-        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_top_bottom, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+        Arduboy2Base::drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_top_bottom, SQUARE_SIZE, SQUARE_SIZE, WHITE);
       }
       else if (map[x - 1][y] == 0 && map[x + 1][y] == 0 && map[x][y - 1] > 0 && map[x][y + 1] > 0)
       {
-        utils->arduboy->drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_left_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+        Arduboy2Base::drawBitmap(SQUARE_SIZE * x - 4, SQUARE_SIZE * y - 4, Map::map_left_right, SQUARE_SIZE, SQUARE_SIZE, WHITE);
       }
     }
     else
     {
-      monster.displayEnvironmentIn(utils, x, y);
+      monster.displayEnvironmentIn(x, y);
     }
   }
 

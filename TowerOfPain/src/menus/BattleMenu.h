@@ -16,11 +16,11 @@ public:
     feedbackCounter = 0;
   }
 
-  bool action(Utils *utils, Text *text, Stats *stats, Dungeon *dungeon, ArduboyTones *soundtones)
+  bool action(Utils *utils, Dungeon *dungeon)
   {
-    upDownMovement(utils);
+    upDownMovement();
 
-    if (okMovement(utils))
+    if (okMovement())
     {
       feedbackCounter = FEEDBACK_COUNTER;
 
@@ -29,13 +29,13 @@ public:
         switch (menu)
         {
         case 0:
-          if (escapeAttempt(utils, text, stats, dungeon, soundtones))
+          if (escapeAttempt(utils, dungeon))
           {
-            utils->koBeep(soundtones);
+            utils->koBeep();
           }
           else
           {
-            utils->okBeep(soundtones);
+            utils->okBeep();
             return false;
           }
           break;
@@ -52,13 +52,13 @@ public:
         case 1:
           if (dungeon->monster.currentType < 3)
           {
-            utils->koBeep(soundtones);
-            text->printLog(55);
+            utils->koBeep();
+            utils->texts.printLog(55);
           }
-          else if (stats->getStatusText() == 3 || dungeon->monster.canBeSpare())
+          else if (utils->stats.getStatusText() == 3 || dungeon->monster.canBeSpare())
           {
-            utils->koBeep(soundtones);
-            text->printLog(72);
+            utils->koBeep();
+            utils->texts.printLog(72);
           }
           else
           {
@@ -67,13 +67,13 @@ public:
           }
           break;
         case 2:
-          if (useExplainAttempt(stats, text, dungeon))
+          if (useExplainAttempt(utils, dungeon))
           {
-            utils->koBeep(soundtones);
+            utils->koBeep();
           }
           else
           {
-            utils->okBeep(soundtones);
+            utils->okBeep();
             return false;
           }
           break;
@@ -88,34 +88,34 @@ public:
         switch (menu)
         {
         case 0:
-          if (useSpareAttempt(stats, text, dungeon))
+          if (useSpareAttempt(utils, dungeon))
           {
-            utils->koBeep(soundtones);
+            utils->koBeep();
           }
           else
           {
-            utils->okBeep(soundtones);
+            utils->okBeep();
             return false;
           }
           break;
         case 1:
-          if (useRelicAttempt(stats, text, dungeon))
+          if (useRelicAttempt(utils, dungeon))
           {
-            utils->koBeep(soundtones);
+            utils->koBeep();
           }
           else
           {
-            utils->okBeep(soundtones);
+            utils->okBeep();
           }
           break;
         default:
-          if (useApproachAttempt(stats, text, dungeon))
+          if (useApproachAttempt(utils, dungeon))
           {
-            utils->koBeep(soundtones);
+            utils->koBeep();
           }
           else
           {
-            utils->okBeep(soundtones);
+            utils->okBeep();
             return false;
           }
           break;
@@ -126,27 +126,27 @@ public:
         switch (menu)
         {
         case 0:
-          attackAttempt(stats, text, dungeon);
-          utils->okBeep(soundtones);
+          attackAttempt(utils, dungeon);
+          utils->okBeep();
           break;
         case 1:
-          if (usePotionAttempt(stats, text))
+          if (usePotionAttempt(utils))
           {
-            utils->koBeep(soundtones);
+            utils->koBeep();
           }
           else
           {
-            utils->okBeep(soundtones);
+            utils->okBeep();
           }
           break;
         default:
-          if (useThreatAttempt(stats, text, dungeon))
+          if (useThreatAttempt(utils, dungeon))
           {
-            utils->koBeep(soundtones);
+            utils->koBeep();
           }
           else
           {
-            utils->okBeep(soundtones);
+            utils->okBeep();
             return false;
           }
           break;
@@ -154,7 +154,7 @@ public:
       }
     }
 
-    if (menu > 0 && koMovement(utils))
+    if (menu > 0 && koMovement())
     {
       menu--;
       feedbackCounter = 0;
@@ -162,332 +162,332 @@ public:
 
     if (dungeon->monster.life < 1)
     {
-      utils->okBeep(soundtones);
-      stats->counter.killed++;
+      utils->okBeep();
+      utils->stats.counter.killed++;
       return false;
     }
 
     return true;
   }
 
-  void eventDisplay(Utils *utils, Text *text, Dungeon *dungeon)
+  void eventDisplay(Utils *utils, Dungeon *dungeon)
   {
     dungeon->monster.displayFrame(utils);
-    text->printValue(7, 45, dungeon->monster.life);
-    utils->arduboy->drawBitmap(26, 43, Common::heart, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    utils->texts.printValue(7, 45, dungeon->monster.life);
+    Arduboy2Base::drawBitmap(26, 43, Common::heart, SQUARE_SIZE, SQUARE_SIZE, WHITE);
 
     switch (menu)
     {
     case 0:
-      text->printCommonLine(40, 8, 8);
-      text->printCommonLine(51, 20, 9);
-      text->printCommonLine(51, 28, 14);
-      text->printCommonLine(51, 36, 11);
-      text->printCommonLine(51, 44, 16);
+      utils->texts.printCommonLine(40, 8, 8);
+      utils->texts.printCommonLine(51, 20, 9);
+      utils->texts.printCommonLine(51, 28, 14);
+      utils->texts.printCommonLine(51, 36, 11);
+      utils->texts.printCommonLine(51, 44, 16);
       break;
     case 1:
-      text->printCommonLine(40, 8, 11);
-      text->printCommonLine(51, 20, 7);
-      text->printCommonLine(51, 28, 13);
-      text->printCommonLine(51, 36, 10);
-      text->printCommonLine(51, 44, 15);
+      utils->texts.printCommonLine(40, 8, 11);
+      utils->texts.printCommonLine(51, 20, 7);
+      utils->texts.printCommonLine(51, 28, 13);
+      utils->texts.printCommonLine(51, 36, 10);
+      utils->texts.printCommonLine(51, 44, 15);
       break;
     default:
-      text->printCommonLine(40, 8, 10);
-      text->printCommonLine(51, 20, 26);
-      text->printCommonLine(51, 28, 27);
-      text->printCommonLine(51, 36, 28);
-      text->printCommonLine(51, 44, 15);
+      utils->texts.printCommonLine(40, 8, 10);
+      utils->texts.printCommonLine(51, 20, 26);
+      utils->texts.printCommonLine(51, 28, 27);
+      utils->texts.printCommonLine(51, 36, 28);
+      utils->texts.printCommonLine(51, 44, 15);
       break;
     }
 
-    if (feedbackCounter > 0 && !utils->sound)
+    if (feedbackCounter > 0 && !utils->soundFlag)
     {
       feedbackCounter--;
-      displayFeedbackCursor(utils, 39, 18);
+      displayFeedbackCursor(39, 18);
     }
     else
     {
-      displayMenuCursor(text, 43, 20);
+      displayMenuCursor(utils, 43, 20);
     }
   }
 
 private:
-  bool useThreatAttempt(Stats *stats, Text *text, Dungeon *dungeon)
+  bool useThreatAttempt(Utils *utils, Dungeon *dungeon)
   {
-    if (stats->getStatusText() == 0 && !dungeon->monster.canBeSpare())
+    if (utils->stats.getStatusText() == 0 && !dungeon->monster.canBeSpare())
     {
       switch (rand() % 7)
       {
       case 0: // "YELLS BACK";
-        text->printLog(57);
-        stats->hit();
+        utils->texts.printLog(57);
+        utils->stats.hit();
         return true;
       case 1: // "ATTACKS, HP DOWN";
-        stats->hit();
-        text->printLog(58);
+        utils->stats.hit();
+        utils->texts.printLog(58);
         return true;
       case 2: // "ATTACKS, DEF DOWN";
-        stats->decDEF(1);
-        stats->hit();
-        text->printLog(59);
+        utils->stats.decDEF(1);
+        utils->stats.hit();
+        utils->texts.printLog(59);
         return true;
       case 3: // "FAINTS";
-        text->printLog(60);
+        utils->texts.printLog(60);
         return false;
       case 4: // "AFRAID, DEF UP";
-        stats->incDEF(1);
-        text->printLog(61);
+        utils->stats.incDEF(1);
+        utils->texts.printLog(61);
         return false;
       case 5: // "SCARE, DEF UP";
-        stats->incDEF(1);
-        text->printLog(62);
+        utils->stats.incDEF(1);
+        utils->texts.printLog(62);
         return false;
       default: // "HITS AND RUNS";
-        text->printLog(63);
-        stats->hit();
+        utils->texts.printLog(63);
+        utils->stats.hit();
         return false;
       }
     }
-    text->printLog(56);
+    utils->texts.printLog(56);
     return true;
   }
 
-  bool useApproachAttempt(Stats *stats, Text *text, Dungeon *dungeon)
+  bool useApproachAttempt(Utils *utils, Dungeon *dungeon)
   {
-    if (stats->getStatusText() == 1 && !dungeon->monster.canBeSpare())
+    if (utils->stats.getStatusText() == 1 && !dungeon->monster.canBeSpare())
     {
       switch (rand() % 7)
       {
       case 0: // "ATTACKS, STR DOWN";
-        stats->decSTR(1);
-        stats->hit();
-        text->printLog(65);
+        utils->stats.decSTR(1);
+        utils->stats.hit();
+        utils->texts.printLog(65);
         return true;
       case 1: // "IS AFRAID";
-        text->printLog(66);
+        utils->texts.printLog(66);
         return true;
       case 2: // "STEALS FROM YOU";
-        if (!stats->discardItem(8))
+        if (!utils->stats.discardItem(8))
         {
-          stats->discardItem(7);
+          utils->stats.discardItem(7);
         }
-        text->printLog(67);
+        utils->texts.printLog(67);
         return true;
       case 3: // "GIVES YOU A POTION";
-        stats->addItem(8);
-        text->printLog(68);
+        utils->stats.addItem(8);
+        utils->texts.printLog(68);
         return false;
       case 4: // "GIVES A RELIC";
-        stats->addItem(7);
-        text->printLog(69);
+        utils->stats.addItem(7);
+        utils->texts.printLog(69);
         return false;
       case 5: // "HIT AND RUNS";
-        text->printLog(70);
-        stats->hit();
+        utils->texts.printLog(70);
+        utils->stats.hit();
         return false;
       default: // "HIT AND ESCAPE";
-        text->printLog(71);
-        stats->hit();
+        utils->texts.printLog(71);
+        utils->stats.hit();
         return false;
       }
     }
-    text->printLog(64);
+    utils->texts.printLog(64);
     return true;
   }
 
-  bool useExplainAttempt(Stats *stats, Text *text, Dungeon *dungeon)
+  bool useExplainAttempt(Utils *utils, Dungeon *dungeon)
   {
-    if (stats->getStatusText() == 2 && !dungeon->monster.canBeSpare())
+    if (utils->stats.getStatusText() == 2 && !dungeon->monster.canBeSpare())
     {
       switch (rand() % 7)
       {
       case 0: // "ATTACKS, DEF DOWN";
-        stats->decDEF(1);
-        stats->hit();
-        text->printLog(73);
+        utils->stats.decDEF(1);
+        utils->stats.hit();
+        utils->texts.printLog(73);
         return true;
       case 1: // "ATTACKS";
-        stats->hit();
-        text->printLog(74);
+        utils->stats.hit();
+        utils->texts.printLog(74);
         return true;
       case 2: // "ACCEPTS, RELIC FOUND";
-        stats->addItem(7);
-        text->printLog(75);
+        utils->stats.addItem(7);
+        utils->texts.printLog(75);
         return false;
       case 3: // "NODS, GIVES POTION";
-        stats->addItem(8);
-        text->printLog(76);
+        utils->stats.addItem(8);
+        utils->texts.printLog(76);
         return false;
       case 4: // "LEAVES IN ANGER";
-        text->printLog(77);
-        stats->hit();
+        utils->texts.printLog(77);
+        utils->stats.hit();
         return false;
       case 5: // "UNDERSTAND";
-        text->printLog(78);
+        utils->texts.printLog(78);
         return true;
       default: // "HIT AND RUNS";
-        text->printLog(79);
-        stats->hit();
+        utils->texts.printLog(79);
+        utils->stats.hit();
         return false;
       }
     }
-    text->printLog(72);
+    utils->texts.printLog(72);
     return true;
   }
 
-  bool useSpareAttempt(Stats *stats, Text *text, Dungeon *dungeon)
+  bool useSpareAttempt(Utils *utils, Dungeon *dungeon)
   {
     if (!dungeon->monster.canBeSpare())
     {
-      text->printLog(33);
+      utils->texts.printLog(33);
     }
     else
     {
       if (rand() % 2 == 0)
       {
-        text->printLog(29);
+        utils->texts.printLog(29);
       }
       else if (rand() % 2 == 0)
       {
-        stats->hit();
-        text->printLog(30);
+        utils->stats.hit();
+        utils->texts.printLog(30);
       }
       else if (rand() % 2 == 0)
       {
-        text->printLog(31);
-        stats->counter.spared++;
+        utils->texts.printLog(31);
+        utils->stats.counter.spared++;
         return false;
       }
       else
       {
-        stats->addItem(8);
-        text->printLog(32);
-        stats->counter.spared++;
+        utils->stats.addItem(8);
+        utils->texts.printLog(32);
+        utils->stats.counter.spared++;
         return false;
       }
     }
     return true;
   }
 
-  bool useRelicAttempt(Stats *stats, Text *text, Dungeon *dungeon)
+  bool useRelicAttempt(Utils *utils, Dungeon *dungeon)
   {
-    if (stats->discardItem(7))
+    if (utils->stats.discardItem(7))
     {
       if (rand() % 2 == 0)
       {
         dungeon->monster.life = 0;
-        text->printLog(28);
+        utils->texts.printLog(28);
       }
       else
       {
-        stats->incSTR(1);
-        text->printLog(27);
+        utils->stats.incSTR(1);
+        utils->texts.printLog(27);
       }
 
-      stats->counter.utils++;
+      utils->stats.counter.utils++;
       return false;
     }
     else
     {
-      text->printLog(34);
+      utils->texts.printLog(34);
       return true;
     }
   }
 
-  void attackAttempt(Stats *stats, Text *text, Dungeon *dungeon)
+  void attackAttempt(Utils *utils, Dungeon *dungeon)
   {
     uint8_t additionalDamage = 0;
-    uint8_t baseDamage = stats->getSTR();
+    uint8_t baseDamage = utils->stats.getSTR();
 
     if (rand() % 2 == 0)
     {
-      stats->hit();
-      text->printLog(18);
+      utils->stats.hit();
+      utils->texts.printLog(18);
     }
     else
     {
-      text->printLog(19);
+      utils->texts.printLog(19);
     }
 
-    if (stats->discardItem(4))
+    if (utils->stats.discardItem(4))
     {
       additionalDamage = 2;
     }
 
-    if (stats->getSTR() == 0)
+    if (utils->stats.getSTR() == 0)
     {
-      text->printLog(20);
+      utils->texts.printLog(20);
     }
 
-    if (stats->getStatusText() == 0)
+    if (utils->stats.getStatusText() == 0)
     {
-      text->printLog(80);
-      baseDamage = stats->getSTR() * ((rand() % 2) + 2);
+      utils->texts.printLog(80);
+      baseDamage = utils->stats.getSTR() * ((rand() % 2) + 2);
     }
 
     dungeon->monster.hitEnemy(baseDamage + additionalDamage);
   }
 
-  bool usePotionAttempt(Stats *stats, Text *text)
+  bool usePotionAttempt(Utils *utils)
   {
-    if (stats->discardItem(8))
+    if (utils->stats.discardItem(8))
     {
       if (rand() % 2 == 0)
       {
-        stats->incHP(1);
-        text->printLog(17);
+        utils->stats.incHP(1);
+        utils->texts.printLog(17);
       }
       else
       {
         switch (rand() % 4)
         {
         case 0:
-          stats->incHP(2);
-          text->printLog(23);
+          utils->stats.incHP(2);
+          utils->texts.printLog(23);
           break;
         case 1:
-          stats->incSTR(1);
-          text->printLog(24);
+          utils->stats.incSTR(1);
+          utils->texts.printLog(24);
           break;
         case 2:
-          stats->incDEF(1);
-          text->printLog(25);
+          utils->stats.incDEF(1);
+          utils->texts.printLog(25);
           break;
         case 3:
-          stats->incDEF(2);
-          text->printLog(26);
+          utils->stats.incDEF(2);
+          utils->texts.printLog(26);
           break;
         }
       }
-      stats->counter.utils++;
+      utils->stats.counter.utils++;
       return false;
     }
     else
     {
-      text->printLog(16);
+      utils->texts.printLog(16);
       return true;
     }
   }
 
-  bool escapeAttempt(Utils *utils, Text *text, Stats *stats, Dungeon *dungeon, ArduboyTones *soundtones)
+  bool escapeAttempt(Utils *utils, Dungeon *dungeon)
   {
     if (!dungeon->monster.canBeSpare())
     {
-      text->printLog(36);
-      utils->koBeep(soundtones);
+      utils->texts.printLog(36);
+      utils->koBeep();
       return true;
     }
 
     if (rand() % 5 > 0)
     {
-      text->printLog(14);
-      stats->hit();
+      utils->texts.printLog(14);
+      utils->stats.hit();
       return true;
     }
 
-    stats->counter.escaped++;
-    text->printLog(15);
+    utils->stats.counter.escaped++;
+    utils->texts.printLog(15);
     return false;
   }
 };
