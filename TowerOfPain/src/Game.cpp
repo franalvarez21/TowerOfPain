@@ -22,15 +22,17 @@ PauseMenu pauseMenu;
 
 Actions actions;
 
+Arduboy2 arduboy;
+ArduboyTones sound(arduboy.audio.enabled);
+
 void Game::setup(void)
 {
-  utils.init();
-  utils.arduboy.begin();
-  utils.arduboy.setFrameRate(15);
-  utils.arduboy.initRandomSeed();
-  utils.arduboy.systemButtons();
-  utils.arduboy.waitNoButtons();
-  utils.arduboy.audio.off();
+  arduboy.begin();
+  arduboy.setFrameRate(15);
+  arduboy.initRandomSeed();
+  arduboy.systemButtons();
+  arduboy.waitNoButtons();
+  arduboy.audio.off();
   restart();
 }
 
@@ -43,13 +45,13 @@ void Game::restart(void)
 
 void Game::loop(void)
 {
-  if (!(utils.arduboy.nextFrame()))
+  if (!(arduboy.nextFrame()))
   {
     return;
   }
 
-  utils.arduboy.pollButtons();
-  utils.arduboy.clear();
+  arduboy.pollButtons();
+  arduboy.clear();
   utils.music = 0;
 
   switch (onStage)
@@ -76,7 +78,7 @@ void Game::loop(void)
 
   utils.tick();
 
-  utils.arduboy.display();
+  arduboy.display();
 }
 
 void Game::mainMenuTick(void)

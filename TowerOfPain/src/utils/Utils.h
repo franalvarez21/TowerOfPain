@@ -19,8 +19,6 @@
 
 struct Utils
 {
-  Arduboy2 arduboy;
-  Tinyfont tinyfont = Tinyfont(arduboy.sBuffer, Arduboy2::width(), Arduboy2::height());
   Stats stats;
   Texts texts;
 
@@ -32,9 +30,6 @@ struct Utils
 
   void init()
   {
-    ArduboyTones sound(arduboy.audio.enabled);
-    texts.init(&tinyfont);
-
     cycle = 10;
     soundFlag = false;
     music = 0;

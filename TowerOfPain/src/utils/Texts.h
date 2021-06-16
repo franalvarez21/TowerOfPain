@@ -2,14 +2,9 @@
 
 struct Texts
 {
-  Tinyfont *tinyfont;
+  Tinyfont tinyfont = Tinyfont(Arduboy2::sBuffer, Arduboy2::width(), Arduboy2::height());
   uint8_t log;
   bool mode = true;
-
-  void init(Tinyfont *tinyfont)
-  {
-    this->tinyfont = tinyfont;
-  }
 
   void printLog(uint8_t pos)
   {
@@ -25,21 +20,21 @@ struct Texts
   void printCommonLine(uint8_t x, uint8_t y, uint8_t line)
   {
     char tBuffer[10];
-    tinyfont->setCursor(x, y);
-    tinyfont->print(strcpy_P(tBuffer, (char *)pgm_read_word(&(Commonlines::commonLines[line]))));
+    tinyfont.setCursor(x, y);
+    tinyfont.print(strcpy_P(tBuffer, (char *)pgm_read_word(&(Commonlines::commonLines[line]))));
   }
 
   void printStoryLine(uint8_t x, uint8_t y, uint8_t line)
   {
     char tBuffer[30];
-    tinyfont->setCursor(x, y);
-    tinyfont->print(strcpy_P(tBuffer, (char *)pgm_read_word(&(Storylines::storyLines[line]))));
+    tinyfont.setCursor(x, y);
+    tinyfont.print(strcpy_P(tBuffer, (char *)pgm_read_word(&(Storylines::storyLines[line]))));
   }
 
   void printValue(uint8_t x, uint8_t y, size_t value)
   {
-    tinyfont->setCursor(x, y);
-    tinyfont->print(value);
+    tinyfont.setCursor(x, y);
+    tinyfont.print(value);
   }
 
   void print(size_t level)
