@@ -128,7 +128,7 @@ void Game::mainGameTick(void)
   }
   else
   {
-    action = dungeon.movePlayer(&utils);
+    action = dungeon.movePlayer();
 
     if (action > 0 && actions.evaluateAction(&utils, &dungeon, action))
     {

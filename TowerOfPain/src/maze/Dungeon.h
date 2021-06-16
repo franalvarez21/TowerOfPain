@@ -49,31 +49,29 @@ public:
     return lastCutscene == level;
   }
 
-  uint8_t movePlayer(Utils *utils)
+  uint8_t movePlayer()
   {
-    uint8_t value = 0;
-
     if (pressed(RIGHT_BUTTON))
     {
-      value = move(1, 0);
+      return move(1, 0);
     }
 
     if (pressed(LEFT_BUTTON))
     {
-      value = move(-1, 0);
+      return move(-1, 0);
     }
 
     if (pressed(DOWN_BUTTON))
     {
-      value = move(0, 1);
+      return move(0, 1);
     }
 
     if (pressed(UP_BUTTON))
     {
-      value = move(0, -1);
+      return move(0, -1);
     }
 
-    return value;
+    return 0;
   }
 
   bool moveLeft(uint8_t key)
@@ -155,11 +153,6 @@ public:
     return move;
   }
 
-  void increaseLevel()
-  {
-    level++;
-  }
-
   uint8_t environmentChange(Utils *utils)
   {
     uint8_t event = 0;
@@ -195,11 +188,11 @@ public:
 
     walkerCircle();
 
-    lockPlayerBorders();
+    playerBorders(0);
 
     spawnObjects();
 
-    unlockPlayerBorders();
+    playerBorders(1);
   }
 
   void canvas(uint8_t weight = SQUARE_AMOUNT_WEIGHT, uint8_t height = SQUARE_AMOUNT_HEIGHT)
@@ -583,30 +576,16 @@ private:
     }
   }
 
-  void lockPlayerBorders()
-  {
-    map[playerXPosition][playerYPosition] = 0;
-    map[playerXPosition + 1][playerYPosition] = 0;
-    map[playerXPosition - 1][playerYPosition] = 0;
-    map[playerXPosition][playerYPosition + 1] = 0;
-    map[playerXPosition][playerYPosition - 1] = 0;
-    map[playerXPosition + 1][playerYPosition + 1] = 0;
-    map[playerXPosition + 1][playerYPosition - 1] = 0;
-    map[playerXPosition - 1][playerYPosition + 1] = 0;
-    map[playerXPosition - 1][playerYPosition - 1] = 0;
-  }
 
-  void unlockPlayerBorders()
+  void playerBorders(uint8_t value)
   {
-    map[playerXPosition][playerYPosition] = 1;
-    map[playerXPosition + 1][playerYPosition] = 1;
-    map[playerXPosition - 1][playerYPosition] = 1;
-    map[playerXPosition][playerYPosition + 1] = 1;
-    map[playerXPosition][playerYPosition - 1] = 1;
-    map[playerXPosition + 1][playerYPosition + 1] = 1;
-    map[playerXPosition + 1][playerYPosition - 1] = 1;
-    map[playerXPosition - 1][playerYPosition + 1] = 1;
-    map[playerXPosition - 1][playerYPosition - 1] = 1;
+    for (uint8_t x = 0; x < 3; x++)
+    {
+      for (uint8_t y = 0; y < 3; y++)
+      {
+        map[playerXPosition + (1 - x)][playerYPosition + (1 - y)] = value;
+      }
+    }
   }
 
   uint8_t move(const int extX, const int extY)

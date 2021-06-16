@@ -16,7 +16,7 @@ public:
     case 2:
       if (dungeon->canContinue())
       {
-        dungeon->increaseLevel();
+        dungeon->level++;
         dungeon->reset();
         utils->texts.printLevel();
         utils->stats.incMaxLevelReached(dungeon->level);
