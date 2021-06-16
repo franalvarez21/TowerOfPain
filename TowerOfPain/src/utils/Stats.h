@@ -48,6 +48,8 @@ struct Stats
   uint8_t hp;
   uint8_t str;
   uint8_t def;
+  uint8_t cycleAnimation;
+  uint8_t affectedItem;
   size_t maxLevel = 0;
   Item slots[ITEM_AMOUNT];
   Counter counter;
@@ -57,10 +59,19 @@ struct Stats
     hp = 9;
     str = 1;
     def = 0;
+    cycleAnimation = 0;
     counter.init();
     for (uint8_t i = 0; i < ITEM_AMOUNT - 1; i++)
     {
       slots[i].init();
+    }
+  }
+
+  void tick()
+  {
+    if (cycleAnimation > 0)
+    {
+      cycleAnimation--;
     }
   }
 
@@ -81,6 +92,8 @@ struct Stats
 
   void decHP(uint8_t val)
   {
+    cycleAnimation = 10;
+    affectedItem = 0;
     hp = max(hp - val, 0);
   }
 
@@ -91,6 +104,8 @@ struct Stats
 
   void decSTR(uint8_t val)
   {
+    cycleAnimation = 10;
+    affectedItem = 1;
     str = max(str - val, 0);
   }
 
@@ -101,6 +116,8 @@ struct Stats
 
   void decDEF(uint8_t val)
   {
+    cycleAnimation = 10;
+    affectedItem = 2;
     def = max(def - val, 0);
   }
 

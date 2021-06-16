@@ -173,8 +173,11 @@ public:
   void eventDisplay(Utils *utils, Dungeon *dungeon)
   {
     dungeon->monster.displayFrame(utils);
-    utils->texts.printValue(7, 45, dungeon->monster.life);
-    Arduboy2Base::drawBitmap(26, 43, Common::heart, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    if (dungeon->monster.effectDamage == 0 || (dungeon->monster.effectDamage > 0 && dungeon->monster.effectDamage % 2 == 0))
+    {
+      utils->texts.printValue(7, 45, dungeon->monster.life);
+      Arduboy2Base::drawBitmap(26, 43, Common::heart, SQUARE_SIZE, SQUARE_SIZE, WHITE);
+    }
 
     switch (menu)
     {

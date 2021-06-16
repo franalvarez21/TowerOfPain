@@ -52,9 +52,30 @@ struct Texts
 
   void printStats(Stats *stats)
   {
-    printMainSlotStats(107, 1, stats->getHP(), Common::heart);
-    printMainSlotStats(107, 8, stats->getDEF(), Common::shield_1);
-    printMainSlotStats(107, 15, stats->getSTR(), Common::strength);
+    stats->tick();
+    if (stats->cycleAnimation > 0 && stats->cycleAnimation % 2 == 0)
+    {
+      if (stats->affectedItem != 0)
+      {
+        printMainSlotStats(107, 1, stats->getHP(), Common::heart);
+      }
+
+      if (stats->affectedItem != 1)
+      {
+        printMainSlotStats(107, 8, stats->getDEF(), Common::shield_1);
+      }
+
+      if (stats->affectedItem != 2)
+      {
+        printMainSlotStats(107, 15, stats->getSTR(), Common::strength);
+      }
+    }
+    else
+    {
+      printMainSlotStats(107, 1, stats->getHP(), Common::heart);
+      printMainSlotStats(107, 8, stats->getDEF(), Common::shield_1);
+      printMainSlotStats(107, 15, stats->getSTR(), Common::strength);
+    }
     printSlotStats(107, 24, stats);
   }
 

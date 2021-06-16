@@ -4,6 +4,7 @@ class Monster
 public:
   uint8_t life;
   uint8_t currentType;
+  uint16_t effectDamage;
 
 protected:
   uint8_t maxLife;
@@ -15,16 +16,18 @@ protected:
   const uint8_t *environment;
 
 public:
-  Monster() : currentType(0), previousType(0), life(0), maxLife(0){};
+  Monster() : currentType(0), previousType(0), life(0), maxLife(0), effectDamage(0){};
 
   void setLife()
   {
+    effectDamage = 0;
     life = (maxLife / 3) + rand() % ((maxLife + 1) - (maxLife / 3));
   }
 
   void hitEnemy(const uint8_t str)
   {
     life = life < str ? 0 : life - str;
+    effectDamage = 10;
   }
 
   bool canBeSpare()
@@ -114,6 +117,11 @@ public:
 
   void displayFrame(Utils *utils)
   {
+    if (effectDamage > 0)
+    {
+      effectDamage--;
+    }
+
     if (utils->cycle <= 5)
     {
       Arduboy2Base::drawBitmap(4, 4, monsterFrame1, 32, 48, WHITE);

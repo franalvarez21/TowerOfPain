@@ -51,6 +51,8 @@ public:
 
   uint8_t movePlayer()
   {
+    validMap();
+
     if (pressed(RIGHT_BUTTON))
     {
       return move(1, 0);
@@ -334,6 +336,20 @@ private:
     }
   }
 
+  void validMap()
+  {
+    for (uint8_t i = 0; i < SQUARE_AMOUNT_WEIGHT; i++)
+    {
+      map[i][0] = 0;
+      map[i][SQUARE_AMOUNT_HEIGHT - 1] = 0;
+    }
+    for (uint8_t j = 0; j < SQUARE_AMOUNT_HEIGHT; j++)
+    {
+      map[0][j] = 0;
+      map[SQUARE_AMOUNT_WEIGHT - 1][j] = 0;
+    }
+  }
+
   void clearPlayerPosition()
   {
     playerXPosition = 6;
@@ -511,6 +527,7 @@ private:
 
   void displayMaze(uint8_t x, uint8_t y)
   {
+    validMap();
     if (map[x][y] > 0)
     {
       if (map[x - 1][y] > 0 && map[x + 1][y] > 0 && map[x][y - 1] == 0 && map[x][y + 1] > 0)
@@ -574,8 +591,8 @@ private:
     {
       monster.displayEnvironmentIn(x, y);
     }
+    validMap();
   }
-
 
   void playerBorders(uint8_t value)
   {

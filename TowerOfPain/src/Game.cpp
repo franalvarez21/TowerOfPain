@@ -11,6 +11,7 @@
 
 uint8_t onStage;
 uint8_t action;
+uint8_t transitionEffect;
 
 Utils utils;
 
@@ -33,6 +34,7 @@ void Game::setup(void)
   arduboy.systemButtons();
   arduboy.waitNoButtons();
   arduboy.audio.off();
+  utils.init();
   restart();
 }
 
@@ -41,6 +43,7 @@ void Game::restart(void)
   dungeon.refresh();
   utils.stats.init();
   action = 0;
+  transitionEffect = 0;
 }
 
 void Game::loop(void)
@@ -112,30 +115,32 @@ void Game::mainPauseTick()
     break;
   default:
     utils.texts.print(dungeon.level);
-    utils.texts.printStats(&utils.stats);
-    dungeon.canvas();
     break;
   }
+  utils.texts.printStats(&utils.stats);
+  dungeon.canvas();
 }
 
 void Game::mainGameTick(void)
 {
+  dungeon.canvas();
+  utils.texts.print(dungeon.level);
+  utils.texts.printStats(&utils.stats);
+
   if (Arduboy2Base::justPressed(A_BUTTON))
   {
     pauseMenu.refresh();
     onStage = 1;
     utils.lullaby = 0;
   }
-  else
+  else if (transitionEffect == 0)
   {
     action = dungeon.movePlayer();
 
+    dungeon.display(&utils);
     if (action > 0 && actions.evaluateAction(&utils, &dungeon, action))
     {
-      battleMenu.refresh();
-      dungeon.monster.setLife();
-      onStage = 3;
-      utils.lullaby = 0;
+      transitionEffect = 8;
     }
 
     if (dungeon.level == MAX_LEVEL)
@@ -150,18 +155,28 @@ void Game::mainGameTick(void)
       onStage = 4;
       utils.lullaby = 0;
     }
-    else
-    {
-      dungeon.display(&utils);
-    }
 
     action = 0;
   }
+  else
+  {
+    transitionEffect--;
+    dungeon.display(&utils);
 
-  utils.texts.print(dungeon.level);
-  utils.texts.printStats(&utils.stats);
+    for (uint8_t i = 0; i < 128 - (transitionEffect * 16); i++)
+    {
+      Arduboy2Base::drawFastVLine(i, 0, 64, BLACK);
+      Arduboy2Base::drawFastVLine(128 - i, 0, 64, BLACK);
+    }
 
-  dungeon.canvas();
+    if (transitionEffect == 0)
+    {
+      battleMenu.refresh();
+      dungeon.monster.setLife();
+      onStage = 3;
+      utils.lullaby = 0;
+    }
+  }
 }
 
 void Game::mainGameBattleTick(void)
