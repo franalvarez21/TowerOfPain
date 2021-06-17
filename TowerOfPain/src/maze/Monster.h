@@ -21,6 +21,7 @@ public:
   void setLife()
   {
     effectDamage = 0;
+    validMonsterType();
     life = (maxLife / 3) + rand() % ((maxLife + 1) - (maxLife / 3));
   }
 
@@ -54,7 +55,11 @@ public:
       }
     }
     previousType = currentType;
+    validMonsterType();
+  }
 
+  void validMonsterType()
+  {
     switch (currentType)
     {
     case 0:

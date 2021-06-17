@@ -48,9 +48,9 @@ Nice to have (under consideration):
 
 # Last release
 
-June 17, 2021. V1.2.1
+June 17, 2021. V1.2.2
 
-Sketch uses 28542 bytes (99%) of program storage space. Maximum is 28672 bytes.
+Sketch uses 28582 bytes (99%) of program storage space. Maximum is 28672 bytes.
 Global variables use 1530 bytes (59%) of dynamic memory, leaving 1030 bytes for local variables. Maximum is 2560 bytes.
 
 # Mayor releases
