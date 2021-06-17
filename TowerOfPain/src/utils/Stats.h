@@ -97,18 +97,6 @@ struct Stats
     hp = max(hp - val, 0);
   }
 
-  void incSTR(uint8_t val)
-  {
-    str = min(str + val, 9);
-  }
-
-  void decSTR(uint8_t val)
-  {
-    cycleAnimation = 10;
-    affectedItem = 1;
-    str = max(str - val, 0);
-  }
-
   void incDEF(uint8_t val)
   {
     def = min(def + val, 9);
@@ -117,8 +105,20 @@ struct Stats
   void decDEF(uint8_t val)
   {
     cycleAnimation = 10;
-    affectedItem = 2;
+    affectedItem = 1;
     def = max(def - val, 0);
+  }
+
+  void incSTR(uint8_t val)
+  {
+    str = min(str + val, 9);
+  }
+
+  void decSTR(uint8_t val)
+  {
+    cycleAnimation = 10;
+    affectedItem = 2;
+    str = max(str - val, 0);
   }
 
   uint8_t getHP()

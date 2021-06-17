@@ -40,18 +40,18 @@ public:
       Arduboy2Base::drawBitmap(0, 22, Common::logo_2, SQUARE_SIZE, SQUARE_SIZE, WHITE);
     }
 
-    utils->texts.printCommonLine(98, 52, 17);
-    utils->texts.printCommonLine(98, 60, 12);
+    utils->texts.printStoryLine(0, 60, 35);
+    utils->texts.printCommonLine(102, 52, 17);
+    utils->texts.printCommonLine(102, 60, 12);
     if (utils->soundFlag)
     {
-      utils->texts.printCommonLine(77, 60, 18);
+      utils->texts.printCommonLine(78, 60, 18);
     }
     else
     {
-      utils->texts.printCommonLine(72, 60, 19);
+      utils->texts.printCommonLine(75, 60, 19);
     }
-    utils->texts.printStoryLine(0, 60, 35);
 
-    displayMenuCursor(utils, 90, 52);
+    displayMenuCursor(utils, 94, 52);
   }
 };
