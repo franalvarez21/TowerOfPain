@@ -44,6 +44,10 @@ Nice to have (under consideration):
 - Better map and enemy spawning (currently uses a simple walker method, could be better)
 - Code space optimizations.
 
+## Arduboy site post
+
+https://community.arduboy.com/t/tower-of-pain-roguelike-game-in-your-pocket/9840
+
 ## Compilation log
 
 # Last release
